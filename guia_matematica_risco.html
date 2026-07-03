@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Risco DS — Estudo em 14 Dias</title>
+<style>
+*{box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:860px;margin:0 auto;padding:40px 28px 80px;line-height:1.8;color:#1a1a1a;background:#fff;font-size:1rem;}
+h1{font-size:2rem;margin-bottom:4px;}
+.sub{color:#555;font-size:.95rem;margin-bottom:2px;}
+.meta{color:#888;font-size:.82rem;margin-bottom:36px;}
+
+/* capitulo header */
+.cap{background:#1a1a1a;color:#fff;border-radius:8px;padding:18px 22px;margin-top:56px;margin-bottom:24px;display:flex;align-items:center;gap:16px;}
+.cap-num{background:#fff;color:#1a1a1a;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;flex-shrink:0;}
+.cap-text h2{margin:0;font-size:1.2rem;color:#fff;}
+.cap-text p{margin:0;font-size:.82rem;color:#aaa;}
+
+h3{font-size:1.05rem;margin-top:30px;margin-bottom:4px;color:#1a1a1a;border-bottom:2px solid #f0f0f0;padding-bottom:4px;}
+
+/* concept block */
+.concept{margin:18px 0 24px;}
+.concept-title{font-size:1.1rem;font-weight:800;color:#1a1a1a;margin-bottom:8px;}
+.concept-title .icon{font-size:1.2rem;margin-right:6px;}
+.linha{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
+.tag{background:#1a1a1a;color:#fff;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:12px;white-space:nowrap;margin-top:3px;flex-shrink:0;}
+.tag.blue{background:#1a4fa0;}
+.tag.green{background:#1b5e20;}
+.tag.orange{background:#e65100;}
+.tag.red{background:#b71c1c;}
+.tag.gray{background:#555;}
+.linha p{margin:0;font-size:.92rem;color:#333;}
+
+/* boxes */
+.box{border-radius:6px;padding:16px 20px;margin:16px 0;font-size:.9rem;}
+.box-next{background:#e8f5e9;border-left:5px solid #2e7d32;}
+.box-next strong{color:#1b5e20;}
+.box-warn{background:#fff3e0;border-left:5px solid #e65100;}
+.box-warn strong{color:#bf360c;}
+.box-tip{background:#e3f2fd;border-left:5px solid #1565c0;}
+.box-tip strong{color:#0d47a1;}
+.box-interview{background:#fce4ec;border-left:5px solid #c62828;}
+
+/* trilha */
+.trilha{background:#fafafa;border:2px solid #1a1a1a;border-radius:8px;padding:20px 24px;margin:24px 0;}
+.trilha h3{margin:0 0 16px;font-size:1rem;border:none;}
+.trilha-item{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.trilha-step{background:#1a1a1a;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px;}
+.trilha-body{flex:1;}
+.trilha-body strong{display:block;font-size:.9rem;margin-bottom:2px;}
+.trilha-body span{font-size:.82rem;color:#555;}
+.trilha-arrow{text-align:center;color:#888;font-size:.8rem;margin:4px 0 4px 20px;}
+
+/* table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.88rem;}
+th{background:#1a1a1a;color:#fff;padding:9px 14px;text-align:left;}
+td{padding:9px 14px;border-bottom:1px solid #eee;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#f8f8f8;}
+
+ul,ol{padding-left:20px;margin:8px 0 14px;}
+li{margin-bottom:7px;font-size:.92rem;color:#333;}
+li strong{color:#111;}
+
+.separator{border:none;border-top:1px solid #ddd;margin:32px 0;}
+
+@media print{.cap{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .cap-num{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<h1>Guia de Risco DS</h1>
+<p class="sub">Estudo em 14 Dias — Estilo Cheat Sheet</p>
+<p class="meta">Leia o capítulo → vá para o site → faça o projeto → passe para o próximo</p>
+
+<!-- ===================== TRILHA GERAL ===================== -->
+<div class="trilha">
+  <h3>Trilha Completa de Estudo — Documento + Site (10 passos)</h3>
+
+  <div class="trilha-item">
+    <div class="trilha-step">1</div>
+    <div class="trilha-body">
+      <strong>Cap. 1 — A Matemática Base</strong>
+      <span>→ Site: abra "Por Onde Começar" para ter o mapa completo antes de tudo</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">2</div>
+    <div class="trilha-body">
+      <strong>Site → "O Trabalho Real" + "Simulação de Integração"</strong>
+      <span>Entenda o contexto do trabalho real antes de qualquer modelo. O que o banco espera de você na semana 1.</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">3</div>
+    <div class="trilha-body">
+      <strong>Site → Módulo 0 (Pipeline de DS)</strong>
+      <span>O fluxo completo de um projeto de Data Science: problema → dados → limpeza → modelagem → deploy → monitoramento.</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">4</div>
+    <div class="trilha-body">
+      <strong>Cap. 2 — Risco de Crédito (EL = PD × LGD × EAD)</strong>
+      <span>→ Site: Módulo 1 (WoE, IV, Scorecard) + Módulo 2 (KS, Gini, PSI) → Projeto 1</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">5</div>
+    <div class="trilha-body">
+      <strong>Cap. 3 — Risco de Mercado (VaR, Volatilidade, Diversificação)</strong>
+      <span>→ Site: Módulo 3 (Monte Carlo) → Projeto 2</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">6</div>
+    <div class="trilha-body">
+      <strong>Cap. 4 — Produtos Financeiros (Renda Fixa, Derivativos)</strong>
+      <span>→ Site: Flashcards categoria "Mercado" para fixar o vocabulário</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">7</div>
+    <div class="trilha-body">
+      <strong>Cap. 5 — Séries Temporais (ARIMA, Sazonalidade)</strong>
+      <span>→ Site: Módulo 5 (ARIMA) → Projeto 5 (Forecast de Inadimplência)</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">8</div>
+    <div class="trilha-body">
+      <strong>Cap. 6 — Modelagem Avançada (GLM, LGD, Clustering, IFRS 9)</strong>
+      <span>→ Site: Módulo 4 (GLM) → Projeto 4 (LGD) + Projeto 6 (Clustering) + Projeto 3 (IFRS 9 — você faz sozinho)</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">9</div>
+    <div class="trilha-body">
+      <strong>Cap. 7 — Cenário Macro + Resposta de Elite</strong>
+      <span>→ Site: Bate Papo Simulado (pratique as perguntas difíceis) + Flashcards completos</span>
+    </div>
+  </div>
+  <div class="trilha-arrow">↓</div>
+  <div class="trilha-item">
+    <div class="trilha-step">10</div>
+    <div class="trilha-body">
+      <strong>Site → Plano 1 Mês → execute dia a dia</strong>
+      <span>O check-list diário dos 28 dias. Use como seu roteiro operacional.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== CAP 1 ===================== -->
+<div class="cap">
+  <div class="cap-num">1</div>
+  <div class="cap-text">
+    <h2>A Matemática Base</h2>
+    <p>Derivada, Integral e Estatística — o motor por trás de tudo</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Derivada = Sensibilidade</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Se eu mexer um pouquinho aqui, quanto vai mudar ali?</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>O velocímetro do carro. Sua posição muda com o tempo. A derivada da posição é a velocidade. A derivada da velocidade é a aceleração. Você usa derivada todo dia sem saber.</p></div>
+  <div class="linha"><span class="tag green">No banco</span><p><strong>Duration</strong> de um título = derivada do preço em relação aos juros. <strong>Delta</strong> de uma opção = derivada do preço da opção em relação ao preço do ativo. <strong>Gradiente descendente</strong> (como a logística aprende os coeficientes) = derivada do erro em relação a cada coeficiente.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Integral = Acúmulo</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Junte todos os pedacinhos e some. A soma de infinitos pedacinhos minúsculos.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>O odômetro (km rodado). Você sabe a velocidade em cada segundo. Somar a velocidade ao longo do tempo te dá a distância total. Isso é uma integral.</p></div>
+  <div class="linha"><span class="tag green">No banco</span><p><strong>AUC</strong> = área sob a curva ROC = integral (por isso ela se chama "area under the curve"). <strong>Preço de um título</strong> = soma de todos os fluxos futuros descontados = integral. <strong>ECL Lifetime</strong> (IFRS 9) = integral da perda esperada ao longo da vida do contrato.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Estatística — O Trio Essencial</div>
+  <div class="linha"><span class="tag blue">Média</span><p>O retorno esperado. Se nada estranho acontecer, é isso que você ganha. Sensível a outliers.</p></div>
+  <div class="linha"><span class="tag blue">Desvio Padrão</span><p>A dança em torno da média. Alto = risco alto (o gráfico é gordo). É a volatilidade em risco de mercado.</p></div>
+  <div class="linha"><span class="tag blue">Correlação</span><p>Vai de -1 a +1. +1 = andam juntos sempre. -1 = sempre na direção oposta. 0 = independentes. A covariância é a versão "suja" (sem escala). A correlação é a versão "limpa" (sempre entre -1 e 1).</p></div>
+  <div class="linha"><span class="tag red">Cuidado</span><p><strong>Caudas Gordas (Fat Tails):</strong> crises acontecem mais do que a curva normal prevê. O modelo acha que é impossível — mas acontece. Cisne Negro. Por isso usamos CVaR, não só VaR.</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> Abra o site → "O Trabalho Real" → "Simulação de Integração" → "Módulo 0 (Pipeline de DS)" → só depois abra "Cap. 2" deste guia e o "Módulo 1 (Credit Scoring)".
+</div>
+
+
+<!-- ===================== CAP 2 ===================== -->
+<div class="cap">
+  <div class="cap-num">2</div>
+  <div class="cap-text">
+    <h2>Risco de Crédito</h2>
+    <p>A fórmula sagrada EL = PD × LGD × EAD e como modelar cada parte</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">EL = PD × LGD × EAD — A Fórmula Sagrada</div>
+  <div class="linha"><span class="tag blue">PD</span><p><strong>Probability of Default</strong> — Quem é o cliente? Qual a chance de calote? É o score de crédito. Quanto menor o score, maior o PD. Modelado com regressão logística.</p></div>
+  <div class="linha"><span class="tag blue">LGD</span><p><strong>Loss Given Default</strong> — Qual o produto? Tem garantia? Empréstimo com carro: banco toma o carro → LGD baixa. Empréstimo de viagem: dinheiro sumiu → LGD alta. Modelado com GLM Gamma.</p></div>
+  <div class="linha"><span class="tag blue">EAD</span><p><strong>Exposure at Default</strong> — Quanto ele deve na hora H? Em cartão de crédito: cliente pode sacar o limite todo antes de calotar. Então EAD ≠ saldo de hoje.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>Cliente tem PD=5%, LGD=60%, deve R$100k. EL = 0,05 × 0,60 × 100.000 = <strong>R$3.000</strong>. Isso é quanto o banco espera perder com esse cliente.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Por que Logística e não Random Forest?</div>
+  <div class="linha"><span class="tag red">Pergunta garantida na entrevista</span><p>Regulação (Basel III, IFRS 9) exige explicabilidade. O banco precisa explicar ao regulador e ao cliente negado: quais variáveis foram usadas e com qual peso. Uma floresta com 500 árvores não explica nada. A logística tem coeficientes claros.</p></div>
+  <div class="linha"><span class="tag green">Resposta de elite</span><p>"Em ambiente regulado, interpretabilidade não é uma escolha — é uma exigência legal. A logística me permite converter coeficientes em um scorecard de pontos (300 a 850) que o analista de crédito entende. O Random Forest não tem esse mapa."</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">WoE, IV, KS, Gini e PSI — o arsenal do modelo</div>
+  <div class="linha"><span class="tag blue">WoE</span><p><strong>Weight of Evidence</strong> = ln(% bons na faixa / % maus na faixa). Transforma variáveis brutas em um número que o modelo consegue usar com sinal claro: positivo = mais bons, negativo = mais maus.</p></div>
+  <div class="linha"><span class="tag blue">IV</span><p><strong>Information Value</strong> — régua de poder preditivo. IV &lt; 0,02: joga fora. 0,02–0,1: fraco. 0,1–0,3: médio. &gt; 0,3: forte. &gt; 0,5: suspeito (pode ser leakage).</p></div>
+  <div class="linha"><span class="tag blue">KS</span><p>Distância máxima entre a curva dos caloteiros e a dos bons pagadores, ordenados pelo score. &gt; 30%: bom. Conta para o negócio (simples e visual).</p></div>
+  <div class="linha"><span class="tag blue">Gini</span><p>2 × AUC - 1. Mede a separação em TODOS os pontos da curva, não só no máximo. Vai para o relatório técnico regulatório.</p></div>
+  <div class="linha"><span class="tag red">PSI</span><p>Termômetro do modelo em produção. Compara a distribuição dos scores hoje vs quando o modelo foi criado. &lt; 0,10: estável. 0,10–0,20: monitore. &gt; 0,20: retreine o modelo — o mundo mudou.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Vintage/Safra — a analogia do vinho</div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Você não sabe se o vinho de 2026 é bom em janeiro de 2026. Precisa esperar maturar. Em crédito: ninguém calota na primeira semana. O calote aparece depois de 3, 6, 12 meses.</p></div>
+  <div class="linha"><span class="tag green">Resposta de elite</span><p>"Safra é o tempo de maturação do risco. Não posso julgar um modelo na primeira semana porque a inadimplência demora meses para aparecer. Preciso esperar a safra envelhecer para ver se o modelo aprovou bons ou maus pagadores."</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> "Módulo 1 (Credit Scoring)" → leia tudo → "Módulo 2 (KS, Gini, PSI)" → leia tudo → <strong>faça o Projeto 1</strong> (Scorecard PD completo).
+</div>
+
+
+<!-- ===================== CAP 3 ===================== -->
+<div class="cap">
+  <div class="cap-num">3</div>
+  <div class="cap-text">
+    <h2>Risco de Mercado</h2>
+    <p>VaR, Volatilidade, Diversificação e Monte Carlo</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">VaR — O Risco do Dia a Dia</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>"Com 95% de certeza, não vou perder mais que R$X amanhã." É o risco do dia normal.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Previsão do tempo: "Com 95% de confiança, a temperatura amanhã fica entre 20 e 28°C." O VaR faz o mesmo com as perdas financeiras.</p></div>
+  <div class="linha"><span class="tag red">O que o VaR NÃO faz</span><p>Não diz quanto você perde quando supera o VaR. Se 5% dos dias são ruins, o VaR só diz onde começa o problema, não o tamanho dele.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">CVaR (Expected Shortfall) — O Risco do Apocalipse</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>A perda média nos piores 5% dos dias. É o que o VaR não vê.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>O VaR diz "não vai chover mais de 30mm". O CVaR diz "quando passa de 30mm, chove em média 80mm". Basel III exige CVaR porque o tamanho da catástrofe importa, não só o limiar.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Volatilidade — É o Medo</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Desvio padrão dos retornos. Quando o mercado fica com medo, a volatilidade sobe.</p></div>
+  <div class="linha"><span class="tag green">No banco</span><p>Quando volatilidade sobe → opções ficam mais caras (Vega — sensibilidade à vol). A Regra de Ouro: se o mercado acalma (vol cai), o Vega derruba o preço da opção. O balão murcha.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Diversificação — Funciona por causa da Correlação</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Dividir o dinheiro entre ativos que não se movem juntos reduz o risco total sem reduzir o retorno esperado.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Se você tem só um restaurante e chove, perde tudo. Se você tem um restaurante e um guarda-chuva, quando chove você vende guarda-chuva. A diversificação funciona PORQUE a chuva beneficia um e prejudica o outro (correlação negativa).</p></div>
+  <div class="linha"><span class="tag red">Cuidado</span><p>Em crises sistêmicas (2008, 2020), a correlação entre todos os ativos vai para 1. Tudo cai junto. A diversificação para de funcionar exatamente quando mais precisamos dela.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Monte Carlo — Simular o Futuro 100.000 Vezes</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Quando você não consegue calcular a distribuição de perdas analiticamente, você simula: joga o dado 100.000 vezes e olha o resultado.</p></div>
+  <div class="linha"><span class="tag blue">Cholesky</span><p>Para simular vários ativos juntos com correlação real, você precisa da decomposição de Cholesky. Sem ela, você simula os ativos como se fossem independentes — o que é falso. Cholesky injeta a correlação histórica nas simulações.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Simular o clima de São Paulo: temperatura e umidade são correlacionadas (dia quente tende a ser seco). Se você simular as duas de forma independente, vai criar dias impossíveis. Cholesky garante que as simulações sejam "físicas" (coerentes com a correlação real).</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> "Módulo 3 (Monte Carlo)" → leia tudo → <strong>faça o Projeto 2</strong> (Monte Carlo VaR com ações brasileiras).
+</div>
+
+
+<!-- ===================== CAP 4 ===================== -->
+<div class="cap">
+  <div class="cap-num">4</div>
+  <div class="cap-text">
+    <h2>Produtos Financeiros</h2>
+    <p>Renda Fixa, Renda Variável, Derivativos, Opções, Futuros, Swap</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Renda Fixa — Você é o Credor</div>
+  <div class="linha"><span class="tag blue">Lógica</span><p>Você emprestou dinheiro para o banco/governo. Eles te devolvem com juros. Você não é dono de nada, é credor.</p></div>
+  <div class="linha"><span class="tag orange">A Gangorra</span><p>Se a taxa de juros de mercado <strong>SOBE</strong>, o preço do seu título antigo <strong>CAI</strong>. Por quê? Porque o título antigo paga 10% e o novo título paga 15%. Ninguém quer o seu título de 10% pelo preço original — você tem que baixar o preço até o rendimento ficar equivalente.</p></div>
+  <div class="linha"><span class="tag blue">Duration</span><p>O quanto o preço do título cai quando os juros sobem. Duration = 5: se o juro sobe 1pp, o preço cai ~5%. Título com prazo maior e cupom menor tem Duration maior (mais sensível).</p></div>
+  <div class="linha"><span class="tag blue">Cupom</span><p>O "aluguel" que o título te paga periodicamente. Sem cupom: recebe tudo no vencimento. Com cupom: recebe juros todo semestre + o principal no vencimento (como receber aluguel de um imóvel todo mês).</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Derivativos — O Guarda-Chuva</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Ativo: existe por si só (ação da Petrobras = pedaço das plataformas). Derivativo: contrato que deriva seu valor de outro ativo. Sem a Petrobras, o derivativo de Petrobras não vale o papel em que foi impresso.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>A casa é o ativo. A apólice de seguro da casa é o derivativo. Se a casa não existir, a apólice não serve para nada. O valor do seguro deriva da existência e do risco da casa.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Opções — O Direito sem Obrigação</div>
+  <div class="linha"><span class="tag blue">Call</span><p>Direito de COMPRAR. Aposta na alta. Paga um prêmio pela chance de comprar mais barato no futuro.</p></div>
+  <div class="linha"><span class="tag blue">Put</span><p>Direito de VENDER. Proteção/aposta na baixa. Paga um prêmio para garantir que vai vender no mínimo por aquele preço.</p></div>
+  <div class="linha"><span class="tag orange">Analogia do apartamento</span><p>Você paga R$2.000 (prêmio) para ter o direito de comprar um apê por R$500.000 (strike) daqui a 6 meses. Se o apê valorizar para R$600.000: você exerce, compra por 500k, vende por 600k. Lucro = 100k - 2k = R$98.000. Se desvalorizar para R$300.000: rasga o contrato. Perde só os R$2.000 do prêmio.</p></div>
+  <div class="linha"><span class="tag blue">Spot > Strike</span><p>In-the-Money. Compensa exercer.</p></div>
+  <div class="linha"><span class="tag red">Spot &lt; Strike</span><p>Out-of-the-Money. Melhor comprar no mercado. Rasga o contrato.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">As Gregas — O Painel de Controle da Opção</div>
+  <div class="linha"><span class="tag blue">Delta</span><p>Direção. Sobe ou desce com o ativo? Delta=0,6: se o ativo sobe R$1, a opção sobe R$0,60.</p></div>
+  <div class="linha"><span class="tag blue">Gamma</span><p>Aceleração do Delta. O quanto o Delta muda quando o preço do ativo muda.</p></div>
+  <div class="linha"><span class="tag blue">Theta</span><p>O tempo. O "gelo derretendo" todos os dias. Cada dia que passa, a opção perde valor (o tempo é inimigo de quem comprou a opção).</p></div>
+  <div class="linha"><span class="tag blue">Vega</span><p>O medo. Sensibilidade à volatilidade. Se a volatilidade sobe (mercado com medo), a opção fica mais cara. Se o mercado acalma (vol cai), o Vega derruba o preço da opção. O balão murcha.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Futuros — Sem o Direito de Desistir</div>
+  <div class="linha"><span class="tag blue">Diferença da opção</span><p>Na opção, você tem o DIREITO de desistir. No futuro, você ASSINOU. Tem que cumprir.</p></div>
+  <div class="linha"><span class="tag blue">Ajuste Diário</span><p>Todo dia a bolsa tira dinheiro de quem está perdendo e deposita para quem está ganhando. Não espera o vencimento.</p></div>
+  <div class="linha"><span class="tag orange">A pegadinha do Boi Gordo</span><p>Se você comprou um contrato futuro de Boi Gordo, vai encostar um caminhão de bois na porta? Não. Na prática, 99% dos contratos futuros são liquidados financeiramente. Você "zera a posição" (vende o contrato) e embolsa ou paga só a diferença de preço. Ninguém entrega boi.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Swap — A Troca de Riscos</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Dois caras se sentam na mesa e trocam os boletos. Você tem dívida em CDI (variável) e tem medo que o juro suba. O outro recebe em taxa fixa e quer ganhar com a alta do CDI. Vocês trocam: você paga o fixo dele, ele paga o variável seu. Os dois saem mais protegidos.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">NDF (Non-Deliverable Forward)</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Contrato de câmbio futuro onde ninguém entrega dólar. Só troca a diferença em reais.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>Exportadora vai receber USD 1 milhão em 3 meses. Medo: dólar cair. Faz NDF travando o dólar em R$5,10. Na hora H, o dólar está em R$4,20. Ela recebeu R$4,2 milhões das vendas + R$900k do banco (a diferença 5,10 - 4,20 × 1 milhão). Total: R$5,1 milhões garantido — mesmo com o dólar caindo.</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> Vá para "Flashcards" → filtre por categoria "Mercado" → faça todas as rodadas. Depois volte para o <strong>Cap. 5 (Séries Temporais)</strong> neste guia.
+</div>
+
+
+<!-- ===================== CAP 5 ===================== -->
+<div class="cap">
+  <div class="cap-num">5</div>
+  <div class="cap-text">
+    <h2>Séries Temporais</h2>
+    <p>Tendência, Sazonalidade, Ruído, ARIMA e Estacionariedade</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Desmontando uma Série Temporal</div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Pense no monitor cardíaco de um paciente ao longo do tempo. Você consegue ver: a direção geral (tendência), o padrão que se repete (sazonalidade) e o ruído aleatório. A série temporal de inadimplência funciona igual.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">1 — Tendência (Trend)</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>A direção geral do negócio. O gráfico visto de longe: está subindo, descendo ou estável?</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>Inadimplência crescendo de 3,5% para 5,5% ao longo de 6 anos: tendência de alta. Qualidade de vídeo cassete: tendência de baixa/morte.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">2 — Sazonalidade (Seasonality)</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Padrão que se repete no mesmo período todo ano.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>Venda de panetone: ninguém compra em maio, todo mundo compra em dezembro. Todo ano, igual. Em crédito: inadimplência sobe em jan/fev (pós-natal, pós-carnaval). O modelo precisa saber disso para não achar que o banco vai falir em janeiro só porque as vendas caíram.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">3 — Ruído Branco (White Noise)</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>O aleatório puro. A estática da TV antiga. O que sobra depois de remover a tendência e a sazonalidade.</p></div>
+  <div class="linha"><span class="tag green">A Regra de Ouro</span><p>Se você criou um modelo de previsão e o ERRO do modelo parece ruído branco: parabéns. Significa que você extraiu todo o suco (informação) e só sobrou o bagaço (aleatoriedade). Se o erro tiver padrão, o modelo está falhando.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">4 — Estacionariedade</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Série "bem comportada": média constante, variância constante ao longo do tempo. A maioria dos modelos (ARIMA) só funciona se a série for estacionária.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Estacionária = batimento cardíaco de alguém dormindo (sempre entre 55 e 65 bpm). Não-estacionária = batimento de alguém correndo uma maratona (média sobe) ou tendo um ataque (variância explode).</p></div>
+  <div class="linha"><span class="tag green">Solução</span><p>Se a série não for estacionária, você "diferencia": serie.diff(). Isso remove a tendência e estabiliza a série para o ARIMA funcionar. Teste ADF (p &lt; 0,05) confirma que a série está estacionária.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">ARIMA(p, d, q) — O Modelo</div>
+  <div class="linha"><span class="tag blue">p</span><p>Quantos lags do passado usamos para prever. Se o que aconteceu há 3 meses ainda influencia hoje, p ≥ 3.</p></div>
+  <div class="linha"><span class="tag blue">d</span><p>Quantas diferenciações foram necessárias para estacionarizar. Se você deu diff() 1 vez, d=1.</p></div>
+  <div class="linha"><span class="tag blue">q</span><p>Quantos erros passados de previsão usamos. Corrige os erros anteriores.</p></div>
+  <div class="linha"><span class="tag green">Na prática</span><p>Use auto_arima(serie, seasonal=True, m=12). Ele testa automaticamente as combinações e escolhe pelo AIC (menor AIC = melhor). Você não precisa adivinhar p, d e q.</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> "Módulo 5 (Séries Temporais)" → leia tudo → <strong>faça o Projeto 5</strong> (Forecast de Inadimplência).
+</div>
+
+
+<!-- ===================== CAP 6 ===================== -->
+<div class="cap">
+  <div class="cap-num">6</div>
+  <div class="cap-text">
+    <h2>Modelagem Avançada</h2>
+    <p>GLM, LGD, Clustering e IFRS 9</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">GLM — Por que não usar só regressão linear?</div>
+  <div class="linha"><span class="tag red">Problema</span><p>Regressão linear pode prever valores impossíveis: LGD negativo, probabilidade acima de 1. Ela também assume que o erro tem distribuição normal — o que raramente é verdade em risco.</p></div>
+  <div class="linha"><span class="tag blue">Solução: GLM</span><p>Generaliza a regressão para qualquer família de distribuição. Você escolha a distribuição certa para o seu target.</p></div>
+
+  <table>
+    <tr><th>Se o target é...</th><th>Família GLM</th><th>Exemplo em risco</th></tr>
+    <tr><td>0 ou 1 (binário)</td><td>Binomial + Logit</td><td>Default sim/não → Scorecard</td></tr>
+    <tr><td>Contagem de eventos</td><td>Poisson + Log</td><td>Número de atrasos nos últimos 12 meses</td></tr>
+    <tr><td>Valor positivo assimétrico</td><td>Gamma + Log</td><td>LGD, severidade de sinistro</td></tr>
+    <tr><td>Zero + valor contínuo</td><td>Tweedie</td><td>Custo total de sinistros (inclui os sem sinistro)</td></tr>
+  </table>
+</div>
+
+<div class="concept">
+  <div class="concept-title">LGD com Gamma — Como interpretar o resultado</div>
+  <div class="linha"><span class="tag blue">Coeficiente</span><p>exp(coeficiente) = multiplicador do LGD esperado.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>coef_garantia = -0,80 → exp(-0,80) = 0,45 → Ter garantia REDUZ o LGD em 55%. No relatório: "Contratos com garantia têm LGD 55% menor do que contratos sem garantia, mantendo os demais fatores constantes."</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Clustering (K-Means) — Segmentar Clientes por Risco</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Encontra grupos naturais nos dados sem você precisar definir as regras. O algoritmo agrupa clientes similares automaticamente.</p></div>
+  <div class="linha"><span class="tag green">Para que serve</span><p>Criar segmentos de risco (baixo/médio/alto) para diferenciar limite de crédito, taxa de juros e estratégia de cobrança por perfil. Cada cluster recebe uma estratégia.</p></div>
+  <div class="linha"><span class="tag red">Atenção</span><p>Sempre padronize (StandardScaler) antes do K-Means. Sem padronização, variáveis em escala grande dominam a distância e as de escala pequena são ignoradas.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">IFRS 9 — Os 3 Stages de Provisão</div>
+  <div class="linha"><span class="tag blue">Stage 1</span><p>Cliente normal, sem sinal de deterioração. Provisão = ECL dos próximos 12 meses. Valor pequeno.</p></div>
+  <div class="linha"><span class="tag blue">Stage 2</span><p>Deterioração significativa (PD atual > 1,5× PD na originação, ou atraso > 30 dias). Provisão = ECL de TODA a vida do contrato. Pode ser 3-10× maior que Stage 1.</p></div>
+  <div class="linha"><span class="tag red">Stage 3</span><p>Default já aconteceu. Provisão = ECL lifetime com LGD alto. O cliente calotou.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>Um cliente de Stage 1 com ECL 12m = R$500. Se migrar para Stage 2 (PD subiu), o banco provisiona o ECL de 5 anos inteiros = R$3.000-5.000. A migração dispara uma "pancada" na provisão.</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> "Módulo 4 (GLM)" → leia → <strong>Projeto 4</strong> (LGD) → <strong>Projeto 6</strong> (Clustering) → <strong>Projeto 3</strong> (IFRS 9 — você faz sozinho).
+</div>
+
+
+<!-- ===================== CAP 7 ===================== -->
+<div class="cap">
+  <div class="cap-num">7</div>
+  <div class="cap-text">
+    <h2>Cenário Macro + A Resposta de Elite</h2>
+    <p>Selic, IPCA, PIB — como afetam os modelos</p>
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Se a Selic SOBE</div>
+  <div class="linha"><span class="tag red">Crédito</span><p><strong>PD sobe:</strong> dívida variável (cartão, cheque) fica mais cara. Parcela pesa. Inadimplência sobe. <strong>LGD sobe:</strong> ninguém quer comprar o carro tomado em leilão com juro alto. Banco vende barato, perde mais.</p></div>
+  <div class="linha"><span class="tag red">Mercado</span><p>Preço dos títulos prefixados cai (a gangorra). Tesouraria do banco perde valor pela marcação a mercado.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Se a Inflação DISPARA</div>
+  <div class="linha"><span class="tag red">Crédito</span><p>Família escolhe: comida ou parcela. A comida ganha. Default sobe.</p></div>
+  <div class="linha"><span class="tag red">Modelagem</span><p>Seu modelo foi treinado com inflação baixa. Com inflação alta, o comportamento do cliente muda. O modelo começa a errar (Data Drift / PSI alto). Precisam retreinar.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">Se o PIB CAI (Recessão)</div>
+  <div class="linha"><span class="tag red">Liquidez</span><p>Em crise, todo mundo quer dinheiro vivo. Ninguém compra ativo de risco. Se o banco precisar vender títulos, vende a preço de banana.</p></div>
+  <div class="linha"><span class="tag red">Caudas Gordas</span><p>Correlação entre todos os ativos sobe para 1. Tudo cai junto: bolsa, imóveis, crédito. A diversificação para de funcionar exatamente quando mais precisamos.</p></div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">A Resposta de Elite — Pergunta do Entrevistador</div>
+  <div class="box box-interview">
+    Pergunta: <em>"O cenário macro está feio, juros subindo e PIB caindo. Como isso afeta nossa área?"</em>
+    <br><br>
+    <strong>Resposta:</strong> "O cenário macro afeta diretamente nossas variáveis de risco em três frentes. No crédito: com juros altos e desemprego, a capacidade de pagamento cai — a PD dos nossos modelos vai subir e precisamos recalibrar a régua para não emprestar para quem vai quebrar. No mercado: a alta de juros derruba o preço dos nossos títulos prefixados na tesouraria pela marcação a mercado. Na modelagem: se o padrão de comportamento mudar drasticamente (quebra estrutural), o modelo antigo para de prever corretamente — precisamos rodar stress tests e monitorar o PSI para decidir quando retreinar."
+  </div>
+</div>
+
+<div class="concept">
+  <div class="concept-title">A Lógica dos 3 Passos — Para Não Travar na Entrevista</div>
+  <div class="linha"><span class="tag blue">Defina</span><p>"Eu entendo esse conceito como..."</p></div>
+  <div class="linha"><span class="tag blue">Conecte</span><p>"No contexto do banco, isso serve para..."</p></div>
+  <div class="linha"><span class="tag blue">Conclua</span><p>"Portanto, a solução seria..."</p></div>
+  <div class="linha"><span class="tag orange">Exemplo</span><p>"O que é LGD? Eu entendo como a perda real caso o cliente não pague. No banco, serve para diferenciar produtos com e sem garantia. Portanto, empréstimos com garantia têm menor risco de capital."</p></div>
+</div>
+
+<div class="box box-next">
+  <strong>Próximo passo no site:</strong> Vá para "Bate Papo Simulado" → pratique todos os cenários → depois "Flashcards" (todas as categorias) → por último, "Plano 1 Mês" e execute o check-list dia a dia.
+</div>
+
+
+<!-- ===================== REFERÊNCIA RÁPIDA ===================== -->
+<div class="cap">
+  <div class="cap-num">★</div>
+  <div class="cap-text">
+    <h2>Referência Rápida</h2>
+    <p>Cole na parede. Olhe todo dia.</p>
+  </div>
+</div>
+
+<table>
+  <tr><th>Conceito</th><th>Tradução Simples</th><th>Número que você reporta</th></tr>
+  <tr><td><strong>EL</strong></td><td>Quanto o banco espera perder</td><td>EL = PD × LGD × EAD</td></tr>
+  <tr><td><strong>KS</strong></td><td>O modelo separa bons de maus?</td><td>&gt; 30% = bom</td></tr>
+  <tr><td><strong>Gini</strong></td><td>Poder discriminatório geral</td><td>2 × AUC - 1 → &gt; 40% = bom</td></tr>
+  <tr><td><strong>AUC</strong></td><td>Área sob a curva ROC</td><td>&gt; 0,70 = bom</td></tr>
+  <tr><td><strong>PSI</strong></td><td>O modelo ainda é válido?</td><td>&lt; 0,10 = estável | &gt; 0,20 = retreinar</td></tr>
+  <tr><td><strong>WoE</strong></td><td>Peso de evidência de cada faixa</td><td>ln(% bons / % maus)</td></tr>
+  <tr><td><strong>IV</strong></td><td>Power preditivo da variável</td><td>&lt; 0,02 = descarta | &gt; 0,10 = usa</td></tr>
+  <tr><td><strong>VaR 95%</strong></td><td>Máxima perda em 95% dos dias</td><td>np.percentile(pnl, 5)</td></tr>
+  <tr><td><strong>CVaR</strong></td><td>Perda média nos piores dias</td><td>pnl[pnl &lt;= var].mean()</td></tr>
+  <tr><td><strong>Duration</strong></td><td>Sensibilidade do título aos juros</td><td>Se Duration=5 → juro +1pp → preço -5%</td></tr>
+  <tr><td><strong>Delta</strong></td><td>Sensibilidade da opção ao ativo</td><td>Delta=0,6 → ativo +R$1 → opção +R$0,60</td></tr>
+  <tr><td><strong>Vega</strong></td><td>Sensibilidade da opção à volatilidade</td><td>Vol cai → opção fica mais barata</td></tr>
+</table>
+
+<hr class="separator">
+<p style="text-align:center;color:#888;font-size:.82rem;">
+  Guia de Risco DS · Management Solutions · Leia o capítulo → vá para o site → faça o projeto
+</p>
+
+</body>
+</html>
