@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Solutions — Senior para Júnior</title>
+<style>
+:root{--bg:#0d1117;--s1:#161b22;--s2:#21262d;--bd:#30363d;--ac:#58a6ff;--gr:#3fb950;--rd:#f78166;--yl:#ffa657;--pu:#d2a8ff;--tx:#e6edf3;--tm:#8b949e;--td:#484f58;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;display:flex;min-height:100vh;}
+.sidebar{width:260px;height:100vh;background:var(--s1);border-right:1px solid var(--bd);position:fixed;top:0;left:0;overflow-y:auto;z-index:50;}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid var(--bd);}
+.sidebar-logo h1{font-size:.95rem;font-weight:700;color:var(--ac);}
+.sidebar-logo p{font-size:.75rem;color:var(--tm);margin-top:3px;}
+.nav-section{padding:12px 0 4px 20px;font-size:.65rem;text-transform:uppercase;letter-spacing:.8px;color:var(--td);}
+.nav-item{padding:8px 20px;font-size:.85rem;color:var(--tm);cursor:pointer;border-left:2px solid transparent;transition:all .15s;line-height:1.3;}
+.nav-item:hover{color:var(--tx);background:var(--s2);}
+.nav-item.active{color:var(--ac);border-left-color:var(--ac);background:rgba(88,166,255,.06);}
+.badge{font-size:.65rem;background:var(--gr);color:#000;border-radius:4px;padding:1px 5px;margin-left:6px;font-weight:700;}
+.badge.pu{background:var(--pu);}
+.main{margin-left:260px;flex:1;padding:40px 48px;max-width:900px;}
+.section{display:none;} .section.active{display:block;}
+h2.pt{font-size:1.6rem;font-weight:700;margin-bottom:6px;}
+.ps{color:var(--tm);font-size:.95rem;margin-bottom:32px;}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:24px;margin-bottom:16px;}
+.card.green{border-color:#238636;} .card.yellow{border-color:#9e6a03;} .card.purple{border-color:#553098;} .card.red{border-color:#8b1a1a;}
+h3.ct{font-size:1rem;font-weight:700;margin-bottom:12px;}
+h3.ct.ac{color:var(--ac);} h3.ct.gr{color:var(--gr);} h3.ct.yl{color:var(--yl);} h3.ct.rd{color:var(--rd);} h3.ct.pu{color:var(--pu);}
+p{color:var(--tm);font-size:.9rem;line-height:1.7;margin-bottom:12px;}
+p:last-child{margin-bottom:0;} p strong{color:var(--tx);}
+ul.list{margin:10px 0 12px;display:flex;flex-direction:column;gap:6px;}
+ul.list li{font-size:.875rem;color:var(--tm);padding-left:18px;position:relative;line-height:1.5;}
+ul.list li::before{content:'→';position:absolute;left:0;color:var(--td);}
+ul.list li strong{color:var(--tx);}
+.callout{border-radius:6px;padding:14px 18px;margin-bottom:16px;font-size:.875rem;line-height:1.6;}
+.callout.info{background:rgba(88,166,255,.08);border-left:3px solid var(--ac);color:var(--tm);}
+.callout.warn{background:rgba(255,166,87,.08);border-left:3px solid var(--yl);color:var(--tm);}
+.callout.success{background:rgba(63,185,80,.08);border-left:3px solid var(--gr);color:var(--tm);}
+.callout strong{color:var(--tx);}
+.timeline{display:flex;flex-direction:column;}
+.tl-item{display:flex;gap:16px;padding-bottom:24px;}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:4px;}
+.tl-dot.gr{background:var(--gr);} .tl-dot.yl{background:var(--yl);} .tl-dot.pu{background:var(--pu);}
+.tl-con{width:2px;background:var(--bd);flex:1;margin-top:4px;}
+.tl-line{display:flex;flex-direction:column;align-items:center;}
+.tl-content h4{font-size:.875rem;font-weight:700;margin-bottom:4px;}
+.tl-content p{margin-bottom:0;font-size:.85rem;}
+.code-block{background:#010409;border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin:16px 0;}
+.code-header{padding:8px 16px;background:var(--s2);border-bottom:1px solid var(--bd);font-size:.75rem;color:var(--tm);display:flex;justify-content:space-between;align-items:center;}
+.lang{color:var(--yl);font-weight:600;}
+.copy-btn{background:none;border:1px solid var(--bd);color:var(--tm);font-size:.7rem;padding:3px 10px;border-radius:4px;cursor:pointer;transition:all .15s;}
+.copy-btn:hover{border-color:var(--ac);color:var(--ac);}
+pre{padding:16px;font-size:.82rem;line-height:1.6;font-family:'Cascadia Code','Fira Code',Consolas,monospace;color:#e6edf3;overflow-x:auto;white-space:pre;}
+hr.div{border:none;border-top:1px solid var(--bd);margin:28px 0;}
+h3.sh{font-size:1rem;font-weight:700;margin:24px 0 12px;color:var(--tx);}
+.fbox{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:16px 20px;margin:14px 0;text-align:center;font-size:1rem;font-weight:600;}
+.fbox .fl{font-size:.7rem;color:var(--tm);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+.steps{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.srow{display:flex;gap:14px;align-items:flex-start;}
+.snum{background:var(--pu);color:#000;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px;}
+.snum.gr{background:var(--gr);} .snum.yl{background:var(--yl);}
+.sbody h4{font-size:.875rem;font-weight:700;margin-bottom:4px;}
+.sbody p{font-size:.85rem;margin-bottom:0;}
+.cbox{background:var(--s2);border-radius:6px;padding:20px;margin:16px 0;font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:.8rem;line-height:1.8;color:var(--tm);white-space:pre;}
+.cbox .hi{color:var(--gr);font-weight:700;} .cbox .hi2{color:var(--rd);font-weight:700;} .cbox .hi3{color:var(--ac);}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+.mb{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:14px;text-align:center;}
+.mv{font-size:1.5rem;font-weight:700;color:var(--ac);}
+.mn{font-size:.75rem;color:var(--tm);margin-top:4px;}
+.md{font-size:.7rem;color:var(--td);margin-top:6px;line-height:1.4;}
+table.cmp{width:100%;border-collapse:collapse;font-size:.85rem;margin:16px 0;}
+table.cmp th{background:var(--s2);padding:10px 14px;text-align:left;color:var(--tm);font-weight:600;border-bottom:1px solid var(--bd);}
+table.cmp td{padding:10px 14px;border-bottom:1px solid var(--s2);color:var(--tm);}
+table.cmp tr:last-child td{border-bottom:none;}
+table.cmp td strong{color:var(--tx);}
+.ph{background:var(--s1);border:1px solid var(--bd);border-radius:8px 8px 0 0;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
+.ph.gr{background:rgba(63,185,80,.06);border-color:#238636;}
+.ph.pu{background:rgba(210,168,255,.06);border-color:#553098;}
+.ph h3{font-size:1rem;}
+.ph h3.gr{color:var(--gr);} .ph h3.pu{color:var(--pu);}
+.ph .pm{font-size:.75rem;color:var(--tm);}
+.pb{background:var(--s1);border:1px solid var(--bd);border-top:none;border-radius:0 0 8px 8px;padding:20px;margin-bottom:24px;}
+.todo{background:rgba(210,168,255,.06);border:1px dashed var(--pu);border-radius:6px;padding:16px;margin:12px 0;}
+.todo h4{color:var(--pu);font-size:.85rem;margin-bottom:10px;}
+.todo ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.todo ul li{font-size:.85rem;color:var(--tm);padding-left:24px;position:relative;}
+.todo ul li::before{content:'☐';position:absolute;left:0;color:var(--pu);}
+/* --- FLASHCARDS --- */
+.fc-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.fc-cat{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.8rem;transition:all .15s;}
+.fc-cat:hover{border-color:var(--ac);color:var(--ac);}
+.fc-cat.active{background:var(--ac);border-color:var(--ac);color:#000;font-weight:600;}
+.fc-wrap{perspective:1000px;max-width:720px;height:280px;margin:0 auto 20px;cursor:pointer;}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.fc-wrap.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:10px;padding:28px 32px;display:flex;flex-direction:column;justify-content:center;}
+.fc-front{background:var(--s1);border:1px solid var(--bd);}
+.fc-back{background:rgba(88,166,255,.06);border:1px solid var(--ac);transform:rotateY(180deg);}
+.fc-cat-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;color:var(--pu);margin-bottom:12px;font-weight:600;}
+.fc-q{font-size:1.05rem;color:var(--tx);font-weight:500;line-height:1.5;}
+.fc-hint{font-size:.75rem;color:var(--td);margin-top:16px;}
+.fc-a{font-size:.88rem;color:var(--tm);line-height:1.7;}
+.fc-nav{display:flex;align-items:center;justify-content:center;gap:20px;margin:16px 0;}
+.fc-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .15s;}
+.fc-btn:hover{border-color:var(--ac);color:var(--ac);}
+.fc-prog{font-size:.85rem;color:var(--tm);min-width:70px;text-align:center;}
+.fc-shuffle{background:none;border:1px solid var(--bd);color:var(--tm);padding:8px 18px;border-radius:6px;cursor:pointer;font-size:.8rem;margin-top:8px;transition:all .15s;display:block;margin:10px auto 0;}
+.fc-shuffle:hover{border-color:var(--pu);color:var(--pu);}
+/* --- PLANO --- */
+.plan-week{margin-bottom:30px;}
+.plan-week h3{font-size:1rem;color:var(--ac);margin-bottom:12px;}
+.plan-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.plan-day{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 10px;font-size:.75rem;color:var(--tm);line-height:1.5;}
+.plan-day .dn{font-weight:700;color:var(--tx);font-size:.8rem;margin-bottom:4px;}
+.plan-day.focus{border-color:var(--ac);background:rgba(88,166,255,.05);}
+.plan-day.code{border-color:var(--gr);background:rgba(63,185,80,.05);}
+.plan-day.review{border-color:var(--pu);background:rgba(210,168,255,.05);}
+/* --- START HERE --- */
+.start-hero{background:linear-gradient(135deg,rgba(255,166,87,.12),rgba(88,166,255,.08));border:1px solid var(--yl);border-radius:10px;padding:28px 32px;margin-bottom:24px;}
+.start-hero h3{font-size:1.2rem;color:var(--yl);margin-bottom:10px;}
+.route-map{display:flex;flex-direction:column;gap:8px;margin:20px 0;}
+.route-step{display:flex;gap:14px;align-items:flex-start;background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:14px 18px;}
+.route-num{background:var(--yl);color:#000;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;margin-top:1px;}
+.route-body{flex:1;}
+.route-body strong{color:var(--tx);font-size:.9rem;display:block;margin-bottom:3px;}
+.route-body span{font-size:.82rem;color:var(--tm);}
+.route-arrow{text-align:center;color:var(--td);font-size:.8rem;padding:2px 0;}
+/* --- BATE PAPO --- */
+.bp-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.bp-tab{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:all .15s;}
+.bp-tab.active{background:var(--ac);border-color:var(--ac);color:#000;font-weight:700;}
+.bp-scenario{display:none;} .bp-scenario.active{display:block;}
+.bp-chat{display:flex;flex-direction:column;gap:16px;}
+.bp-msg{display:flex;gap:12px;align-items:flex-start;}
+.bp-msg.right{flex-direction:row-reverse;}
+.bp-avatar{width:36px;height:36px;border-radius:50%;background:var(--s2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+.bp-bubble{max-width:78%;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;font-size:.875rem;color:var(--tm);line-height:1.6;}
+.bp-bubble strong{color:var(--tx);}
+.bp-bubble.question{background:rgba(255,166,87,.06);border-color:var(--yl);}
+.bp-bubble.answer{background:rgba(88,166,255,.06);border-color:var(--ac);}
+.bp-bubble.hidden-ans{background:var(--s2);border:1px dashed var(--bd);cursor:pointer;color:var(--td);font-style:italic;}
+.bp-bubble.hidden-ans:hover{border-color:var(--ac);color:var(--tm);}
+.bp-reveal{background:none;border:1px solid var(--ac);color:var(--ac);font-size:.78rem;padding:5px 14px;border-radius:4px;cursor:pointer;margin-top:8px;transition:all .15s;}
+.bp-reveal:hover{background:var(--ac);color:#000;}
+.bp-divider{text-align:center;font-size:.75rem;color:var(--td);padding:8px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);margin:4px 0;}
+/* --- INTEGRAÇÃO --- */
+.int-day{background:var(--s1);border:1px solid var(--bd);border-radius:8px;margin-bottom:16px;overflow:hidden;}
+.int-day-head{padding:14px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;background:var(--s2);}
+.int-day-head:hover{background:rgba(88,166,255,.05);}
+.int-day-num{background:var(--ac);color:#000;border-radius:6px;padding:4px 10px;font-weight:800;font-size:.8rem;flex-shrink:0;}
+.int-day-title{font-size:.95rem;font-weight:700;color:var(--tx);}
+.int-day-sub{font-size:.78rem;color:var(--tm);margin-top:2px;}
+.int-day-body{padding:18px 20px;display:none;border-top:1px solid var(--bd);}
+.int-day-body.open{display:block;}
+.int-do{color:var(--gr);font-weight:700;font-size:.78rem;text-transform:uppercase;margin:12px 0 6px;}
+.int-dont{color:var(--rd);font-weight:700;font-size:.78rem;text-transform:uppercase;margin:12px 0 6px;}
+.int-item{font-size:.875rem;color:var(--tm);padding-left:18px;position:relative;margin-bottom:6px;line-height:1.5;}
+.int-item::before{position:absolute;left:0;}
+.int-item.do::before{content:'✓';color:var(--gr);}
+.int-item.dont::before{content:'✗';color:var(--rd);}
+/* --- DS PIPELINE --- */
+.pipe-stage{background:var(--s1);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden;}
+.pipe-head{padding:14px 20px;background:var(--s2);display:flex;align-items:center;gap:14px;}
+.pipe-num{background:var(--ac);color:#000;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0;}
+.pipe-title{font-size:.95rem;font-weight:700;color:var(--tx);}
+.pipe-sub{font-size:.78rem;color:var(--tm);}
+.pipe-body{padding:18px 20px;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.tag-pill{background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 10px;font-size:.75rem;color:var(--tm);}
+.tag-pill.warn{border-color:var(--yl);color:var(--yl);}
+.tag-pill.good{border-color:var(--gr);color:var(--gr);}
+.tag-pill.bad{border-color:var(--rd);color:var(--rd);}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo"><h1>Senior → Júnior</h1><p>Management Solutions | Risk DS</p></div>
+  <div class="nav-section">⚡ Comece Aqui</div>
+  <div class="nav-item active" data-sec="start" style="color:#ffa657;border-left:2px solid #ffa657;">🚀 Por Onde Começar</div>
+  <div class="nav-section">Contexto MS</div>
+  <div class="nav-item" data-sec="trabalho">O Trabalho Real</div>
+  <div class="nav-item" data-sec="integracao">Simulação de Integração <span class="badge" style="background:#ffa657;">Novo</span></div>
+  <div class="nav-section">Módulos Técnicos</div>
+  <div class="nav-item" data-sec="m0">0. Pipeline de DS <span class="badge">Base</span></div>
+  <div class="nav-item" data-sec="m1">1. Credit Scoring <span class="badge">Core</span></div>
+  <div class="nav-item" data-sec="m2">2. KS, Gini e PSI</div>
+  <div class="nav-item" data-sec="m3">3. Monte Carlo</div>
+  <div class="nav-item" data-sec="m4">4. GLM para Risco</div>
+  <div class="nav-item" data-sec="m5">5. Séries Temporais</div>
+  <div class="nav-section">Prática</div>
+  <div class="nav-item" data-sec="batepapo">Bate Papo Simulado <span class="badge" style="background:#ffa657;">Novo</span></div>
+  <div class="nav-item" data-sec="plano">Plano 1 Mês</div>
+  <div class="nav-item" data-sec="flashcards">Flashcards <span class="badge pu">60+</span></div>
+  <div class="nav-section">Projetos</div>
+  <div class="nav-item" data-sec="p1">Projeto 1 — Scorecard PD <span class="badge">Completo</span></div>
+  <div class="nav-item" data-sec="p2">Projeto 2 — Monte Carlo VaR <span class="badge">Completo</span></div>
+  <div class="nav-item" data-sec="p3">Projeto 3 — IFRS 9 <span class="badge pu">Você faz</span></div>
+  <div class="nav-item" data-sec="p4">Projeto 4 — LGD Modeling <span class="badge">Completo</span></div>
+  <div class="nav-item" data-sec="p5">Projeto 5 — Forecast Inadimp. <span class="badge">Completo</span></div>
+  <div class="nav-item" data-sec="p6">Projeto 6 — Segmentação Risco <span class="badge">Completo</span></div>
+</aside>
+
+<main class="main">
+
+<!-- POR ONDE COMEÇAR -->
+<div class="section active" id="sec-start">
+  <h2 class="pt">Por Onde Começar</h2>
+  <p class="ps">Resposta direta: <strong>você começa pelo GUIA</strong>, não pelo site. O site é para praticar o que você aprendeu no guia.</p>
+
+  <div class="start-hero">
+    <h3>A Regra de Ouro</h3>
+    <p style="color:var(--tx);margin-bottom:0;">O <strong>guia (guia_matematica_risco.html)</strong> ensina o CONCEITO — o que é, por que existe, que problema resolve.<br>
+    O <strong>site (esta página)</strong> ensina o CÓDIGO — como implementar na prática, como o código funciona bloco a bloco.<br><br>
+    Você <strong>nunca</strong> abre o site sem ter lido o capítulo correspondente no guia primeiro. É como tentar montar um motor sem ler o manual.</p>
+  </div>
+
+  <h3 class="sh">A Sequência Exata — Siga Esta Ordem</h3>
+  <div class="route-map">
+    <div class="route-step">
+      <div class="route-num">1</div>
+      <div class="route-body"><strong>Guia → Capítulo 1 (A Matemática Base)</strong><span>Derivada = sensibilidade. Integral = acúmulo. Estatística básica. Leva ~1h.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">2</div>
+      <div class="route-body"><strong>Site → "O Trabalho Real" + "Simulação de Integração"</strong><span>Entenda o contexto antes de aprender qualquer modelo. Você precisa saber onde isso é usado.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">3</div>
+      <div class="route-body"><strong>Site → Módulo 0 (Pipeline de DS)</strong><span>O processo completo de um projeto de Data Science. Sem isso você não entende como os módulos 1-5 se encaixam.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">4</div>
+      <div class="route-body"><strong>Guia → Capítulo 2 (Risco de Crédito) → Site → Módulo 1 + Módulo 2 → Projeto 1</strong><span>A sequência para o core do trabalho. Leia o guia → entenda a teoria → veja o código → rode o projeto.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">5</div>
+      <div class="route-body"><strong>Guia → Cap. 3 (Risco de Mercado) → Site → Módulo 3 → Projeto 2</strong><span>Monte Carlo VaR. Cholesky. Correlação entre ativos.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">6</div>
+      <div class="route-body"><strong>Guia → Cap. 4 (Produtos) → Site → Flashcards "Mercado"</strong><span>Renda fixa, opções, gregas. Os flashcards fixam o vocabulário.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">7</div>
+      <div class="route-body"><strong>Guia → Cap. 5 (Séries Temporais) → Site → Módulo 5 → Projeto 5</strong><span>Forecast de inadimplência. ARIMA. Validação temporal.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">8</div>
+      <div class="route-body"><strong>Guia → Cap. 6 (Modelagem Avançada) → Site → Módulos 4 → Projetos 4 + 6 + 3</strong><span>GLM, LGD, Clustering, IFRS 9. Os projetos mais avançados.</span></div>
+    </div>
+    <div class="route-arrow">↓ Depois</div>
+    <div class="route-step">
+      <div class="route-num">9</div>
+      <div class="route-body"><strong>Guia → Cap. 7 (Macro + Resposta de Elite) → Site → Bate Papo Simulado</strong><span>Pratica responder perguntas. Sem hesitação, sem enrolação.</span></div>
+    </div>
+    <div class="route-arrow">↓ Por último</div>
+    <div class="route-step">
+      <div class="route-num">10</div>
+      <div class="route-body"><strong>Site → Plano 1 Mês → execute dia a dia</strong><span>O plano detalhado com o que fazer em cada dia. Use o plano como seu check-list diário.</span></div>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:24px;">
+    <strong>Erro mais comum:</strong> começar pelo código sem entender o conceito. Você vai rodar o Projeto 1, funcionar, mas na hora que o gerente perguntar "por que você usou WoE?" você vai travar. Primeiro o guia, depois o código.
+  </div>
+  <div class="callout success">
+    <strong>Como usar os dois arquivos juntos:</strong> Abra o guia no navegador (aba 1) e este site (aba 2). Leia um conceito no guia → volte para o site → leia o módulo correspondente → rode o projeto → flashcards para fixar → bate papo para praticar. É um ciclo.
+  </div>
+</div>
+
+<!-- SIMULAÇÃO DE INTEGRAÇÃO -->
+<div class="section" id="sec-integracao">
+  <h2 class="pt">Simulação de Integração — Semana 1 na MS</h2>
+  <p class="ps">É segunda-feira. Você chegou na Management Solutions. Aqui está o que vai acontecer — e como se sair bem em cada situação.</p>
+  <div class="callout warn"><strong>Atenção:</strong> O que mata trainee na primeira semana não é incompetência técnica. É não saber quando falar, quando calar, e o que o senior espera de você sem dizer explicitamente.</div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">DIA 1</div>
+      <div><div class="int-day-title">Onboarding — Conheça o time e os sistemas</div><div class="int-day-sub">O que acontece: apresentações, acesso a sistemas, leitura de documentação existente</div></div>
+    </div>
+    <div class="int-day-body">
+      <p>Você vai ser apresentado para o time. Vai receber acesso ao Python do cliente, ao servidor de dados, ao Git interno. Vão te mandar uma pasta com documentação de modelos antigos para ler.</p>
+      <div class="int-do">✓ O que fazer</div>
+      <div class="int-item do">Anote os nomes e funções de cada pessoa do time (quem é o senior, quem é o parceiro do banco, quem é o gestor).</div>
+      <div class="int-item do">Pergunte ao senior: "Qual é a sua prioridade para mim essa semana?" — uma pergunta, uma resposta clara.</div>
+      <div class="int-item do">Leia toda a documentação com foco em: Objetivo do modelo → Dados utilizados → Metodologia → Métricas de validação.</div>
+      <div class="int-item do">Configure o ambiente Python localmente e rode o código existente. Se der erro, resolva antes de perguntar.</div>
+      <div class="int-dont">✗ O que não fazer</div>
+      <div class="int-item dont">Não finja que entendeu algo que não entendeu. Na segunda semana você vai ser cobrado e vai ser pior.</div>
+      <div class="int-item dont">Não fique esperando alguém te dar tarefa. Se terminou de ler a documentação, pergunte "posso explorar a base de dados para me familiarizar?"</div>
+      <div class="cbox">Pergunta que o senior pode fazer no final do Dia 1:
+"Você leu a documentação. Qual foi o maior problema que você identificou no modelo atual?"
+
+Boa resposta: "Li o relatório de validação. O PSI do modelo está em 0.18 — próximo do limite de alerta.
+Isso pode indicar drift na população desde o treinamento em 2021.
+Gostaria de checar a distribuição das features principais para confirmar."
+
+Por que funciona: você mostra que leu com atenção, identificou um risco real e propôs um próximo passo.</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">DIA 2</div>
+      <div><div class="int-day-title">Primeira reunião com o parceiro do banco</div><div class="int-day-sub">O que acontece: reunião de alinhamento onde o banco explica o problema</div></div>
+    </div>
+    <div class="int-day-body">
+      <p>Você vai sentar numa sala de reunião com o gerente de risco do banco. O senior vai conduzir. Você vai ouvir.</p>
+      <div class="int-do">✓ O que fazer</div>
+      <div class="int-item do">Anote tudo: o problema de negócio, as datas de entrega, os dados disponíveis, as restrições (regulatória, sistema, etc.).</div>
+      <div class="int-item do">Anote as perguntas que você não entendeu para pesquisar depois — não interrompa o senior durante a reunião.</div>
+      <div class="int-item do">Se o parceiro te perguntar algo diretamente, seja honesto e conciso: "Ainda estou mapeando a base, mas minha hipótese inicial é X."</div>
+      <div class="int-dont">✗ O que não fazer</div>
+      <div class="int-item dont">Não abra o notebook durante a reunião para mostrar algo que você "achou interessante". Você não foi contratado para impressionar, foi para resolver o problema.</div>
+      <div class="int-item dont">Não diga "isso é fácil" ou "em uma semana está pronto". Você não conhece os dados ainda.</div>
+      <div class="cbox">O parceiro vai dizer algo assim:
+"Estamos precisando de um modelo para prever inadimplência nos próximos 90 dias para a carteira de PJ."
+
+Você pensa internamente:
+→ Tipo de problema: Classificação binária (default sim/não) = PD
+→ Metodologia: Regressão logística (regulatório)
+→ Dados que eu precisaria: histórico de pagamentos, cadastro PJ, dados financeiros
+→ Validação: KS, Gini, PSI
+→ Prazo: 3-4 meses para um scorecard completo
+
+Você NÃO fala tudo isso na reunião. Você ouve, anota, e depois alinha com o senior.</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">DIAS 3-4</div>
+      <div><div class="int-day-title">Primeira tarefa técnica — exploração dos dados</div><div class="int-day-sub">O que acontece: o senior manda você explorar a base e "reportar o que encontrou"</div></div>
+    </div>
+    <div class="int-day-body">
+      <p>O senior vai dizer: <em>"Pega essa base de 200k clientes e me conta o que você vê."</em> Parece vago? É intencional. Ele quer ver como você pensa.</p>
+      <p><strong>O que você faz — em ordem:</strong></p>
+      <div class="steps">
+        <div class="srow"><div class="snum gr">1</div><div class="sbody"><h4>Entenda a forma da base</h4><p>df.shape, df.dtypes, df.head(). Quantas linhas? Quantas colunas? Quais são numéricas, quais são categóricas?</p></div></div>
+        <div class="srow"><div class="snum gr">2</div><div class="sbody"><h4>Verifique dados faltantes</h4><p>df.isnull().sum() / len(df). Se uma coluna tem &gt;30% de NaN, já vai para o relatório como risco.</p></div></div>
+        <div class="srow"><div class="snum gr">3</div><div class="sbody"><h4>Verifique o target (taxa de default)</h4><p>df['default'].value_counts(normalize=True). Se for 2%, você tem problema de desbalanceamento. Isso afeta tudo.</p></div></div>
+        <div class="srow"><div class="snum gr">4</div><div class="sbody"><h4>Olhe as distribuições das principais variáveis</h4><p>Histogramas de renda, dívida, idade. Tem valores impossíveis (idade=210)? Tem concentração estranha?</p></div></div>
+        <div class="srow"><div class="snum gr">5</div><div class="sbody"><h4>Verifique correlação com o target</h4><p>df.groupby('default').mean() para as variáveis numéricas. Quais variáveis diferem mais entre bons e maus pagadores?</p></div></div>
+        <div class="srow"><div class="snum gr">6</div><div class="sbody"><h4>Suspeite de leakage</h4><p>Alguma variável tem correlação suspeita (&gt;0.6) com o default? Se a variável "dias_atraso_hoje" está no dataset, ela pode ser leakage (você só saberia isso depois que o cliente já calotou).</p></div></div>
+      </div>
+      <div class="int-do">✓ O relatório para o senior (máximo 1 página)</div>
+      <div class="int-item do"><strong>Achado 1:</strong> 18% de missing na variável "renda_declarada" — precisa decisão sobre imputação.</div>
+      <div class="int-item do"><strong>Achado 2:</strong> Taxa de default de 3.2% — desbalanceamento significativo, pode precisar de SMOTE ou ajuste de threshold.</div>
+      <div class="int-item do"><strong>Achado 3:</strong> Variável "saldo_devedor_total" tem correlação de 0.71 com default — candidata forte. Mas precisa verificar se é leakage.</div>
+      <div class="int-item do"><strong>Risco:</strong> Variável "score_bcb" não está disponível para todos os PJ — apenas 45% da base tem esse campo preenchido.</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">DIA 5</div>
+      <div><div class="int-day-title">Primeira apresentação para o senior</div><div class="int-day-sub">O que acontece: você apresenta os achados da exploração</div></div>
+    </div>
+    <div class="int-day-body">
+      <p>O senior pede 15 minutos para você apresentar o que encontrou. <strong>15 minutos.</strong> Não 30, não 45.</p>
+      <div class="int-do">✓ A estrutura certa (3 slides ou 3 seções no Jupyter)</div>
+      <div class="int-item do"><strong>Slide 1:</strong> A base — tamanho, qualidade, taxa de default. Só os números mais importantes.</div>
+      <div class="int-item do"><strong>Slide 2:</strong> Os 3 achados mais importantes — problemas e oportunidades.</div>
+      <div class="int-item do"><strong>Slide 3:</strong> Proposta de próximos passos — o que você vai fazer na semana 2.</div>
+      <div class="int-dont">✗ O que não fazer</div>
+      <div class="int-item dont">Não apresente 30 gráficos. Escolha os 3 mais relevantes.</div>
+      <div class="int-item dont">Não explique o código Python. O senior não quer ver o código, quer ver a conclusão.</div>
+      <div class="cbox">O senior vai perguntar (prepare-se):
+
+"Por que você suspeita de leakage na variável saldo_devedor_total?"
+
+Boa resposta: "Porque o saldo devedor total provavelmente já reflete os atrasos acumulados.
+Se o cliente estava em atraso, o saldo cresce. Isso significa que a variável
+pode conter informação do próprio evento que queremos prever.
+Preciso verificar a janela temporal — quando esse saldo foi calculado
+em relação à data de referência do default."
+
+"E se for leakage, o que você faz?"
+
+Boa resposta: "Removo a variável do modelo e busco uma proxy que seja
+genuinamente anterior ao evento. Por exemplo, saldo devedor 6 meses
+antes da data de observação, se tivermos esse histórico."</div>
+    </div>
+  </div>
+
+  <div class="callout success" style="margin-top:8px;">
+    <strong>O que o senior nunca vai dizer, mas sempre avalia:</strong> (1) Você prioriza o que é importante ou você trata tudo igual? (2) Você avisa quando há um problema ou tenta resolver sozinho por 3 dias e atrasa o projeto? (3) Você documenta o que está fazendo ou some no código por 2 semanas? Um trainee que avisa cedo que há um problema é mais valioso do que um que entrega sem problemas.
+  </div>
+</div>
+
+<!-- O TRABALHO REAL -->
+<div class="section" id="sec-trabalho">
+  <h2 class="pt">O Trabalho Real</h2>
+  <p class="ps">Você foi contratado. Aqui está o que vai acontecer nos próximos 12 meses.</p>
+  <div class="callout info"><strong>A Management Solutions é consultora de risco.</strong> Você vai ao escritório de um banco, seguradora ou fintech e constrói modelos para eles. Cada projeto dura 3–6 meses. Você vai rodar Python no laptop deles, apresentar para o comitê de risco e documentar tudo em relatório técnico.</div>
+  <div class="card">
+    <h3 class="ct ac">Linha do tempo — seu primeiro ano</h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot"></div><div class="tl-con"></div></div><div class="tl-content"><h4>Semana 1 — Onboarding e leitura de modelos existentes</h4><p>Você vai ler documentação técnica de modelos já em produção. Preste atenção na estrutura: Objetivo → Dados → Metodologia → Validação → Limitações. É o padrão que você vai reproduzir.</p></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot gr"></div><div class="tl-con"></div></div><div class="tl-content"><h4>Mês 1–3 — Primeiro projeto: Modelo de PD para um banco</h4><p>Base de dados histórica de crédito, 50k–500k linhas. Sua tarefa: scorecard de probabilidade de default. WoE binning, regressão logística, validação com KS/Gini. Você vai iterar 4–5 vezes antes do senior aprovar.</p></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot yl"></div><div class="tl-con"></div></div><div class="tl-content"><h4>Mês 3–6 — Validação de modelo de terceiro</h4><p>O banco tem um modelo comprado. Você vai reproduzir os resultados, calcular as mesmas métricas e escrever um relatório dizendo se o modelo é confiável. Você é o auditor.</p></div></div>
+      <div class="tl-item"><div class="tl-line"><div class="tl-dot pu"></div><div class="tl-con"></div></div><div class="tl-content"><h4>Mês 6–12 — Projetos mais complexos</h4><p>IFRS 9 (ECL), stress testing (Monte Carlo), modelos de LGD/EAD, séries temporais para forecast de PDD. Você começa a apresentar sozinho para o cliente.</p></div></div>
+    </div>
+  </div>
+  <div class="card green">
+    <h3 class="ct gr">O que o senior vai cobrar — sem filtro</h3>
+    <ul class="list">
+      <li><strong>Código reproduzível.</strong> Se você rodar o script duas vezes e o resultado mudar, você tem problema. Use seeds fixas, salve versões dos dados.</li>
+      <li><strong>Documentar o porquê, não o quê.</strong> O código já mostra o quê. A documentação explica por que você escolheu aquela metodologia.</li>
+      <li><strong>Saber os resultados de cor.</strong> Quando o parceiro perguntar "qual o KS do modelo?", você não pode abrir o notebook ao vivo.</li>
+      <li><strong>Não inventar respostas.</strong> "Não sei, mas vou verificar" é melhor do que uma resposta errada dita com confiança.</li>
+      <li><strong>Declarar limitações.</strong> Todo modelo tem fraquezas. Quem não declara as suas perde credibilidade quando elas aparecem em produção.</li>
+    </ul>
+  </div>
+  <div class="card yellow">
+    <h3 class="ct yl">Por que logística e não Random Forest (pergunta garantida na entrevista)</h3>
+    <p><strong>Regulatório (Basel III / IFRS 9):</strong> o banco precisa explicar para o regulador por que o modelo tomou uma decisão. Random Forest não tem essa explicabilidade.</p>
+    <p><strong>Contestabilidade:</strong> se um cliente for negado e contestar, o banco precisa mostrar quais variáveis foram usadas e com qual peso.</p>
+    <p><strong>Scorecard:</strong> a logística é convertida em pontos (300–850) que o analista de crédito entende. Floresta de 500 árvores não é convertida em nada humano.</p>
+    <p>Quando usar árvores: <strong>internamente</strong>, para feature selection antes da logística, ou onde interpretabilidade não é exigida por lei.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 0 — PIPELINE DS -->
+<div class="section" id="sec-m0">
+  <h2 class="pt">Módulo 0 — Pipeline de Data Science</h2>
+  <p class="ps">Antes de qualquer modelo, você precisa entender o processo completo. Todo projeto na MS segue estas 7 etapas — sem exceção.</p>
+  <div class="callout info"><strong>Por que este módulo existe:</strong> você pode saber fazer logística, Monte Carlo e ARIMA. Mas se você receber um problema vago de negócio e não souber transformá-lo em projeto de DS, você trava no dia 1. Este módulo ensina o processo que rodeia o código.</div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">1</div><div><div class="pipe-title">Definição do Problema — Transformar negócio em DS</div><div class="pipe-sub">Etapa mais importante. Onde 80% dos projetos fracassam antes de começar.</div></div></div>
+    <div class="pipe-body">
+      <p><strong>O que acontece:</strong> o gerente chega e diz "quero aumentar o lucro do cartão de crédito". Você NÃO pode simplesmente abrir o Python e rodar um XGBoost "para ver no que dá". Você precisa fazer perguntas até saber EXATAMENTE qual é o problema real.</p>
+      <p><strong>Por que:</strong> "aumentar o lucro do cartão" pode ser 4 projetos completamente diferentes:</p>
+      <div class="cbox">"Estamos perdendo muito com fraudes"
+  → Problema DS: Detecção de Anomalia / Classificação em tempo real
+  → Modelo: Random Forest ou XGBoost (velocidade importa)
+  → Métrica: Recall alto (não deixar fraude passar)
+
+"Clientes estão cancelando o cartão"
+  → Problema DS: Previsão de Churn (quem vai cancelar nos próximos 30 dias)
+  → Modelo: Logística (precisa de explicabilidade para marketing)
+  → Métrica: Recall alto (FN = perder cliente = caro)
+
+"Não estamos conseguindo vender o cartão"
+  → Problema DS: Modelo de Propensão (quem tem perfil para aceitar oferta)
+  → Modelo: Logística ou Gradient Boosting
+  → Métrica: Precision (se for brinde caro, não quer FP)
+
+"Clientes usam pouco o cartão"
+  → Problema DS: Segmentação (clustering por comportamento de uso)
+  → Modelo: K-Means
+  → Métrica: Silhouette Score + interpretação de negócio</div>
+      <p><strong>Sua missão na Etapa 1:</strong> fazer perguntas até o gerente admitir que o problema real é, por exemplo, o churn. Só depois você vai para a Etapa 2.</p>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">2</div><div><div class="pipe-title">Coleta de Dados — De onde vêm os dados</div><div class="pipe-sub">SQL, CSVs, APIs. Você precisa saber falar com as 3 fontes.</div></div></div>
+    <div class="pipe-body">
+      <div class="tag-row"><span class="tag-pill good">SQL — o mais comum em bancos</span><span class="tag-pill">CSV/Excel — relatórios externos</span><span class="tag-pill">API — dados em tempo real</span></div>
+      <div class="cbox">SQL (dados transacionais do banco):
+  SELECT c.id, c.renda, e.valor_parcela, e.atraso_dias
+  FROM clientes c
+  JOIN emprestimos e ON c.id = e.cliente_id
+  WHERE e.data_contrato &gt;= '2022-01-01'
+
+CSV (arquivo do Banco Central com dados macro):
+  df = pd.read_csv('bcb_inadimplencia.csv', sep=';', decimal=',')
+
+API (cotação de ações em tempo real):
+  import yfinance as yf
+  petr4 = yf.download('PETR4.SA', start='2023-01-01')['Close']</div>
+      <p><strong>Na MS, na prática:</strong> você vai trabalhar majoritariamente com SQL do cliente (acessado via VPN) e arquivos CSV que o time exportou do sistema core do banco. APIs são mais comuns em projetos de mercado (VaR, precificação).</p>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">3</div><div><div class="pipe-title">Limpeza e Preparação — Onde você passa 80% do tempo</div><div class="pipe-sub">Garbage In, Garbage Out. Dado sujo = modelo inútil.</div></div></div>
+    <div class="pipe-body">
+      <p><strong>Regra de ouro:</strong> "O modelo é um bebê. Ele aprende só o que você mostra. Se você mostrar lixo, ele aprende lixo."</p>
+
+      <h3 class="sh" style="margin-top:16px;">3.1 — Dados Faltantes (Missing Values)</h3>
+      <table class="cmp">
+        <tr><th>Solução</th><th>Quando usar</th><th>Problema</th></tr>
+        <tr><td><strong>Remover a linha</strong></td><td>Menos de 5% de missing</td><td>Perde dados. Se o missing tiver padrão (autonomos não declaram renda), você cria viés.</td></tr>
+        <tr><td><strong>Imputar com mediana</strong></td><td>Variável numérica com &lt;30% missing</td><td>É uma "mentira" — você inventa valores. Reduz variabilidade.</td></tr>
+        <tr><td><strong>Modelo de imputação</strong></td><td>Missing &gt;15% e variável importante</td><td>Mais preciso. Usa outras colunas para prever o valor faltante. Complexo.</td></tr>
+      </table>
+      <div class="callout warn"><strong>Por que mediana e não média?</strong> A média é puxada por outliers. Um CEO que ganha R$500k eleva a média de renda de toda a base. A mediana não se move com outliers — é o valor do meio.</div>
+
+      <h3 class="sh" style="margin-top:16px;">3.2 — Outliers</h3>
+      <div class="cbox">Problema: cliente com "idade = 210" ou "salário = R$ 500 milhões"
+O modelo vai tentar se ajustar a esses pontos impossíveis e fica distorcido.
+
+Solução 1 — Remover: se for claramente erro de digitação
+Solução 2 — Clipar (Winsorize): define um limite razoável
+  Ex: qualquer renda acima do percentil 99 → trata como se fosse o P99
+  df['renda'] = df['renda'].clip(upper=df['renda'].quantile(0.99))
+
+Solução 3 — Transformação Log: para variáveis muito assimétricas (renda, valor de transação)
+  df['log_renda'] = np.log1p(df['renda'])
+  → "achata" a escala, deixa os outliers menos impactantes</div>
+
+      <h3 class="sh" style="margin-top:16px;">3.3 — Encoding (Transformar Texto em Número)</h3>
+      <table class="cmp">
+        <tr><th>Técnica</th><th>Quando usar</th><th>Cuidado</th></tr>
+        <tr><td><strong>Label Encoding</strong><br><small>Solteiro=0, Casado=1, Divorciado=2</small></td><td>Variável ORDINAL (tem ordem real): Ensino Fundamental &lt; Médio &lt; Superior</td><td>NÃO use para estado civil — o modelo vai achar que Divorciado (2) é "maior" que Casado (1)</td></tr>
+        <tr><td><strong>One-Hot Encoding (OHE)</strong><br><small>Cria coluna binária para cada categoria</small></td><td>Variável NOMINAL (sem ordem): profissão, estado civil, produto</td><td>Com 50 categorias diferentes você cria 50 colunas — "maldição da dimensionalidade"</td></tr>
+      </table>
+
+      <h3 class="sh" style="margin-top:16px;">3.4 — Feature Scaling (Colocar na mesma régua)</h3>
+      <p><strong>Problema:</strong> "Idade" vai de 20 a 80. "Salário" vai de 2.000 a 200.000. Modelos como regressão logística vão achar que Salário é mais importante só porque o número é maior.</p>
+      <div class="cbox">StandardScaler (Padronização — Z-Score): MAIS COMUM
+  z = (valor - média) / desvio_padrão
+  → Resultado: média=0, desvio=1
+  → Robusto. Use em logística, redes neurais, k-means.
+
+MinMaxScaler (Normalização):
+  z = (valor - mínimo) / (máximo - mínimo)
+  → Resultado: sempre entre 0 e 1
+  → Sensível a outliers. Use se você precisa de 0-1 explicitamente.
+
+IMPORTANTE: Árvores (Random Forest, XGBoost) NÃO precisam de scaling.
+Elas não usam distâncias, usam cortes. Só escale para logística, KNN e redes.</div>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">4</div><div><div class="pipe-title">Feature Engineering — Criar novas pistas para o modelo</div><div class="pipe-sub">Onde o conhecimento de negócio vale mais que qualquer algoritmo.</div></div></div>
+    <div class="pipe-body">
+      <p><strong>Tradução:</strong> criar novas colunas a partir das que você já tem. Uma feature bem construída pode dobrar a performance do modelo.</p>
+      <div class="cbox">Exemplo real — Detecção de Fraude:
+  Problema: "valor_transacao" e "limite_cartao" têm correlação de 0.95 (multicolinearidade).
+  Não dá para usar as duas. E usar só uma perde informação.
+
+  Feature Engineering Senior:
+  tx_uso_limite = valor_transacao / limite_cartao
+
+  Por que é melhor?
+  → R$ 4.500 num cartão com limite R$ 5.000: tx_uso_limite = 0.90 → SUSPEITO
+  → R$ 4.500 num cartão com limite R$ 50.000: tx_uso_limite = 0.09 → Normal
+
+  Você remove as 2 colunas originais e fica com 1 que é muito mais preditiva.
+
+Outros exemplos:
+  → prazo_restante_meses = data_vencimento - data_hoje
+  → renda_comprometida = valor_parcela / renda_mensal
+  → dias_desde_ultimo_atraso = data_hoje - data_ultimo_atraso</div>
+      <div class="callout warn"><strong>Multicolinearidade:</strong> quando duas features têm correlação &gt; 0.9, elas dizem a mesma coisa. Para regressão logística isso é fatal — os coeficientes ficam instáveis e não dá para interpretar. Use o heatmap de correlação para detectar. Solução: remover uma ou criar uma feature nova que combine as duas com mais significado.</div>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">5</div><div><div class="pipe-title">Modelagem — Escolher e avaliar o modelo certo</div><div class="pipe-sub">A métrica errada pode fazer você escolher um modelo inútil.</div></div></div>
+    <div class="pipe-body">
+      <h3 class="sh" style="margin-top:0;">Supervisionado vs. Não Supervisionado</h3>
+      <table class="cmp">
+        <tr><th>Tipo</th><th>O que é</th><th>Quando usar</th><th>Exemplos em risco</th></tr>
+        <tr><td><strong>Supervisionado</strong></td><td>Você tem o gabarito (target). O modelo aprende com a resposta certa.</td><td>Prever default, fraude, churn — você tem histórico de quem calotou</td><td>Scorecard PD, detecção de fraude, churn</td></tr>
+        <tr><td><strong>Não Supervisionado</strong></td><td>Sem gabarito. O modelo encontra grupos/padrões nos dados.</td><td>Quando você não sabe a resposta e quer descobrir estrutura</td><td>Segmentação de clientes por risco, clustering de comportamento</td></tr>
+      </table>
+
+      <h3 class="sh">Precision vs. Recall — A pergunta que mais cai</h3>
+      <div class="cbox">Matriz de Confusão (o que acontece de verdade):
+
+                    Previsto: DEFAULT    Previsto: OK
+  Real: DEFAULT       VP (Acerto)        FN (Erro Grave — deixou calote passar)
+  Real: OK            FP (Incomodo)      VN (Acerto)
+
+Precision = VP / (VP + FP)
+→ "De tudo que eu disse que era risco, quantas vezes eu acertei?"
+→ Minimiza FP (Falsos Positivos)
+→ Use quando o CUSTO DO FP é alto: enviar iPhone para cliente que não vai comprar
+
+Recall = VP / (VP + FN)
+→ "De tudo que era risco de verdade, quanto eu peguei?"
+→ Minimiza FN (Falsos Negativos)
+→ Use quando o CUSTO DO FN é alto: deixar fraude passar, deixar câncer sem diagnosticar
+
+REGRA PARA RISCO:
+  Fraude     → Recall alto (FN = banco perde dinheiro)
+  Churn      → Recall alto (FN = perder cliente para sempre)
+  Promoção cara → Precision alta (FP = mandar brinde para quem não vai comprar)</div>
+
+      <h3 class="sh">Comparação de Modelos</h3>
+      <table class="cmp">
+        <tr><th>Modelo</th><th>Vantagem</th><th>Desvantagem</th><th>Quando usar</th></tr>
+        <tr><td><strong>Logística</strong></td><td>Interpretável, coeficientes claros, regulatório</td><td>Assume linearidade, limitado em padrões complexos</td><td>Scorecard de crédito (sempre), qualquer modelo regulado</td></tr>
+        <tr><td><strong>Árvore de Decisão</strong></td><td>Visual, intuitiva para não-técnicos</td><td>Overfitting fácil, instável</td><td>Explicar decisões simples para o comitê</td></tr>
+        <tr><td><strong>Random Forest</strong></td><td>Robusto, não overfita fácil</td><td>Caixa preta, lento com muitas árvores</td><td>Quando performance &gt; interpretabilidade e não é regulado</td></tr>
+        <tr><td><strong>XGBoost</strong></td><td>Performance máxima, flexível</td><td>Caixa preta, pode overfit se não tunar</td><td>Kaggle, quando só performance importa, fraud interno</td></tr>
+      </table>
+
+      <h3 class="sh">Dados Desbalanceados (5% de default) — o que fazer</h3>
+      <div class="cbox">Problema: 95% OK, 5% Default.
+O modelo aprende que é "mais seguro" dizer sempre "OK" → acerta 95% mas não detecta nada.
+Acurácia alta + modelo inútil = armadilha clássica.
+
+Solução: SMOTE (Synthetic Minority Oversampling Technique)
+→ Cria "cópias sintéticas" dos clientes que calotaram
+→ Usa interpolação entre vizinhos reais (não é duplicação simples)
+→ Deixa a base balanceada: 50% OK, 50% Default
+→ IMPORTANTE: aplique SMOTE só no treino. Nunca no teste.
+
+from imblearn.over_sampling import SMOTE
+X_train_bal, y_train_bal = SMOTE(random_state=42).fit_resample(X_train, y_train)</div>
+
+      <h3 class="sh">Hiperparâmetros vs. Parâmetros</h3>
+      <table class="cmp">
+        <tr><th></th><th>Parâmetros</th><th>Hiperparâmetros</th></tr>
+        <tr><td><strong>Quem define</strong></td><td>O modelo aprende sozinho durante o .fit()</td><td>VOCÊ define antes do .fit()</td></tr>
+        <tr><td><strong>Exemplo</strong></td><td>Os coeficientes da logística, os pesos da rede neural</td><td>max_depth da árvore, learning_rate do XGBoost, n_estimators</td></tr>
+        <tr><td><strong>Como otimizar</strong></td><td>Automático</td><td>GridSearchCV com cross-validation (CV=5)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">6</div><div><div class="pipe-title">Deployment — Colocar o modelo no ar</div><div class="pipe-sub">Um modelo no Jupyter Notebook não vale nada. Precisa ser acessível ao sistema.</div></div></div>
+    <div class="pipe-body">
+      <table class="cmp">
+        <tr><th>Tipo</th><th>Como funciona</th><th>Tempo de resposta</th><th>Quando usar</th></tr>
+        <tr><td><strong>Batch (Lote)</strong></td><td>Roda em agenda (ex: 1h da manhã). Processa todos os clientes de uma vez. Gera lista de "alto risco".</td><td>Horas</td><td>Churn, scoring de carteira, segmentação</td></tr>
+        <tr><td><strong>API (Tempo Real)</strong></td><td>Modelo fica "vivo" esperando requisições. Responde em milissegundos.</td><td>50-200ms</td><td>Fraude na transação, scoring de novo cliente no site</td></tr>
+      </table>
+      <div class="cbox">Exemplo Batch — Churn:
+1h da manhã: script roda, pega todos os clientes, passa no modelo
+Gera tabela: cliente_id | prob_churn | score
+Marketing chega às 9h e já tem a lista de quem ligar hoje
+
+Exemplo API — Fraude:
+Você passa o cartão no supermercado (16:32:54)
+Sistema envia para a API: {valor: 4500, lat: -23.5, hora: 16}
+Modelo responde em 80ms: {risco: 0.92, decisao: "bloquear"}
+Você tenta comprar de novo, banco pede confirmação</div>
+    </div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-head"><div class="pipe-num">7</div><div><div class="pipe-title">Monitoramento — O modelo foi para o ar, e agora?</div><div class="pipe-sub">O mundo muda. O modelo não.</div></div></div>
+    <div class="pipe-body">
+      <p><strong>Model Drift (Concept Drift):</strong> os padrões que o modelo aprendeu deixaram de ser verdade.</p>
+      <div class="cbox">Exemplo: Modelo de fraude treinado em 2019.
+Chegou a COVID em 2020. De repente:
+  → Pessoas "normais" compram álcool gel e máscaras em sites desconhecidos
+  → Renda de todo mundo cai ou muda
+  → Padrões de transação mudam completamente
+  → Modelo acha que comportamento normal é fraude e vice-versa
+
+O que você monitora:
+  → Performance do modelo: Recall que era 90% caiu para 60%? Retreina.
+  → PSI: distribuição dos scores hoje vs. quando treinou. PSI &gt; 0.20 → retreina.
+  → Data Drift: a coluna "salario" que era número agora vem como texto? A API quebra.
+
+O ciclo completo:
+Dados → Limpeza → Modelo → Produção → Monitora → Dados novos → Retreina → Produção...</div>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO 1 -->
+<div class="section" id="sec-m1">
+  <h2 class="pt">Módulo 1 — Credit Scoring</h2>
+  <p class="ps">O modelo mais comum que você vai construir. Aprenda este do jeito certo.</p>
+  <div class="callout success"><strong>Este módulo é 50% do seu trabalho no primeiro ano.</strong> Modelos de PD (Probabilidade de Default) para carteiras de crédito pessoal, empresarial e imobiliário.</div>
+
+  <h3 class="sh">Pipeline completo de um scorecard</h3>
+  <div class="steps">
+
+    <div class="srow"><div class="snum gr">1</div><div class="sbody">
+      <h4>EDA — Conhecer os dados antes de qualquer coisa</h4>
+      <p><strong>Pé no chão:</strong> Você não opera sem conhecer o paciente. O mesmo vale para dados.</p>
+      <p>O que olhar: distribuição de cada variável (tem muitos zeros? Tem outliers de R$999.999?), quanto dado está faltando (missing &gt;40%? Descarta a variável), e principalmente: <strong>qual a taxa de default?</strong></p>
+      <p><strong>Por que a taxa importa:</strong> Se apenas 3% dos clientes calotam, o modelo vai aprender que é "mais seguro" sempre dizer "não vai calotar" — e vai acertar 97% das vezes sem ser útil. Esse é o problema de desbalanceamento de classes. Você precisa saber disso antes de treinar.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum gr">2</div><div class="sbody">
+      <h4>WoE Binning — Transformar variáveis em sinais de risco</h4>
+      <p><strong>Tradução:</strong> WoE = Peso de Evidência. Para cada faixa de uma variável, você mede: essa faixa é terra de bons pagadores ou de caloteiros?</p>
+      <p><strong>Como funciona na prática:</strong> Pega a variável "renda". Cria faixas: até R$1k, R$1k-3k, R$3k-6k, acima de R$6k. Em cada faixa, conta quantos são bons pagadores e quantos são caloteiros. Calcula a proporção. Aplica logaritmo.</p>
+      <div class="cbox">Faixa "até R$1.000": 60% bons, 40% maus → WoE negativo (risco alto)
+Faixa "R$3k-6k":    85% bons, 15% maus → WoE positivo (risco baixo)
+Faixa "acima R$6k": 92% bons,  8% maus → WoE muito positivo (risco baixíssimo)
+
+Fórmula: WoE = ln( %_bons_na_faixa / %_maus_na_faixa )
+
+WoE negativo = faixa perigosa (mais maus que a média)
+WoE positivo = faixa segura (mais bons que a média)
+WoE ≈ 0      = faixa neutra (não diferencia nada)</div>
+      <p><strong>Por que transformar em WoE?</strong> A regressão logística funciona melhor com relações lineares e monotônicas. O WoE garante isso. Além disso, o WoE já normaliza automaticamente, então você não precisa de StandardScaler separado.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum gr">3</div><div class="sbody">
+      <h4>Seleção por IV — Medir o poder preditivo de cada variável</h4>
+      <p><strong>Tradução:</strong> IV = Information Value. É a régua que diz "essa variável vale a pena entrar no modelo?"</p>
+      <p><strong>Analogia:</strong> Imagine uma prova de seleção para entrar no banco. O IV mede o quanto cada questão da prova consegue separar os aprovados dos reprovados. Uma questão muito fácil (todo mundo acerta) ou muito difícil (ninguém acerta) não discrimina ninguém — IV baixo. A questão que só os bons candidatos acertam — IV alto.</p>
+      <div class="cbox">IV &lt; 0.02  → Descarta. A variável não sabe quem vai calotar.
+IV 0.02–0.1 → Fraco. Pode entrar se não tiver opção melhor.
+IV 0.1–0.3  → Médio/Bom. Use sempre.
+IV &gt; 0.3   → Forte. Ouro. Mas se IV &gt; 0.5, INVESTIGUE.
+               Talvez seja leakage (variável que "vaza" o futuro).
+
+Fórmula: IV = Σ (% bons - % maus) × WoE   (soma sobre todas as faixas)</div>
+      <p><strong>Leakage:</strong> Se o IV for altíssimo (acima de 0.5), a variável pode estar contendo informação do futuro. Ex: "status do contrato" pode já dizer se o cliente calotou — mas você só saberia isso depois. Isso não pode entrar no modelo de predição.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum gr">4</div><div class="sbody">
+      <h4>Regressão Logística — Treinar o modelo</h4>
+      <p><strong>Tradução:</strong> A logística é uma balança. De um lado os sinais de risco (coeficiente positivo = mais chance de calote). Do outro, sinais de bom pagador (coeficiente negativo). A balança pesa tudo e entrega uma probabilidade de 0 a 1.</p>
+      <p><strong>Por que logística e não Random Forest?</strong> Em ambiente regulado (bancos, seguradoras), a lei exige que você explique ao cliente negado e ao regulador: quais variáveis pesaram e quanto. Uma floresta com 500 árvores não tem essa explicação. A logística tem coeficientes claros: "variável renda teve coeficiente -0.8 — quem tem renda alta tem menos risco."</p>
+      <p><strong>Use statsmodels, não sklearn</strong>, quando precisar de p-valores para o relatório regulatório. O sklearn é rápido mas não gera a tabela de significância estatística que o auditor vai pedir.</p>
+      <div class="cbox">Coeficiente positivo → aumenta a probabilidade de default
+Coeficiente negativo → diminui a probabilidade de default
+
+Score = -ln(PD / (1 - PD)) × fator + offset
+→ Típico: escala de 300 a 850 pontos (quanto maior, melhor o cliente)</div>
+    </div></div>
+
+    <div class="srow"><div class="snum gr">5</div><div class="sbody">
+      <h4>Validação — KS, Gini, AUC</h4>
+      <p><strong>Tradução:</strong> O modelo sabe separar quem vai pagar de quem não vai?</p>
+      <p>Você valida <strong>sempre no teste</strong> (dados que o modelo nunca viu). Se o KS do treino for 50% e do teste for 25%, o modelo decorou os dados de treino — não aprendeu a regra. Isso é overfitting.</p>
+      <p><strong>Diferença aceitável entre treino e teste:</strong> até 5 pontos de KS. Acima disso, regularize (C menor no sklearn, ridge na logística).</p>
+      <div class="cbox">KS treino = 45%, KS teste = 42% → ✅ Modelo generaliza bem
+KS treino = 55%, KS teste = 30% → ❌ Overfitting — decorou o treino</div>
+    </div></div>
+
+    <div class="srow"><div class="snum gr">6</div><div class="sbody">
+      <h4>PSI — Monitorar o modelo em produção</h4>
+      <p><strong>Tradução:</strong> O mundo mudou depois que eu treinei o modelo?</p>
+      <p><strong>Analogia:</strong> Seu modelo foi treinado com clientes de 2022. É 2024. Houve uma crise, a Selic subiu de 2% para 13%, o perfil dos clientes mudou. Seu modelo ainda é válido? O PSI responde essa pergunta comparando a distribuição dos scores de hoje com a distribuição de quando o modelo foi criado.</p>
+      <div class="cbox">PSI &lt; 0.10  → ✅ Estável. Modelo continua representando a realidade.
+PSI 0.10–0.20 → ⚠️ Alerta. Investigar o que mudou no perfil.
+PSI &gt; 0.20  → 🔴 Retreinar. O modelo não representa mais os clientes atuais.
+
+Causas comuns: mudança de canal de aquisição, crise econômica,
+nova legislação, inflação corroendo o poder de compra.</div>
+    </div></div>
+
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">WoE e IV — o código</h3>
+  <div class="fbox"><div class="fl">Fórmula do WoE</div>WoE = ln( % de Bons na faixa / % de Maus na faixa )</div>
+  <div class="code-block">
+    <div class="code-header"><span class="lang">Python</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+    <pre id="code-woe"></pre>
+  </div>
+  <div class="callout warn"><strong>Armadilha:</strong> use statsmodels.Logit (não sklearn) quando precisar de p-valores para o relatório técnico. O sklearn não gera a tabela de coeficientes com significância estatística.</div>
+</div>
+
+<!-- MÓDULO 2 -->
+<div class="section" id="sec-m2">
+  <h2 class="pt">Módulo 2 — KS, Gini e PSI</h2>
+  <p class="ps">As métricas de validação que você vai calcular em todo projeto.</p>
+
+  <h3 class="sh">KS — o que é de verdade</h3>
+  <p>Você pega todos os clientes, ordena do <strong>mais arriscado</strong> (maior PD) para o menos arriscado, e desenha duas curvas acumuladas:</p>
+  <ul class="list">
+    <li><strong>Curva vermelha:</strong> quantos caloteiros já capturei até aqui?</li>
+    <li><strong>Curva azul:</strong> quantos bons pagadores já capturei até aqui?</li>
+  </ul>
+  <div class="cbox">Score ordenado → mais arriscado para menos arriscado
+
+<span class="hi">Curva Maus (caloteiros)   </span>  ████████████░░░░░░░░░
+<span class="hi2">Curva Bons (bons pagadores)</span>  ░░░░░░░████████████████
+
+         ↑ KS = distância máxima aqui
+
+Modelo perfeito:  Maus 100% capturados antes do primeiro Bom
+Modelo aleatório: as duas curvas andam juntas (KS = 0)</div>
+  <p><strong>O KS é a distância máxima vertical entre as duas curvas.</strong> Um número que resume o poder de separação do modelo.</p>
+  <div class="mg">
+    <div class="mb"><div class="mv" style="color:var(--rd)">0–20%</div><div class="mn">KS Ruim</div><div class="md">Difícil de justificar. Modelo quase aleatório.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--yl)">20–40%</div><div class="mn">KS Aceitável</div><div class="md">Passa na validação regulatória básica.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--gr)">40%+</div><div class="mn">KS Bom</div><div class="md">O que você quer entregar. Acima de 60% desconfie.</div></div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">Gini — o que é de verdade</h3>
+  <p>O Gini vem da <strong>curva ROC</strong>. Para cada limiar de score, plota a taxa de acerto nos caloteiros (TPR) vs. a taxa de erro nos bons (FPR).</p>
+  <div class="cbox">Curva ROC:
+  Eixo X → % de bons pagadores classificados errado (FPR)
+  Eixo Y → % de caloteiros corretamente capturados (TPR)
+
+  <span class="hi">Modelo perfeito: </span> sobe direto para (0,1) — AUC = 1.0
+  <span class="hi3">Seu modelo:      </span> curva acima da diagonal
+  <span class="hi2">Modelo aleatório:</span> linha diagonal 45° — AUC = 0.5
+
+  Gini = 2 × AUC − 1
+
+  AUC = 0.50 → Gini = 0%   (aleatório)
+  AUC = 0.75 → Gini = 50%  (bom)
+  AUC = 1.00 → Gini = 100% (perfeito, impossível)</div>
+
+  <hr class="div">
+  <h3 class="sh">KS vs Gini — qual usar?</h3>
+  <table class="cmp">
+    <tr><th></th><th>KS</th><th>Gini</th></tr>
+    <tr><td><strong>O que mede</strong></td><td>Separação no melhor ponto de corte</td><td>Discriminação em todos os pontos</td></tr>
+    <tr><td><strong>Uso</strong></td><td>Comunicar para o negócio</td><td>Relatório técnico e regulatório</td></tr>
+    <tr><td><strong>Limitação</strong></td><td>Ignora o que acontece fora do ponto máximo</td><td>Menos intuitivo para não-técnicos</td></tr>
+    <tr><td><strong>Na prática</strong></td><td colspan="2"><strong>Você calcula os dois sempre.</strong> KS bom + Gini baixo = modelo otimizado artificialmente em um ponto.</td></tr>
+  </table>
+
+  <hr class="div">
+  <h3 class="sh">PSI — o termômetro do modelo em produção</h3>
+  <p>Compara a distribuição dos scores quando o modelo foi desenvolvido com a distribuição atual. Se mudou muito, o modelo não representa mais a realidade.</p>
+  <div class="cbox">PSI &lt; 0.10  → ✅ Estável — modelo continua válido
+PSI 0.10–0.20 → ⚠️  Monitorar — investigar o que mudou
+PSI &gt; 0.20  → 🔴 Retreinar — modelo inválido para a população atual
+
+Causas comuns de PSI alto:
+  → Mudança no perfil dos tomadores (pós-crise, pós-Covid)
+  → Novos canais de aquisição com perfil diferente
+  → Inflação corroeu poder de compra (Data Drift)</div>
+
+  <hr class="div">
+  <h3 class="sh">Código completo — função de validação</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="lang">Python — cole e use direto</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+    <pre id="code-validacao"></pre>
+  </div>
+</div>
+
+<!-- MÓDULO 3 -->
+<div class="section" id="sec-m3">
+  <h2 class="pt">Módulo 3 — Monte Carlo</h2>
+  <p class="ps">Quando você não consegue calcular uma distribuição analiticamente, você a simula.</p>
+
+  <h3 class="sh">Por que simular? Por que não calcular direto?</h3>
+  <p><strong>Analogia:</strong> Você quer saber a probabilidade de chover mais de 100mm durante um festival de 3 dias em São Paulo. A matemática analítica consegue calcular, mas é complicada. A alternativa: simule 100.000 festivais, conte em quantos choveu mais de 100mm. Essa porcentagem é a probabilidade que você queria.</p>
+  <p><strong>Em finanças:</strong> um portfólio com 10 ações tem uma distribuição de perdas que depende de como essas ações se correlacionam. Calcular isso analiticamente é trabalhoso. Simular é direto: gere 100.000 cenários de retornos, calcule o P&L de cada um, olhe o percentil 5% — esse é o VaR a 95%.</p>
+
+  <div class="callout info"><strong>A ideia central:</strong> jogue o dado 100.000 vezes. O percentil 5% das simulações é o VaR a 95%. Quanto mais simulações, mais preciso o resultado.</div>
+
+  <h3 class="sh">VaR vs CVaR — a diferença que o regulador exige</h3>
+  <div class="cbox">VaR 95%  → "Com 95% de certeza, não perco mais que R$X amanhã."
+              Mas o que acontece nos 5% ruins? O VaR não diz.
+
+CVaR 95% → "Nos 5% piores dias, perco em média R$Y."
+              Y &gt; X sempre. CVaR é mais conservador.
+
+Por que Basel III exige CVaR:
+  → O VaR diz onde começa o problema, não o tamanho dele.
+  → Em crises (2008, 2020), as perdas são 3-5x o VaR histórico.
+  → CVaR captura o tamanho da catástrofe, não só o limiar.</div>
+
+  <h3 class="sh">Por que Cholesky? (pergunta técnica da entrevista)</h3>
+  <p><strong>Problema sem Cholesky:</strong> Se você gera os retornos de PETR4 e VALE3 de forma independente, está dizendo que elas não se influenciam. Mas na realidade, quando o petróleo cai, PETR4 cai, e o mercado em geral cai, então VALE3 também tende a cair. Ignorar isso subestima o risco de carteira.</p>
+  <p><strong>Analogia:</strong> Simular o clima de São Paulo: temperatura e umidade são correlacionadas (dia quente tende a ser seco). Se você simula as duas de forma independente, vai criar "dias" com temperatura de 40°C e umidade de 95% ao mesmo tempo — que é fisicamente impossível. Cholesky injeta a correlação histórica para que as simulações sejam fisicamente coerentes.</p>
+  <div class="cbox">Sem Cholesky:  Z = ruído aleatório independente
+                 Cada ativo sorteado sem olhar os outros
+                 → Subestima o risco porque ignora que os ativos caem juntos
+
+Com Cholesky:  L = Cholesky(matriz_covariância)
+               R = μ + Z × L.T
+               → Os retornos simulados têm a mesma correlação histórica
+               → Se PETR4 cai muito, VALE3 também tende a cair na simulação
+
+L × L.T = Σ (a decomposição "distribui" a correlação nos dados gerados)</div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="lang">Python — VaR Monte Carlo com correlação</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+    <pre id="code-mc"></pre>
+  </div>
+  <div class="callout warn"><strong>Limitação do Monte Carlo:</strong> as simulações usam a correlação histórica. Em crises sistêmicas, a correlação sobe para 1 (tudo cai junto) e o Monte Carlo subestima as perdas. Por isso sempre roda junto um <strong>stress test</strong> com cenários históricos de crise (2008, 2020, 2002).</div>
+</div>
+
+<!-- MÓDULO 4 -->
+<div class="section" id="sec-m4">
+  <h2 class="pt">Módulo 4 — GLM para Risco</h2>
+  <p class="ps">A regressão logística é um GLM. Mas existem outros para LGD e frequência de sinistros.</p>
+
+  <h3 class="sh">Por que não usar regressão linear para tudo?</h3>
+  <p><strong>Problema 1 — Valores impossíveis:</strong> Regressão linear pode prever LGD = -0.3 (perda negativa — o banco ganha com o calote?) ou LGD = 1.4 (perda de 140%?). Matematicamente válido. Financeiramente absurdo.</p>
+  <p><strong>Problema 2 — Distribuição errada:</strong> A regressão linear assume que o erro tem distribuição Normal (simétrica, mesma variância em todo lugar). Mas LGD tem distribuição assimétrica — muitos clientes com LGD baixo (recuperação razoável), poucos com LGD altíssimo (perdas totais). Forçar Normal aqui é mentir para o modelo.</p>
+  <p><strong>A solução — GLM:</strong> Você escolhe a família de distribuição que melhor representa o seu target. O modelo se adapta à realidade dos dados, não o contrário.</p>
+
+  <div class="callout info"><strong>GLM = Generalized Linear Model.</strong> Você escolhe a família de distribuição do target e a função de ligação (link) que conecta os preditores à média esperada. A regressão logística que você já conhece é um GLM com família Binomial e link Logit.</div>
+
+  <h3 class="sh">Quando usar cada família — com analogia</h3>
+  <div class="steps">
+
+    <div class="srow"><div class="snum ac">B</div><div class="sbody">
+      <h4>Binomial + Logit → target 0 ou 1</h4>
+      <p><strong>Quando usar:</strong> O target é uma decisão binária. Calotou ou não. Fraude ou não. Churned ou não.</p>
+      <p><strong>Analogia:</strong> Jogar moeda. O resultado só pode ser cara ou coroa. A logística estima a probabilidade de cara dado o perfil do cliente.</p>
+      <p><strong>Saída:</strong> Probabilidade entre 0 e 1 (nunca fora disso). É o score de PD.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum ac">P</div><div class="sbody">
+      <h4>Poisson + Log → contagem de eventos</h4>
+      <p><strong>Quando usar:</strong> O target conta coisas inteiras que só podem ser positivas: número de atrasos, número de sinistros no ano, número de ligações de cobrança.</p>
+      <p><strong>Analogia:</strong> Contar carros que passam por um pedágio em uma hora. Pode ser 0, 1, 50, 200. Mas nunca -3 ou 2.7. Distribuição Poisson representa isso perfeitamente.</p>
+      <p><strong>Interpretação:</strong> exp(coeficiente) = fator multiplicador sobre a contagem esperada.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum ac">G</div><div class="sbody">
+      <h4>Gamma + Log → valor positivo e assimétrico</h4>
+      <p><strong>Quando usar:</strong> O target é um valor contínuo que só pode ser positivo e tem distribuição com cauda longa à direita. LGD (0 a 1, com pico próximo de 0.6), severidade de sinistro (maioria pequena, poucos gigantes), valor de indenização.</p>
+      <p><strong>Analogia:</strong> Tempo de espera em fila de banco. Nunca negativo. A maioria espera 5-10 minutos. Mas algumas pessoas esperam 45 minutos por azar. Distribuição Gamma representa isso — assimétrica com cauda longa.</p>
+      <p><strong>Interpretação:</strong> exp(coeficiente) = fator multiplicador sobre o LGD esperado. Coef = -0.8 → exp(-0.8) = 0.45 → ter garantia reduz o LGD em 55%.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum ac">T</div><div class="sbody">
+      <h4>Tweedie → zeros + valor contínuo</h4>
+      <p><strong>Quando usar:</strong> O target tem muitos zeros misturados com valores positivos contínuos. Custo total de sinistros em seguros: a maioria das apólices não tem sinistro (custo = 0), mas algumas têm sinistros caros.</p>
+      <p><strong>Analogia:</strong> Conta de médico no mês: a maioria dos meses é zero (você não foi ao médico). Mas o mês que você foi, pode ter custado R$500 a R$3.000. Tweedie modela os zeros e os valores positivos ao mesmo tempo.</p>
+    </div></div>
+
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="lang">Python — Modelo de LGD com GLM Gamma</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+    <pre id="code-glm"></pre>
+  </div>
+  <div class="callout warn"><strong>LGD com zeros e uns exatos:</strong> use modelo em dois estágios. Primeiro logística classifica LGD=0 vs LGD&gt;0 (recuperação total vs alguma perda). Depois Gamma modela os valores entre 0 e 1. O resultado final combina os dois: P(perda) × LGD_esperado.</div>
+</div>
+
+<!-- MÓDULO 5 -->
+<div class="section" id="sec-m5">
+  <h2 class="pt">Módulo 5 — Séries Temporais</h2>
+  <p class="ps">Forecast de inadimplência, previsão de provisões, trend models da vaga.</p>
+
+  <h3 class="sh">O que é uma série temporal?</h3>
+  <p><strong>Tradução:</strong> Qualquer medida que você observa repetidamente ao longo do tempo na mesma ordem. A inadimplência do banco em janeiro, fevereiro, março... dezembro. A ordem importa. Você não pode embaralhar os meses como faria com um dataset de clientes.</p>
+  <p><strong>Por que é diferente de modelagem tradicional?</strong> Em um scorecard, você pode pegar os clientes, embaralhá-los, separar treino e teste aleatoriamente. Em série temporal, o futuro não pode estar no treino — isso seria data leakage temporal. Se você treina com 2020-2023 e testa com 2022, o modelo "viu" o futuro. O resultado parece ótimo mas é uma mentira.</p>
+
+  <h3 class="sh">Pipeline correto — sempre nessa ordem</h3>
+  <div class="steps">
+
+    <div class="srow"><div class="snum yl">1</div><div class="sbody">
+      <h4>Decomposição — Desmontar a série em peças</h4>
+      <p><strong>Tradução:</strong> Toda série temporal é a soma de 3 coisas: Tendência + Sazonalidade + Ruído. Você separa as peças para entender o que está acontecendo.</p>
+      <p><strong>Tendência:</strong> A direção geral. Vista de longe, a inadimplência está subindo? Caindo? Estável? É o "drift" do negócio.</p>
+      <p><strong>Sazonalidade:</strong> O padrão que volta todo ano na mesma época. Inadimplência sempre sobe em janeiro/fevereiro (pós-natal + pós-carnaval). Se você não souber disso, vai achar que o banco vai à falência todo início de ano.</p>
+      <p><strong>Resíduo (Ruído):</strong> O que sobra depois de remover tendência e sazonalidade. <strong>Regra de ouro: se o resíduo tiver padrão, o modelo está errado</strong> — ainda há informação que você não extraiu. Se parecer estática aleatória, você extraiu tudo.</p>
+    </div></div>
+
+    <div class="srow"><div class="snum yl">2</div><div class="sbody">
+      <h4>Teste ADF — A série está "quieta"?</h4>
+      <p><strong>Tradução:</strong> Estacionária = série que tem média e variância estáveis ao longo do tempo. O ARIMA precisa que a série seja estacionária para funcionar direito.</p>
+      <p><strong>Analogia:</strong> Uma série estacionária é como o batimento cardíaco de alguém dormindo: sempre entre 55 e 65 bpm, vai e volta, sem tendência. Uma série não-estacionária é o batimento de alguém correndo uma maratona: a média sobe conforme o esforço aumenta.</p>
+      <p><strong>O que fazer se não for estacionária:</strong> serie.diff() — você subtrai o valor de hoje pelo de ontem. Isso remove a tendência. Repita até o ADF dar p-valor &lt; 0.05. Esse número de diferenciações é o "d" do ARIMA(p, d, q).</p>
+      <div class="cbox">p-valor ADF &lt; 0.05 → ✅ Estacionária. Pode usar ARIMA.
+p-valor ADF &gt; 0.05 → ❌ Não estacionária. Diferencie: serie.diff()</div>
+    </div></div>
+
+    <div class="srow"><div class="snum yl">3</div><div class="sbody">
+      <h4>ARIMA(p, d, q) — O modelo de previsão</h4>
+      <p><strong>Tradução simples:</strong> O ARIMA usa o passado para prever o futuro, considerando tanto os valores anteriores (AR) quanto os erros de previsão anteriores (MA).</p>
+      <div class="cbox">p → AR (AutoRegressivo): quantos períodos passados usamos como input?
+     Se a inadimplência de 3 meses atrás ainda influencia hoje: p=3
+
+d → Diferenciação: quantas vezes diferenciamos para estabilizar?
+     Resultado do teste ADF.
+
+q → MA (Média Móvel dos Erros): quantos erros passados corrijo?
+     Ajuda o modelo a "aprender com os próprios erros" de previsão.
+
+Na prática: use auto_arima(serie, seasonal=True, m=12)
+Ele testa as combinações e escolhe pelo AIC (menor AIC = melhor).
+Você não precisa adivinhar p, d, q manualmente.</div>
+    </div></div>
+
+    <div class="srow"><div class="snum yl">4</div><div class="sbody">
+      <h4>Validação dos Resíduos — O modelo capturou tudo?</h4>
+      <p><strong>Tradução:</strong> Plote os erros (resíduos) do modelo. Se parecerem estática aleatória — parabéns. O modelo extraiu toda a informação da série. Se houver padrão (ondas, tendência, agrupamentos) — o modelo está falhando, ainda tem informação que ele não capturou.</p>
+      <p><strong>Teste de Ljung-Box:</strong> testa se os resíduos são ruído branco. p-valor &gt; 0.05 = resíduos são independentes = modelo capturou tudo.</p>
+      <p><strong>Intervalos de confiança:</strong> o ARIMA gera previsão + intervalo de confiança. O intervalo se abre como um cone conforme avança no tempo — a incerteza cresce com o horizonte de previsão. Previsão de 1 mês: intervalo estreito. Previsão de 12 meses: intervalo largo. Isso é esperado e correto.</p>
+    </div></div>
+
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="lang">Python — Pipeline completo</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+    <pre id="code-ts"></pre>
+  </div>
+  <div class="callout warn"><strong>Nunca embaralhe dados de série temporal.</strong> O futuro não pode estar no treino. Use sempre holdout temporal: treino = todo o período até data X, teste = período posterior a X. Nunca train_test_split com shuffle=True em série temporal.</div>
+</div>
+
+<!-- PROJETO 1 -->
+<div class="section" id="sec-p1">
+  <h2 class="pt">Projeto 1 — Credit Scorecard</h2>
+  <p class="ps">Código completo. Baixe o dataset, cole o código, rode.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 2 — Risco de Crédito (EL = PD × LGD × EAD, WoE, IV, KS, Gini). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 2. Depois volte aqui e rode o projeto.
+  </div>
+  <div class="ph gr"><h3 class="gr">✅ Projeto Completo — Credit Scorecard End-to-End</h3><div class="pm">Dataset: Give Me Some Credit (Kaggle) · Python · ~1h para rodar e entender</div></div>
+  <div class="pb">
+    <div class="callout success"><strong>Dataset:</strong> acesse kaggle.com → busque "Give Me Some Credit" → baixe cs-training.csv. Coloque na mesma pasta do script.<br><strong>Instale:</strong> pip install pandas numpy scikit-learn statsmodels matplotlib</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — scorecard_completo.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p1"></pre>
+    </div>
+    <div class="callout info"><strong>O que documentar depois de rodar:</strong> taxa de default, variáveis selecionadas e seus IVs, KS/Gini/AUC treino e teste, EL total da carteira, PSI após drift. São esses números que vão para o relatório do cliente.</div>
+  </div>
+</div>
+
+<!-- PROJETO 2 -->
+<div class="section" id="sec-p2">
+  <h2 class="pt">Projeto 2 — Monte Carlo VaR</h2>
+  <p class="ps">Código completo. Apenas instale yfinance e rode.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 3 — Risco de Mercado (VaR, CVaR, Volatilidade, Diversificação, Cholesky). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 3. Entenda a lógica do Monte Carlo e da decomposição de Cholesky antes de rodar.
+  </div>
+  <div class="ph gr"><h3 class="gr">✅ Projeto Completo — Monte Carlo VaR com Ações Brasileiras</h3><div class="pm">Dataset: Yahoo Finance via yfinance · Python · ~20min para rodar</div></div>
+  <div class="pb">
+    <div class="callout success"><strong>Instale:</strong> pip install yfinance pandas numpy matplotlib<br>O script baixa os dados automaticamente. Não precisa de nenhum arquivo externo.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — monte_carlo_var.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p2"></pre>
+    </div>
+    <div class="callout info"><strong>O que observar:</strong> VaR MC vs VaR Histórico (a diferença mostra o impacto das caudas gordas), quanto o stress test eleva o VaR, a matriz de correlação.</div>
+  </div>
+</div>
+
+<!-- PROJETO 3 -->
+<div class="section" id="sec-p3">
+  <h2 class="pt">Projeto 3 — IFRS 9 ECL</h2>
+  <p class="ps">Este você faz sozinho. Dataset gerado no script, steps listados, preencha o código.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção IFRS 9 (Stage 1, 2 e 3, ECL = PD × LGD × EAD por fase). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda a lógica dos Stages antes de implementar as funções do TODO.
+  </div>
+  <div class="ph pu"><h3 class="pu">☐ Seu Desafio — IFRS 9 Expected Credit Loss Calculator</h3><div class="pm">Dataset sintético gerado no script · Complete as funções marcadas com # TODO</div></div>
+  <div class="pb">
+    <div class="callout info"><strong>Contexto:</strong> IFRS 9 é a norma contábil de provisão de crédito que todo banco usa desde 2018. Em vez de provisionar só quando o cliente já calotou, você provisiona baseado na perda futura esperada (ECL = EL com staging).</div>
+    <div class="card purple">
+      <h3 class="ct pu">Os 3 Stages — entenda antes de codar</h3>
+      <ul class="list">
+        <li><strong>Stage 1:</strong> sem deterioração. Provisão = ECL dos próximos 12 meses.</li>
+        <li><strong>Stage 2:</strong> deterioração significativa (PD atual &gt; 1.5× PD na originação). Provisão = ECL de toda a vida do contrato.</li>
+        <li><strong>Stage 3:</strong> default aconteceu. Provisão = ECL lifetime com LGD alto.</li>
+      </ul>
+    </div>
+    <div class="todo">
+      <h4>O que você precisa implementar:</h4>
+      <ul>
+        <li>Função classificar_stage(row) — regras dos 3 stages</li>
+        <li>Função calcular_pd_lifetime(pd_anual, prazo) — PD acumulada</li>
+        <li>Função calcular_ecl(row) — ECL por stage</li>
+        <li>Tabela resumo por stage: contratos, saldo, ECL, % cobertura</li>
+        <li>Análise de sensibilidade: e se PD aumentar 30%?</li>
+      </ul>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — ifrs9_template.py (complete os # TODO)</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p3"></pre>
+    </div>
+    <div class="callout warn">
+      <strong>Dica 1:</strong> PD lifetime = 1 − (1 − PD_anual)^prazo_anos<br>
+      <strong>Dica 2:</strong> Stage 3 não usa PD — default já aconteceu. ECL = LGD × EAD<br>
+      <strong>Dica 3:</strong> Para sensibilidade, multiplique pd_atual por 1.3 e recalcule o ECL total. Mostre a variação em R$ e em %.
+    </div>
+  </div>
+</div>
+
+<!-- BATE PAPO SIMULADO -->
+<div class="section" id="sec-batepapo">
+  <h2 class="pt">Bate Papo Simulado</h2>
+  <p class="ps">Pratique responder perguntas reais. Pense na sua resposta, depois clique para ver a resposta de referência.</p>
+  <div class="bp-tabs">
+    <div class="bp-tab active" onclick="switchBP('bp-senior',this)">Com o Gerente Senior</div>
+    <div class="bp-tab" onclick="switchBP('bp-parceiro',this)">Com o Parceiro do Banco</div>
+    <div class="bp-tab" onclick="switchBP('bp-comite',this)">No Comitê de Risco</div>
+    <div class="bp-tab" onclick="switchBP('bp-tecnico',this)">Técnico de DS</div>
+  </div>
+
+  <!-- CENÁRIO 1: GERENTE SENIOR -->
+  <div class="bp-scenario active" id="bp-senior">
+    <div class="bp-chat">
+      <div class="bp-divider">David (Gerente Senior MS) — ele sabe tudo, está avaliando como você pensa</div>
+      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "O modelo de PD tem KS 42% no treino e 35% no teste. Você aprovaria?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro. Depois clique.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "A diferença de 7 pontos de KS está no limite — threshold padrão é 5 pontos. Há leve overfitting. Eu aprovaria com ressalva: aplicar regularização L2 na próxima iteração e monitorar o PSI mensalmente. Se o PSI passar de 0.10 nos primeiros 3 meses, revisamos antes do prazo padrão. O modelo está funcional mas não está no ponto ótimo."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "Por que logística? O XGBoost deu KS 15 pontos maior nos testes internos."</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Performance maior não é o único critério em ambiente regulado. A resolução do Bacen exige que o banco explique ao regulador e ao cliente negado exatamente quais variáveis foram usadas e com qual peso. XGBoost não entrega isso. A logística converte em scorecard de pontos que o comitê entende e que pode ser auditado. Se o ganho de KS for maior que 10 pontos, podemos usar XGBoost para feature selection e logística para o modelo final — o melhor dos dois mundos."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "PSI subiu para 0.22 em produção. Me diga o que você faz agora — passo a passo."</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "PSI de 0.22 está na zona vermelha. Passo 1: identificar quais decis do score mudaram mais (PSI por decil). Passo 2: checar se o drift é real (perfil de clientes mudou) ou é erro de dados (nova coluna, formato diferente). Passo 3: se for drift real, iniciamos retreinamento com dados dos últimos 12 meses. No interim: comunicar ao banco e usar threshold mais conservador até o novo modelo ser validado."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "Você tem 3 dias para explorar uma base de 500k clientes. Como prioriza?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Dia 1: qualidade dos dados — missing, inconsistências, leakage suspeito. Isso determina o que posso usar. Dia 2: análise bivariada focando nas variáveis com maior correlação com o target, taxa de default por segmento. Dia 3: documento com no máximo 5 achados priorizados por impacto + lista de decisões que precisam do cliente. Não apresento tudo — apresento o que importa para o próximo passo."</div></div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 2: PARCEIRO DO BANCO -->
+  <div class="bp-scenario" id="bp-parceiro">
+    <div class="bp-chat">
+      <div class="bp-divider">Gerente de Risco do Banco — ele quer entender, não quer fórmula</div>
+      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "O modelo deu score alto para o João, mas o João calotou. O modelo falhou?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "O modelo não prevê certeza — prevê probabilidade. Score 750 significa que 95% dos clientes com aquele perfil pagam. João caiu nos 5%. Isso é esperado. O que avaliamos: na carteira toda, clientes com score 750+ estão calotando em linha com o previsto? Se a taxa esperada era 5% e a real é 5%, o modelo está funcionando perfeitamente. O problema seria se esses clientes estivessem calotando 15%."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "Qual a diferença entre o modelo que vocês construíram e o score do Serasa que já usamos?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "O Serasa é genérico — treinado com dados do mercado inteiro. Nosso modelo é treinado especificamente com os seus dados históricos: seus clientes aprovados, seus critérios, seus produtos. Ele captura os padrões de risco específicos da sua carteira, não do mercado geral. Podemos incluir variáveis que o Serasa não acessa: histórico de relacionamento, saldo médio em conta, comportamento com outros produtos seus. Na prática, modelo customizado tende a ter KS 10-15 pontos maior aplicado à sua carteira."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "Precisamos provisionar mais por causa do IFRS 9. O que mudou na metodologia?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Antes do IFRS 9, o banco provisiona só quando o cliente JÁ calotou. Com IFRS 9, você provisiona pela perda FUTURA esperada — olha para frente. Quando um cliente deteriora (Stage 1→2), você passa a provisionar o ECL de toda a vida do contrato, não só dos próximos 12 meses. Isso pode multiplicar a provisão por 5 a 6 vezes. A grande mudança: o modelo precisa ser 'forward-looking', incorporando cenários de juros e desemprego projetados. Não dá mais trabalhar só com dados históricos."</div></div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 3: COMITÊ -->
+  <div class="bp-scenario" id="bp-comite">
+    <div class="bp-chat">
+      <div class="bp-divider">Diretor de Risco — perguntas estratégicas, respostas diretas e curtas</div>
+      <div class="bp-msg"><div class="bp-avatar">👔</div><div class="bp-bubble question"><strong>Diretor:</strong> "Banco Central subiu 200bps. Qual o impacto na nossa carteira?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Três frentes: (1) Crédito: dívida variável fica mais cara, parcela pesa mais, PD sobe — especialmente em PF de renda mais baixa. (2) LGD pode subir porque vender bem dado em garantia em leilão fica mais difícil com juros altos. (3) Modelos: as variáveis macro de comprometimento de renda vão se deteriorar — precisamos rodar stress test para quantificar o impacto na provisão e ver se os modelos precisam recalibração."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">👔</div><div class="bp-bubble question"><strong>Diretor:</strong> "Nosso VaR está muito diferente do prejuízo real do mês passado. Por quê?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Duas causas prováveis: (1) o VaR é calculado com volatilidade histórica — se o mês teve evento fora do padrão histórico, o modelo estava calibrado para um ambiente diferente; (2) o VaR não diz o tamanho da perda quando você cruza o limiar — só diz onde está o limiar. Em eventos extremos (cauda), o prejuízo real pode ser 3-5x o VaR. A solução de longo prazo é o Expected Shortfall (CVaR), que mede a média do prejuízo nos piores dias. Também recomendo Backtesting mensal para verificar quantos dias o prejuízo real superou o VaR previsto."</div></div>
+    </div>
+  </div>
+
+  <!-- CENÁRIO 4: TÉCNICO DS -->
+  <div class="bp-scenario" id="bp-tecnico">
+    <div class="bp-chat">
+      <div class="bp-divider">Senior técnico — quer saber se você entende o mecanismo, não a decoreba</div>
+      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Base com 2% de default. Você usa SMOTE. SMOTE vai antes ou depois de separar treino e teste?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Cuidado, é pegadinha clássica.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Depois do split. Sempre. Se eu aplicar SMOTE antes, vou ter amostras sintéticas no conjunto de teste criadas interpolando o treino — o modelo vai 'reconhecer' versões do treino no teste, a avaliação fica contaminada e parece melhor do que é. SMOTE vai só no X_train e y_train. O teste fica com a distribuição real, desbalanceada — porque é o que vai acontecer em produção."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Por que o ARIMA falha em séries sazonais se você não configurar o 'm' correto?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "ARIMA básico tenta capturar autocorrelação de lags adjacentes, mas não de lags sazonais. Se a inadimplência tem pico todo janeiro, o ARIMA interpreta isso como ruído aleatório em vez de estrutura. O SARIMA com m=12 cria termos AR e MA também nos lags sazonais (12, 24, 36...), capturando o padrão anual. Resultado prático: resíduos mais limpos e previsões que respeitam a sazonalidade histórica."</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "GLM Gamma para LGD. O coeficiente de 'tem_garantia' deu -0.85. O que você escreve no relatório?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "No GLM Gamma com link log, o coeficiente não se interpreta diretamente — precisa do exp(). exp(-0.85) = 0.43. Isso significa que contratos com garantia têm LGD esperado 57% menor do que contratos sem garantia, mantendo os demais fatores constantes. No relatório: 'A presença de garantia real reduz a perda esperada em caso de default em 57%. Recomenda-se diferenciação de pricing e provisão entre as duas carteiras.'"</div></div>
+
+      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Um modelo de fraude tem Precision 95% e Recall 40%. Isso é aceitável?"</div></div>
+      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
+      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Para fraude, não. Precision 95% significa que quando o modelo acusa fraude, ele acerta 95% das vezes — ótimo. Mas Recall 40% significa que de todas as fraudes reais que aconteceram, o modelo só pegou 40%. Deixou 60% das fraudes passarem. Em fraude, o custo do Falso Negativo (fraude que passou) é muito maior que o do Falso Positivo (transação legítima bloqueada). Um modelo de fraude com Recall 40% está errando onde mais importa. O ideal seria Recall acima de 85-90%, mesmo que isso abaixe a Precision para 70-80%."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANO 1 MÊS -->
+<div class="section" id="sec-plano">
+  <h2 class="pt">Plano de 1 Mês</h2>
+  <p class="ps">4 semanas. Cada semana tem um objetivo concreto e entregáveis que o senior poderia cobrar de você.</p>
+  <div class="callout info" style="border-left-color:#ffa657;">
+    <strong>Como usar:</strong> Guia (guia_matematica_risco.html) aberto em uma aba, este site em outra. Leia o capítulo do guia indicado → faça o módulo do site → rode o projeto. Não passe para o próximo dia sem completar o anterior.
+  </div>
+  <div class="callout success"><strong>Meta final:</strong> ao fim de 4 semanas, você consegue pegar qualquer base de crédito ou mercado, rodar o pipeline completo do zero, e explicar cada decisão técnica para o parceiro do banco sem consultar anotações.</div>
+
+  <div class="plan-week">
+    <h3>Semana 1 — Base e Contexto (O que você vai fazer na MS)</h3>
+    <div class="plan-grid">
+      <div class="plan-day focus"><div class="dn">Dia 1</div>Site: "Por Onde Começar" + "O Trabalho Real" + "Simulação de Integração" — entenda o trabalho antes de qualquer código</div>
+      <div class="plan-day focus"><div class="dn">Dia 2</div>Guia Cap. 1 (Matemática Base) + Site: Módulo 0 (Pipeline DS). Entenda o processo completo.</div>
+      <div class="plan-day focus"><div class="dn">Dia 3</div>Guia Cap. 2 (Risco de Crédito: EL, PD, LGD, EAD, WoE, IV) + Site: Módulo 1 completo</div>
+      <div class="plan-day focus"><div class="dn">Dia 4</div>Site: Módulo 2 (KS, Gini, PSI) — leia cada seção e reproduza os cálculos no papel + Flashcards 1–20</div>
+      <div class="plan-day code"><div class="dn">Dia 5</div>Site: <strong>Projeto 1</strong> — leia CADA bloco de comentário antes de rodar. Entenda o porquê de cada decisão.</div>
+      <div class="plan-day review"><div class="dn">Dia 6</div>Revisão: explique Scorecard, WoE, IV, KS, Gini, PSI para alguém (ou grave sua voz). Sem consultar.</div>
+      <div class="plan-day review"><div class="dn">Dia 7</div>Bate Papo Simulado → Cenário "Com o Gerente Senior" — responda todas as perguntas</div>
+    </div>
+  </div>
+
+  <div class="plan-week">
+    <h3>Semana 2 — Risco de Mercado + Produtos Financeiros</h3>
+    <div class="plan-grid">
+      <div class="plan-day focus"><div class="dn">Dia 8</div>Guia Cap. 3 (VaR, CVaR, Vol, Cholesky) + Site: Módulo 3 — entenda Monte Carlo antes do código</div>
+      <div class="plan-day code"><div class="dn">Dia 9</div>Site: <strong>Projeto 2</strong> (Monte Carlo VaR) — rode e altere: mude o nível de confiança, mude o horizonte, veja o que muda</div>
+      <div class="plan-day focus"><div class="dn">Dia 10</div>Guia Cap. 4 (Produtos: Renda Fixa, Derivativos, Opções, Gregas) — leia com calma, é denso</div>
+      <div class="plan-day review"><div class="dn">Dia 11</div>Flashcards 21–40 (Mercado, Derivativos) — 2 rodadas até saber de cor</div>
+      <div class="plan-day review"><div class="dn">Dia 12</div>Bate Papo Simulado → "No Comitê de Risco" — responda sem consultar</div>
+      <div class="plan-day focus"><div class="dn">Dia 13</div>Revisão geral Semanas 1 e 2: releia os módulos 1, 2, 3. Foque onde travou.</div>
+      <div class="plan-day review"><div class="dn">Dia 14</div>Simulação completa: explique EL=PD×LGD×EAD + VaR + Duration em 15 minutos (grave)</div>
+    </div>
+  </div>
+
+  <div class="plan-week">
+    <h3>Semana 3 — Modelagem Avançada</h3>
+    <div class="plan-grid">
+      <div class="plan-day focus"><div class="dn">Dia 15</div>Guia Cap. 6 (GLM — Binomial, Gamma, Poisson, Tweedie) + Site: Módulo 4</div>
+      <div class="plan-day code"><div class="dn">Dia 16</div>Site: <strong>Projeto 4</strong> (LGD com GLM Gamma) — interprete os coeficientes. Use exp() corretamente.</div>
+      <div class="plan-day focus"><div class="dn">Dia 17</div>Guia Cap. 5 (Séries Temporais) + Site: Módulo 5 — entenda o pipeline antes do código</div>
+      <div class="plan-day code"><div class="dn">Dia 18</div>Site: <strong>Projeto 5</strong> (Forecast de Inadimplência) — altere o horizonte de previsão para 6 meses</div>
+      <div class="plan-day code"><div class="dn">Dia 19</div>Guia Cap. 6 (Clustering) + Site: <strong>Projeto 6</strong> — rode com K=4 e K=5, compare o Silhouette</div>
+      <div class="plan-day review"><div class="dn">Dia 20</div>Bate Papo Simulado → "Pergunta Técnica de DS" — todas as perguntas</div>
+      <div class="plan-day review"><div class="dn">Dia 21</div>Flashcards completos — 3 rodadas. Anote os que errou. Estude só esses no dia seguinte.</div>
+    </div>
+  </div>
+
+  <div class="plan-week">
+    <h3>Semana 4 — Consolidação e Simulação Final</h3>
+    <div class="plan-grid">
+      <div class="plan-day focus"><div class="dn">Dia 22</div>Guia Cap. 6 (IFRS 9) + Site: <strong>Projeto 3</strong> (você faz sozinho — todos os TODOs)</div>
+      <div class="plan-day focus"><div class="dn">Dia 23</div>Guia Cap. 7 (Cenário Macro + Resposta de Elite) + Bate Papo "Com o Parceiro do Banco"</div>
+      <div class="plan-day code"><div class="dn">Dia 24</div>Kaggle: baixe uma base de crédito nova. Rode o pipeline completo do Projeto 1 sem consultar o gabarito.</div>
+      <div class="plan-day code"><div class="dn">Dia 25</div>Replique o Monte Carlo (Projeto 2) com 5 ações diferentes. Interprete a correlação e o VaR.</div>
+      <div class="plan-day review"><div class="dn">Dia 26</div>Todos os Bate Papos Simulados — todos os cenários, todas as perguntas, sem consultar</div>
+      <div class="plan-day review"><div class="dn">Dia 27</div>Flashcards aleatórios (modo shuffle): 60 flashcards em sequência. Menos de 15 segundos por resposta.</div>
+      <div class="plan-day review"><div class="dn">Dia 28</div>Simulação final: grave um vídeo de 20 minutos explicando o que você aprendeu em cada módulo. Sem notas. Esse é o teste real.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="ct ac">12 Perguntas que você DEVE conseguir responder sem hesitar</h3>
+    <ul class="list">
+      <li>Por que usamos regressão logística e não Random Forest em scorecard regulado?</li>
+      <li>Qual a diferença entre KS e Gini? Quando a diferença entre eles indica problema?</li>
+      <li>O PSI subiu para 0.22. O que você faz e por quê?</li>
+      <li>Por que a decomposição de Cholesky no Monte Carlo? O que acontece sem ela?</li>
+      <li>Qual a diferença entre Stage 1, 2 e 3 no IFRS 9 e por que a provisão do Stage 2 é muito maior?</li>
+      <li>O que é WoE e como ele transforma as variáveis para o modelo?</li>
+      <li>O que é p-valor? Explique sem decorar a definição, com suas palavras.</li>
+      <li>Por que GLM Gamma para LGD e não regressão linear comum?</li>
+      <li>Como você detecta overfitting em um scorecard de crédito?</li>
+      <li>Qual a diferença entre VaR e CVaR? Por que Basel III prefere CVaR?</li>
+      <li>Você tem dados com 2% de default. Como você trata o desbalanceamento — SMOTE antes ou depois do split?</li>
+      <li>Um modelo de fraude tem Precision 95% e Recall 40%. O que isso significa e é aceitável?</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <h2 class="pt">Flashcards</h2>
+  <p class="ps">60+ perguntas de entrevista e de conceito. Clique no card para ver a resposta.</p>
+  <div class="fc-cats">
+    <button class="fc-cat active" onclick="filterCards('all',this)">Todos</button>
+    <button class="fc-cat" onclick="filterCards('Estatística',this)">Estatística</button>
+    <button class="fc-cat" onclick="filterCards('Crédito',this)">Crédito</button>
+    <button class="fc-cat" onclick="filterCards('Mercado',this)">Mercado</button>
+    <button class="fc-cat" onclick="filterCards('Séries',this)">Séries Temporais</button>
+    <button class="fc-cat" onclick="filterCards('IFRS',this)">IFRS 9</button>
+    <button class="fc-cat" onclick="filterCards('Python',this)">Python</button>
+  </div>
+  <div class="fc-wrap" onclick="flipCard()" id="fc-card-el">
+    <div class="fc-inner">
+      <div class="fc-front">
+        <div class="fc-cat-label" id="fc-cat-label"></div>
+        <div class="fc-q" id="fc-q"></div>
+        <div class="fc-hint">clique para ver a resposta</div>
+      </div>
+      <div class="fc-back">
+        <div class="fc-a" id="fc-a"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">← Anterior</button>
+    <span class="fc-prog" id="fc-prog">1 / 60</span>
+    <button class="fc-btn" onclick="nextCard()">Próxima →</button>
+  </div>
+  <button class="fc-shuffle" onclick="shuffleCards()">Embaralhar</button>
+</div>
+
+<!-- PROJETO 4 -->
+<div class="section" id="sec-p4">
+  <h2 class="pt">Projeto 4 — LGD Modeling</h2>
+  <p class="ps">Código completo e comentado. Por que Gamma e não Normal? Aprenda aqui.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção GLM e LGD. Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda por que a distribuição Gamma e o link logarítmico são a escolha correta para LGD.
+  </div>
+  <div class="ph gr"><h3 class="gr">✅ Projeto Completo — LGD com GLM Gamma</h3><div class="pm">Dataset sintético gerado no script · pip install pandas numpy scikit-learn statsmodels matplotlib</div></div>
+  <div class="pb">
+    <div class="callout info"><strong>O que é LGD:</strong> Loss Given Default = quanto o banco perde efetivamente quando o cliente calota. LGD = 0.6 significa que de cada R$100 emprestado, R$60 são perdidos. Varia de 0 a 1 e tem distribuição assimétrica — por isso exige GLM Gamma, não regressão linear.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — lgd_modeling.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p4"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROJETO 5 -->
+<div class="section" id="sec-p5">
+  <h2 class="pt">Projeto 5 — Forecast de Inadimplência</h2>
+  <p class="ps">Série temporal mensal de taxa de default. Decomposição + ARIMA + previsão 12 meses.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 5 — Séries Temporais (Tendência, Sazonalidade, Ruído, Estacionariedade, ARIMA). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 5. Entenda os 4 conceitos antes de rodar o pipeline.
+  </div>
+  <div class="ph gr"><h3 class="gr">✅ Projeto Completo — Time Series de Inadimplência</h3><div class="pm">Dataset gerado no script · pip install pandas numpy statsmodels matplotlib pmdarima</div></div>
+  <div class="pb">
+    <div class="callout info"><strong>Uso na prática:</strong> todo banco precisa prever a inadimplência dos próximos trimestres para planejamento de provisões (PDD) e para calibrar o forward-looking do IFRS 9. Esta é a série temporal mais importante que você vai trabalhar.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — forecast_inadimplencia.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p5"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROJETO 6 -->
+<div class="section" id="sec-p6">
+  <h2 class="pt">Projeto 6 — Segmentação de Risco</h2>
+  <p class="ps">K-Means para criar perfis de risco. Do elbow method à recomendação de negócio.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção Clustering (K-Means, padronização, Elbow, Silhouette). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda por que padronizar é obrigatório antes de usar K-Means.
+  </div>
+  <div class="ph gr"><h3 class="gr">✅ Projeto Completo — Clustering com K-Means</h3><div class="pm">Dataset sintético · pip install pandas numpy scikit-learn matplotlib seaborn</div></div>
+  <div class="pb">
+    <div class="callout info"><strong>Uso na prática:</strong> segmentação de clientes por perfil de risco permite precificar diferente (limite de crédito, taxa de juros) e abordagem de cobrança diferenciada. Cada cluster recebe uma estratégia específica.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — segmentacao_risco.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p6"></pre>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- CÓDIGO ARMAZENADO EM SCRIPT TYPE=TEXT/PLAIN (o browser não executa nem parseia como HTML) -->
+
+<script type="text/plain" id="raw-woe">import pandas as pd
+import numpy as np
+
+def calc_woe_iv(df, feature, target='target', bins=10):
+    temp = df[[feature, target]].dropna().copy()
+    temp['bin'] = pd.qcut(temp[feature], q=bins, duplicates='drop')
+
+    grouped = temp.groupby('bin')[target].agg(['sum', 'count'])
+    grouped.columns = ['maus', 'total']
+    grouped['bons'] = grouped['total'] - grouped['maus']
+
+    total_maus = grouped['maus'].sum()
+    total_bons  = grouped['bons'].sum()
+    eps = 1e-6
+
+    grouped['pct_maus'] = grouped['maus'] / total_maus
+    grouped['pct_bons']  = grouped['bons']  / total_bons
+    grouped['woe'] = np.log(
+        (grouped['pct_bons'] + eps) / (grouped['pct_maus'] + eps)
+    )
+    grouped['iv'] = (grouped['pct_bons'] - grouped['pct_maus']) * grouped['woe']
+
+    return grouped[['maus', 'bons', 'woe', 'iv']], grouped['iv'].sum()
+
+# Uso:
+# woe_table, iv = calc_woe_iv(df, 'renda_mensal', 'default')
+# print(f"IV: {iv:.4f}")
+# IV < 0.02 -> descarta | 0.02-0.1 -> fraco | 0.1-0.3 -> medio | > 0.3 -> forte
+</script>
+
+<script type="text/plain" id="raw-validacao">from sklearn.metrics import roc_curve, roc_auc_score
+import matplotlib.pyplot as plt
+import numpy as np
+
+def validar_modelo(y_true, y_prob, nome='Modelo', plot=True):
+    fpr, tpr, thresholds = roc_curve(y_true, y_prob)
+
+    # KS: distancia maxima entre curva de bons e maus
+    ks     = (tpr - fpr).max()
+    ks_idx = (tpr - fpr).argmax()
+
+    # AUC e Gini
+    auc  = roc_auc_score(y_true, y_prob)
+    gini = 2 * auc - 1
+
+    print(f"\n{'='*40}")
+    print(f"  {nome}")
+    print(f"  KS   = {ks*100:.1f}%   (bom: >30%)")
+    print(f"  AUC  = {auc:.4f}  (bom: >0.70)")
+    print(f"  Gini = {gini*100:.1f}%   (bom: >40%)")
+    print(f"{'='*40}")
+
+    if plot:
+        fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+        axes[0].plot(fpr, tpr, 'steelblue', lw=2, label=f'ROC (AUC={auc:.3f})')
+        axes[0].plot([0, 1], [0, 1], 'k--', lw=1, label='Aleatorio')
+        axes[0].plot(
+            [fpr[ks_idx], fpr[ks_idx]],
+            [fpr[ks_idx], tpr[ks_idx]],
+            'r--', lw=2, label=f'KS = {ks*100:.1f}%'
+        )
+        axes[0].set_xlabel('FPR (1 - Especificidade)')
+        axes[0].set_ylabel('TPR (Sensibilidade)')
+        axes[0].set_title('Curva ROC')
+        axes[0].legend()
+
+        axes[1].hist(y_prob[y_true==0], bins=50, alpha=0.6,
+                     color='steelblue', label='Bons pagadores (0)')
+        axes[1].hist(y_prob[y_true==1], bins=50, alpha=0.6,
+                     color='tomato', label='Caloteiros (1)')
+        axes[1].set_xlabel('Score (PD)')
+        axes[1].set_title('Separacao de Scores')
+        axes[1].legend()
+
+        plt.suptitle(nome, fontweight='bold')
+        plt.tight_layout()
+        plt.show()
+
+    return {'KS': ks, 'AUC': auc, 'Gini': gini}
+
+
+def psi(score_dev, score_prod, bins=10):
+    """score_dev = scores do desenvolvimento | score_prod = scores atuais"""
+    bp = np.percentile(score_dev, np.linspace(0, 100, bins+1))
+    bp[0]  = -np.inf
+    bp[-1] =  np.inf
+
+    pct_dev  = np.histogram(score_dev,  bins=bp)[0] / len(score_dev)
+    pct_prod = np.histogram(score_prod, bins=bp)[0] / len(score_prod)
+
+    pct_dev  = np.where(pct_dev  == 0, 1e-4, pct_dev)
+    pct_prod = np.where(pct_prod == 0, 1e-4, pct_prod)
+
+    psi_val = np.sum((pct_prod - pct_dev) * np.log(pct_prod / pct_dev))
+    status  = "Estavel" if psi_val < 0.1 else \
+              "Monitorar" if psi_val < 0.2 else \
+              "RETREINAR"
+    print(f"PSI = {psi_val:.4f}  ->  {status}")
+    return psi_val
+
+# Uso:
+# metricas = validar_modelo(y_test, pd_scores, "Scorecard v1")
+# psi_val  = psi(pd_desenvolvimento, pd_producao_mes_atual)
+</script>
+
+<script type="text/plain" id="raw-mc">import numpy as np
+
+def mc_portfolio_var(retornos_df, weights, portfolio_value=1_000_000,
+                     n_sim=100_000, confidence=0.95):
+    """
+    retornos_df : DataFrame com retornos diarios (linhas=dias, cols=ativos)
+    weights     : array com pesos [0.25, 0.25, 0.25, 0.25]
+    """
+    np.random.seed(42)
+    weights = np.array(weights)
+    mu  = retornos_df.mean().values
+    cov = retornos_df.cov().values
+
+    # Cholesky: injeta correlacao nas simulacoes
+    L = np.linalg.cholesky(cov)
+    Z = np.random.standard_normal((n_sim, len(weights)))
+    retornos_sim = Z @ L.T + mu       # shape: (n_sim, n_ativos)
+
+    # P&L do portfolio em reais
+    pnl = (retornos_sim @ weights) * portfolio_value
+
+    var  = np.percentile(pnl, (1 - confidence) * 100)
+    cvar = pnl[pnl <= var].mean()     # Expected Shortfall / CVaR
+
+    print(f"VaR  {confidence*100:.0f}%: R$ {abs(var):>12,.0f}")
+    print(f"CVaR {confidence*100:.0f}%: R$ {abs(cvar):>12,.0f}")
+    return pnl, var, cvar
+</script>
+
+<script type="text/plain" id="raw-glm">import statsmodels.api as sm
+
+# LGD: percentual efetivamente perdido nos contratos que calotaram
+# Fica entre 0 e 1, distribuicao assimetrica -> familia Gamma
+
+X = sm.add_constant(X_lgd)   # X_lgd = DataFrame com variaveis explicativas
+y = lgd_values                # valores entre 0 e 1
+
+model = sm.GLM(
+    y, X,
+    family=sm.families.Gamma(link=sm.families.links.Log())
+).fit()
+
+print(model.summary())
+
+# Predicao: inverse link = exp()
+lgd_pred = model.predict(X)
+
+# Interpretacao do coeficiente:
+# coef = 0.5 em "sem_garantia"
+# exp(0.5) = 1.65 -> sem garantia eleva o LGD em 65%
+
+# Para Poisson (contagem de atrasos):
+# model = sm.GLM(y_count, X, family=sm.families.Poisson()).fit()
+</script>
+
+<script type="text/plain" id="raw-ts">from statsmodels.tsa.seasonal   import seasonal_decompose
+from statsmodels.tsa.stattools  import adfuller
+import matplotlib.pyplot as plt
+
+# PASSO 1: Decomposicao
+result = seasonal_decompose(serie, model='additive', period=12)
+result.plot()
+plt.show()
+# Se residuo parecer ruido branco: bom. Se tiver padrao: o modelo errou.
+
+# PASSO 2: Teste de Estacionariedade (ADF)
+def adf_test(series):
+    p = adfuller(series.dropna())[1]
+    if p < 0.05:
+        print(f"p={p:.4f} -> Estacionaria: OK para ARIMA")
+    else:
+        print(f"p={p:.4f} -> NAO estacionaria: diferencie com serie.diff()")
+    return p
+
+adf_test(serie)
+
+# PASSO 3: ARIMA (pip install pmdarima)
+from pmdarima import auto_arima
+
+modelo = auto_arima(serie, seasonal=True, m=12, stepwise=True, trace=True)
+print(modelo.summary())
+
+forecast = modelo.predict(n_periods=12)
+print("Previsao proximos 12 meses:", forecast.round(4))
+
+# PASSO 4: Validar residuos
+residuos = serie - modelo.predict_in_sample()
+plt.figure(figsize=(10, 4))
+plt.plot(residuos)
+plt.axhline(0, color='red', lw=1)
+plt.title('Residuos do modelo: devem parecer ruido branco')
+plt.show()
+</script>
+
+<script type="text/plain" id="raw-p1"># =================================================================
+# PROJETO 1: Credit Scorecard End-to-End
+# Dataset: cs-training.csv (Kaggle "Give Me Some Credit")
+# pip install pandas numpy scikit-learn statsmodels matplotlib
+# =================================================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve, roc_auc_score
+import warnings
+warnings.filterwarnings('ignore')
+np.random.seed(42)
+
+# -- PASSO 1: CARREGAR E ENTENDER OS DADOS ----------------------------
+df = pd.read_csv('cs-training.csv', index_col=0)
+df = df.rename(columns={'SeriousDlqin2yrs': 'target'})
+
+print("=== EDA INICIAL ===")
+print(f"Shape: {df.shape}")
+print(f"Taxa de default: {df['target'].mean():.2%}")
+print(f"\nMissing values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
+
+# -- PASSO 2: TRATAMENTO DE MISSING -----------------------------------
+cols_missing = df.isnull().sum()[df.isnull().sum() > 0].index.tolist()
+for col in cols_missing:
+    df[f'{col}_flag'] = df[col].isnull().astype(int)  # flag de missing
+    df[col] = df[col].fillna(df[col].median())         # imputa mediana
+
+print(f"\nApos tratamento: missing = {df.isnull().sum().sum()}")
+
+# -- PASSO 3: WoE BINNING + IV ----------------------------------------
+def calc_woe_iv(df, feature, target='target', bins=10):
+    temp = df[[feature, target]].dropna().copy()
+    try:
+        temp['bin'] = pd.qcut(temp[feature], q=bins, duplicates='drop')
+    except Exception:
+        return None, 0.0
+
+    grouped = temp.groupby('bin')[target].agg(['sum', 'count'])
+    grouped.columns = ['maus', 'total']
+    grouped['bons'] = grouped['total'] - grouped['maus']
+
+    tm, tb = grouped['maus'].sum(), grouped['bons'].sum()
+    eps = 1e-6
+    grouped['pct_maus'] = grouped['maus'] / tm
+    grouped['pct_bons']  = grouped['bons']  / tb
+    grouped['woe'] = np.log((grouped['pct_bons'] + eps) / (grouped['pct_maus'] + eps))
+    grouped['iv']  = (grouped['pct_bons'] - grouped['pct_maus']) * grouped['woe']
+    return grouped, grouped['iv'].sum()
+
+features = [c for c in df.columns if c != 'target']
+iv_results = {}
+for feat in features:
+    _, iv = calc_woe_iv(df, feat)
+    iv_results[feat] = round(iv, 4)
+
+iv_df = pd.DataFrame.from_dict(iv_results, orient='index', columns=['IV'])
+iv_df = iv_df.sort_values('IV', ascending=False)
+print("\n=== INFORMATION VALUE ===")
+print(iv_df.to_string())
+
+# Variaveis com IV >= 0.02
+vars_ok = iv_df[iv_df['IV'] >= 0.02].index.tolist()
+print(f"\nVariaveis selecionadas: {len(vars_ok)}")
+
+# -- PASSO 4: CRIAR COLUNAS WoE ---------------------------------------
+def aplicar_woe(df_all, feature, target='target', bins=10):
+    temp = df_all[[feature, target]].dropna().copy()
+    try:
+        temp['bin'] = pd.qcut(temp[feature], q=bins, duplicates='drop')
+    except Exception:
+        return pd.Series(0, index=df_all.index)
+
+    grouped = temp.groupby('bin')[target].agg(['sum', 'count'])
+    grouped.columns = ['maus', 'total']
+    grouped['bons'] = grouped['total'] - grouped['maus']
+    tm, tb = grouped['maus'].sum(), grouped['bons'].sum()
+    eps = 1e-6
+    grouped['woe'] = np.log((grouped['bons']/tb + eps) / (grouped['maus']/tm + eps))
+    woe_map = grouped['woe'].to_dict()
+
+    df_tmp = df_all[[feature]].copy()
+    df_tmp['bin'] = pd.qcut(df_all[feature], q=bins, duplicates='drop')
+    df_tmp['woe'] = df_tmp['bin'].map(woe_map).fillna(0)
+    return df_tmp['woe']
+
+X_woe_parts = []
+for feat in vars_ok:
+    col = aplicar_woe(df, feat)
+    col.name = f'{feat}_woe'
+    X_woe_parts.append(col)
+
+X_woe = pd.concat(X_woe_parts, axis=1)
+y = df['target']
+
+# -- PASSO 5: TRAIN/TEST SPLIT ----------------------------------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X_woe, y, test_size=0.3, random_state=42, stratify=y
+)
+print(f"\nTreino: {len(X_train)} | Teste: {len(X_test)}")
+print(f"Default treino: {y_train.mean():.2%} | teste: {y_test.mean():.2%}")
+
+# -- PASSO 6: REGRESSAO LOGISTICA (statsmodels) -----------------------
+X_train_sm = sm.add_constant(X_train)
+X_test_sm  = sm.add_constant(X_test)
+
+model = sm.Logit(y_train, X_train_sm).fit(disp=0)
+print("\n=== COEFICIENTES ===")
+print(model.summary2().tables[1][['Coef.', 'P>|z|']].to_string())
+
+pd_train = model.predict(X_train_sm)
+pd_test  = model.predict(X_test_sm)
+
+# -- PASSO 7: VALIDACAO KS / GINI / AUC ------------------------------
+def validar_modelo(y_true, y_prob, nome='Modelo', plot=True):
+    fpr, tpr, _ = roc_curve(y_true, y_prob)
+    ks     = (tpr - fpr).max()
+    ks_idx = (tpr - fpr).argmax()
+    auc    = roc_auc_score(y_true, y_prob)
+    gini   = 2 * auc - 1
+
+    print(f"\n{'='*40}\n  {nome}")
+    print(f"  KS   = {ks*100:.1f}%")
+    print(f"  AUC  = {auc:.4f}")
+    print(f"  Gini = {gini*100:.1f}%")
+    print(f"{'='*40}")
+
+    if plot:
+        fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+        axes[0].plot(fpr, tpr, 'steelblue', lw=2, label=f'AUC={auc:.3f}')
+        axes[0].plot([0,1],[0,1],'k--',lw=1,label='Aleatorio')
+        axes[0].plot([fpr[ks_idx],fpr[ks_idx]],[fpr[ks_idx],tpr[ks_idx]],
+                     'r--',lw=2,label=f'KS={ks*100:.1f}%')
+        axes[0].set_title('Curva ROC'); axes[0].legend()
+        axes[1].hist(y_prob[y_true==0], bins=50, alpha=0.6,
+                     color='steelblue', label='Bons (0)')
+        axes[1].hist(y_prob[y_true==1], bins=50, alpha=0.6,
+                     color='tomato', label='Maus (1)')
+        axes[1].set_title('Separacao de Scores'); axes[1].legend()
+        plt.suptitle(nome, fontweight='bold')
+        plt.tight_layout(); plt.show()
+
+    return {'KS': ks, 'AUC': auc, 'Gini': gini}
+
+m_treino = validar_modelo(y_train, pd_train, 'Scorecard - Treino')
+m_teste  = validar_modelo(y_test,  pd_test,  'Scorecard - Teste')
+
+diff_ks = abs(m_treino['KS'] - m_teste['KS'])
+status  = 'OK' if diff_ks < 0.05 else 'ATENCAO: possivel overfitting'
+print(f"\nDelta KS treino/teste: {diff_ks*100:.1f}% -> {status}")
+
+# -- PASSO 8: PERDA ESPERADA (EL) ------------------------------------
+df_el = pd.DataFrame({'PD': pd_test.values}, index=X_test.index)
+df_el['LGD'] = 0.6
+df_el['EAD'] = np.random.uniform(5_000, 100_000, len(df_el))
+df_el['EL']  = df_el['PD'] * df_el['LGD'] * df_el['EAD']
+
+print("\n=== PERDA ESPERADA DA CARTEIRA ===")
+print(f"EAD Total : R$ {df_el['EAD'].sum():>15,.0f}")
+print(f"EL Total  : R$ {df_el['EL'].sum():>15,.0f}")
+print(f"EL / EAD  : {df_el['EL'].sum()/df_el['EAD'].sum()*100:.2f}%")
+
+# -- PASSO 9: PSI - DRIFT SIMULADO ------------------------------------
+def psi(score_dev, score_prod, bins=10):
+    bp = np.percentile(score_dev, np.linspace(0, 100, bins+1))
+    bp[0] = -np.inf; bp[-1] = np.inf
+    pd  = np.histogram(score_dev,  bins=bp)[0] / len(score_dev)
+    pp  = np.histogram(score_prod, bins=bp)[0] / len(score_prod)
+    pd  = np.where(pd == 0, 1e-4, pd)
+    pp  = np.where(pp == 0, 1e-4, pp)
+    val = np.sum((pp - pd) * np.log(pp / pd))
+    st  = "Estavel" if val < 0.1 else "Monitorar" if val < 0.2 else "RETREINAR"
+    print(f"PSI = {val:.4f}  ->  {st}")
+    return val
+
+# Simula: inflacao piora o perfil de renda dos clientes
+X_drift = X_test.copy()
+woe_cols = [c for c in X_drift.columns
+            if any(k in c for k in ['Monthly','Income','Debt','Ratio'])]
+for col in woe_cols:
+    X_drift[col] = X_drift[col] * 0.65
+
+X_drift_sm = sm.add_constant(X_drift)
+pd_drift   = model.predict(X_drift_sm)
+
+print("\n=== PSI APOS DRIFT DE INFLACAO ===")
+psi(pd_test.values, pd_drift.values)
+print(f"Score medio original : {pd_test.mean():.4f}")
+print(f"Score medio pos drift: {pd_drift.mean():.4f}")
+
+print("\nProjeto 1 concluido!")
+</script>
+
+<script type="text/plain" id="raw-p2"># =================================================================
+# PROJETO 2: Monte Carlo VaR - Portfolio de Acoes Brasileiras
+# pip install yfinance pandas numpy matplotlib
+# =================================================================
+
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+np.random.seed(42)
+
+# -- PASSO 1: BAIXAR DADOS --------------------------------------------
+print("Baixando dados historicos via yfinance...")
+TICKERS = ['PETR4.SA', 'VALE3.SA', 'ITUB4.SA', 'ABEV3.SA']
+dados = yf.download(TICKERS, start='2021-01-01', end='2024-01-01',
+                    auto_adjust=True, progress=False)['Close'].dropna()
+
+print(f"Periodo: {dados.index[0].date()} -> {dados.index[-1].date()}")
+print(f"Dias uteis: {len(dados)}")
+
+# -- PASSO 2: RETORNOS LOGARITMICOS -----------------------------------
+retornos = np.log(dados / dados.shift(1)).dropna()
+
+print("\n=== ESTATISTICAS DOS RETORNOS DIARIOS ===")
+stats_df = pd.DataFrame({
+    'Media (%)' : (retornos.mean() * 100).round(4),
+    'Vol (%)'   : (retornos.std()  * 100).round(4),
+    'Skewness'  : retornos.skew().round(3),
+    'Kurtosis'  : retornos.kurtosis().round(3)   # > 3 = cauda gorda!
+})
+print(stats_df.to_string())
+
+print("\nMatriz de Correlacao:")
+print(retornos.corr().round(3).to_string())
+
+# -- PASSO 3: MONTE CARLO COM CHOLESKY --------------------------------
+PORTFOLIO_VALUE = 10_000_000     # R$ 10 milhoes
+WEIGHTS  = np.array([0.30, 0.30, 0.20, 0.20])
+N_SIM    = 100_000
+
+mu  = retornos.mean().values
+cov = retornos.cov().values
+L   = np.linalg.cholesky(cov)   # Cholesky preserva correlacao
+
+print("\n=== RESULTADOS MONTE CARLO ===")
+for h in [1, 10]:
+    Z = np.random.standard_normal((N_SIM, len(TICKERS)))
+    ret_port = (Z @ L.T + mu) * np.sqrt(h)
+    pnl = (ret_port @ WEIGHTS) * PORTFOLIO_VALUE
+
+    for conf in [0.95, 0.99]:
+        var  = np.percentile(pnl, (1 - conf) * 100)
+        cvar = pnl[pnl <= var].mean()
+        print(f"  Horizonte {h:2d}d | {conf*100:.0f}% | "
+              f"VaR R${abs(var):>11,.0f} | CVaR R${abs(cvar):>11,.0f}")
+
+# -- PASSO 4: COMPARAR COM VAR HISTORICO ------------------------------
+print("\n=== MC vs HISTORICO (1 dia) ===")
+pnl_hist = (retornos @ WEIGHTS) * PORTFOLIO_VALUE
+Z1 = np.random.standard_normal((N_SIM, len(TICKERS)))
+pnl_mc   = ((Z1 @ L.T + mu) @ WEIGHTS) * PORTFOLIO_VALUE
+
+for conf in [0.95, 0.99]:
+    var_h = np.percentile(pnl_hist, (1-conf)*100)
+    var_m = np.percentile(pnl_mc,   (1-conf)*100)
+    print(f"  {conf*100:.0f}% | Historico: R${abs(var_h):>10,.0f} | "
+          f"MC: R${abs(var_m):>10,.0f}")
+
+# -- PASSO 5: STRESS TEST (crise - vol x3) ----------------------------
+print("\n=== STRESS TEST - Volatilidade x3 ===")
+cov_stress = cov * 9        # vol x3 -> variancia x9
+L_stress   = np.linalg.cholesky(cov_stress)
+Z_s = np.random.standard_normal((N_SIM, len(TICKERS)))
+pnl_stress = ((Z_s @ L_stress.T + mu) @ WEIGHTS) * PORTFOLIO_VALUE
+
+for conf in [0.95, 0.99]:
+    var_n = np.percentile(pnl_mc,     (1-conf)*100)
+    var_s = np.percentile(pnl_stress, (1-conf)*100)
+    aum   = abs(var_s) / abs(var_n) - 1
+    print(f"  {conf*100:.0f}% | Normal: R${abs(var_n):>10,.0f} | "
+          f"Stress: R${abs(var_s):>10,.0f} (+{aum*100:.0f}%)")
+
+# -- PASSO 6: GRAFICOS ------------------------------------------------
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+var95 = np.percentile(pnl_mc, 5)
+var99 = np.percentile(pnl_mc, 1)
+
+axes[0].hist(pnl_mc/1e3, bins=100, color='steelblue', alpha=0.7, ec='none')
+axes[0].axvline(var95/1e3, color='orange', lw=2,
+                label=f'VaR 95%: R${abs(var95/1e3):.0f}k')
+axes[0].axvline(var99/1e3, color='red',    lw=2,
+                label=f'VaR 99%: R${abs(var99/1e3):.0f}k')
+axes[0].set_xlabel('P&L diario (R$ mil)')
+axes[0].set_title('Distribuicao de P&L - Monte Carlo')
+axes[0].legend()
+
+axes[1].hist(pnl_mc/1e3,     bins=100, color='steelblue',
+             alpha=0.5, ec='none', label='Normal')
+axes[1].hist(pnl_stress/1e3, bins=100, color='tomato',
+             alpha=0.5, ec='none', label='Stress (vol x3)')
+axes[1].set_xlabel('P&L diario (R$ mil)')
+axes[1].set_title('Normal vs Stress')
+axes[1].legend()
+
+plt.tight_layout()
+plt.savefig('monte_carlo_var.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print("\nProjeto 2 concluido!")
+</script>
+
+<script type="text/plain" id="raw-p3"># =================================================================
+# PROJETO 3 - IFRS 9 Expected Credit Loss Calculator
+# Complete as secoes marcadas com # TODO
+# Dataset ja esta gerado abaixo - nao precisa baixar nada
+# =================================================================
+
+import pandas as pd
+import numpy as np
+np.random.seed(42)
+
+# -- DATASET (nao mexa) -----------------------------------------------
+N = 2000
+carteira = pd.DataFrame({
+    'contrato_id'    : range(N),
+    'saldo'          : np.random.uniform(5_000, 200_000, N).round(2),
+    'pd_originacao'  : np.random.uniform(0.005, 0.10, N).round(4),
+    'pd_atual'       : np.random.uniform(0.005, 0.25, N).round(4),
+    'lgd'            : np.random.uniform(0.25, 0.85, N).round(3),
+    'prazo_anos'     : np.random.choice([1, 2, 3, 5, 7], N),
+    'em_default'     : np.random.choice([0, 1], N, p=[0.94, 0.06])
+})
+
+print(f"Carteira: {N} contratos")
+print(f"Saldo total: R$ {carteira['saldo'].sum():,.0f}")
+print(f"Taxa de default: {carteira['em_default'].mean():.1%}\n")
+
+# -- PARTE 1: CLASSIFICACAO DE STAGE ----------------------------------
+# Regras:
+#   Stage 3: em_default == 1
+#   Stage 2: pd_atual > 1.5 x pd_originacao  (e nao esta em default)
+#   Stage 1: todos os outros
+
+def classificar_stage(row):
+    # TODO: implemente as 3 regras acima
+    pass
+
+carteira['stage'] = carteira.apply(classificar_stage, axis=1)
+
+print("Distribuicao de stages:")
+print(carteira['stage'].value_counts().sort_index())
+print()
+
+# -- PARTE 2: PD LIFETIME ---------------------------------------------
+# Stage 2 e 3 precisam da PD acumulada durante toda a vida do contrato
+# Formula: PD_lifetime = 1 - (1 - PD_anual) ^ prazo_anos
+
+def calcular_pd_lifetime(pd_anual, prazo):
+    # TODO: implemente a formula acima
+    pass
+
+carteira['pd_lifetime'] = carteira.apply(
+    lambda r: calcular_pd_lifetime(r['pd_atual'], r['prazo_anos']), axis=1
+)
+
+# -- PARTE 3: CALCULO DO ECL ------------------------------------------
+# Stage 1: ECL = PD_anual    x LGD x EAD  (12 meses)
+# Stage 2: ECL = PD_lifetime x LGD x EAD  (lifetime)
+# Stage 3: ECL =               LGD x EAD  (sem PD - default ja ocorreu)
+
+def calcular_ecl(row):
+    ead = row['saldo']
+    lgd = row['lgd']
+    # TODO: implemente o ECL por stage
+    pass
+
+carteira['ecl'] = carteira.apply(calcular_ecl, axis=1)
+
+# -- PARTE 4: TABELA RESUMO POR STAGE ---------------------------------
+# TODO: crie um groupby por stage com:
+#   - numero de contratos
+#   - saldo total
+#   - ECL total
+#   - % de cobertura (ECL / Saldo)
+
+resumo = None   # TODO: substitua pelo groupby correto
+print("Resumo por stage:")
+print(resumo)
+
+# -- PARTE 5: ANALISE DE SENSIBILIDADE --------------------------------
+# E se a PD aumentar 30%? (cenario de stress macroeconomico)
+# Recalcule o ECL total com pd_atual * 1.30 e mostre:
+#   - ECL base
+#   - ECL stress
+#   - Variacao em R$ e em %
+
+print("\n=== ANALISE DE SENSIBILIDADE ===")
+# TODO: implemente a analise de sensibilidade
+
+# -- ESPERADO (confira depois de implementar) -------------------------
+# Stage 1: ~70-75% dos contratos, cobertura ~1-3%
+# Stage 2: ~15-20% dos contratos, cobertura ~10-25%
+# Stage 3: ~5-7% dos contratos,   cobertura ~25-50%
+# Stress +30% PD -> ECL deve subir entre 20-35%
+</script>
+
+<script type="text/plain" id="raw-p4"># ===========================================================================
+# PROJETO 4: Modelagem de LGD (Loss Given Default)
+# ===========================================================================
+# LGD = quanto o banco perde de verdade quando o cliente dá calote
+# Exemplo: cliente devia R$100k → banco recuperou R$40k → LGD = 60%
+#
+# Por que NÃO usar regressão linear para LGD?
+#   Regressão linear pode prever LGD < 0 ou > 1 (impossível na realidade)
+#   A distribuição do LGD é assimétrica — não é normal
+#   GLM Gamma é o modelo correto: prevê sempre positivo, aceita assimetria
+#
+# pip install pandas numpy scikit-learn statsmodels matplotlib
+# ===========================================================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error
+import warnings
+warnings.filterwarnings('ignore')
+np.random.seed(42)
+
+# ---------------------------------------------------------------------------
+# BLOCO 1: GERAR BASE DE DADOS DE RECUPERAÇÃO
+# Na vida real: sistema de cobrança registra quanto foi recuperado por
+# contrato que entrou em default. Cada linha = 1 contrato calotado.
+# Variáveis que afetam a recuperação:
+#   tem_garantia: cliente deu imóvel/veículo como garantia? Banco recupera mais
+#   valor_garantia_ratio: valor_garantia / saldo_devedor (>1 = garantia cobre tudo)
+#   tempo_acao_meses: quanto tempo durou o processo de cobrança (mais = mais custo)
+#   score_atr_calote: score do cliente quando calotou (maior = histórico melhor)
+# ---------------------------------------------------------------------------
+n = 3000
+
+tem_garantia      = np.random.choice([0, 1], n, p=[0.55, 0.45])
+valor_grt_ratio   = np.random.uniform(0, 2.0, n)
+tempo_acao_meses  = np.random.randint(1, 36, n)
+score_atr_calote  = np.random.uniform(200, 800, n)
+tipo_produto      = np.random.choice([0, 1, 2], n)  # 0=PF, 1=PJ, 2=imob
+
+# Gerar LGD com lógica realista
+lgd_raw = (
+    0.75
+    - 0.45 * tem_garantia                              # garantia reduz MUITO a perda
+    - 0.15 * np.clip(valor_grt_ratio / 1.5, 0, 1)     # quanto mais garantia, menos perda
+    + 0.008 * tempo_acao_meses                         # cobrança demorada = mais custo = mais perda
+    - 0.0003 * score_atr_calote                        # cliente com bom histórico = recupera mais
+    + np.random.normal(0, 0.15, n)                     # ruido aleatório (sempre tem na vida real)
+)
+lgd = np.clip(lgd_raw, 0.01, 0.99)  # LGD nunca pode ser exatamente 0 ou 1 em Gamma
+
+df = pd.DataFrame({
+    'lgd': lgd,
+    'tem_garantia': tem_garantia,
+    'valor_grt_ratio': np.clip(valor_grt_ratio, 0, 2),
+    'tempo_acao_meses': tempo_acao_meses,
+    'score_atr_calote': score_atr_calote,
+    'tipo_produto': tipo_produto
+})
+
+print("=== DISTRIBUICAO DO LGD ===")
+print(df['lgd'].describe().round(4))
+print(f"\nLGD medio com garantia:  {df[df['tem_garantia']==1]['lgd'].mean():.2%}")
+print(f"LGD medio sem garantia:  {df[df['tem_garantia']==0]['lgd'].mean():.2%}")
+print("Diferenca mostra por que garantia e a variavel mais importante!")
+
+# ---------------------------------------------------------------------------
+# BLOCO 2: VISUALIZAR A DISTRIBUICAO
+# FUNDAMENTAL: sempre olhe a distribuicao ANTES de modelar
+# Se a distribuicao for assimetrica → confirma que GLM Gamma e mais adequado
+# Se a distribuicao fosse normal → regressao linear poderia ser usada
+# ---------------------------------------------------------------------------
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+
+# Histograma geral: mostra a assimetria caracteristica do LGD
+axes[0].hist(df['lgd'], bins=50, color='steelblue', alpha=0.8, edgecolor='none')
+axes[0].axvline(df['lgd'].mean(),   color='red',    lw=2, label=f"Media: {df['lgd'].mean():.2%}")
+axes[0].axvline(df['lgd'].median(), color='orange', lw=2, ls='--',
+                label=f"Mediana: {df['lgd'].median():.2%}")
+axes[0].set_xlabel('LGD')
+axes[0].set_title('Distribuicao do LGD (assimetrica a esquerda)')
+axes[0].legend()
+
+# Comparacao com/sem garantia: a garantia e o maior driver de LGD
+axes[1].hist(df[df['tem_garantia']==1]['lgd'], bins=40, alpha=0.6,
+             color='seagreen', label='Com garantia')
+axes[1].hist(df[df['tem_garantia']==0]['lgd'], bins=40, alpha=0.6,
+             color='tomato', label='Sem garantia')
+axes[1].set_xlabel('LGD')
+axes[1].set_title('LGD: Com vs Sem Garantia')
+axes[1].legend()
+plt.tight_layout()
+plt.savefig('lgd_distribuicao.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 3: DIVIDIR TREINO E TESTE
+# Sempre divida ANTES de calcular qualquer transformacao
+# Se voce calcular medias ou outros agregados no dataset completo e dividir
+# depois, voce cria DATA LEAKAGE (o teste influencia o treino)
+# ---------------------------------------------------------------------------
+X_cols = ['tem_garantia', 'valor_grt_ratio', 'tempo_acao_meses',
+          'score_atr_calote', 'tipo_produto']
+X = df[X_cols]
+y = df['lgd']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+print(f"\nTreino: {len(X_train)} contratos | Teste: {len(X_test)} contratos")
+
+# ---------------------------------------------------------------------------
+# BLOCO 4: GLM GAMMA COM FUNCAO DE LIGACAO LOG
+# Por que Gamma + link Log?
+#   Gamma: modela variaveis continuas positivas com distribuicao assimetrica
+#   Link Log: garante que a predicao seja sempre POSITIVA (exp de qualquer numero > 0)
+#   Interpretacao: exp(coeficiente) = MULTIPLICADOR do LGD esperado
+#
+# Exemplo de interpretacao:
+#   coef_garantia = -0.80 → exp(-0.80) = 0.45
+#   Ter garantia REDUZ o LGD em 55% (o LGD medio do segmento com garantia
+#   e apenas 45% do LGD do segmento sem garantia)
+# ---------------------------------------------------------------------------
+X_train_sm = sm.add_constant(X_train)  # add_constant = adiciona a coluna do intercepto
+X_test_sm  = sm.add_constant(X_test)
+
+model = sm.GLM(
+    y_train,
+    X_train_sm,
+    family=sm.families.Gamma(link=sm.families.links.Log())
+).fit()
+
+print("\n=== RESULTADO DO GLM GAMMA ===")
+print(model.summary2().tables[1][['Coef.', 'Std.Err.', 'P>|z|']].to_string())
+
+# Interpretar cada coeficiente como multiplicador (exp)
+print("\n=== INTERPRETACAO (exp do coeficiente = multiplicador do LGD) ===")
+for var, coef in model.params.items():
+    m = np.exp(coef)
+    direcao = 'AUMENTA' if m > 1 else 'REDUZ'
+    variacao = abs(m - 1) * 100
+    print(f"  {var:<25}: exp({coef:+.3f}) = {m:.3f} -> {direcao} LGD em {variacao:.1f}%")
+
+# ---------------------------------------------------------------------------
+# BLOCO 5: VALIDACAO DO MODELO
+# Metricas para regressao de valor continuo (LGD nao e binario):
+#   MAE (Mean Absolute Error): erro medio em pontos percentuais de LGD
+#   Correlacao: quanto o ranking previsto acompanha o real
+#   RMSE: penaliza mais os grandes erros (outliers de LGD)
+# Grafico fundamental: LGD Real vs LGD Previsto → deve seguir a diagonal
+# Pontos MUITO acima/abaixo da diagonal: casos mal previstos
+# ---------------------------------------------------------------------------
+lgd_pred_train = model.predict(X_train_sm)
+lgd_pred_test  = model.predict(X_test_sm)
+
+mae_tr  = mean_absolute_error(y_train, lgd_pred_train)
+mae_te  = mean_absolute_error(y_test,  lgd_pred_test)
+cor_tr  = np.corrcoef(y_train, lgd_pred_train)[0, 1]
+cor_te  = np.corrcoef(y_test,  lgd_pred_test)[0, 1]
+rmse_te = np.sqrt(((y_test.values - lgd_pred_test)**2).mean())
+
+print("\n=== VALIDACAO DO MODELO LGD ===")
+print(f"MAE  Treino: {mae_tr:.4f}  ({mae_tr*100:.2f} pp de LGD)")
+print(f"MAE  Teste:  {mae_te:.4f}  ({mae_te*100:.2f} pp de LGD)")
+print(f"RMSE Teste:  {rmse_te:.4f}")
+print(f"Corr Treino: {cor_tr:.4f}")
+print(f"Corr Teste:  {cor_te:.4f}")
+delta_mae = abs(mae_te - mae_tr)
+print(f"Delta MAE (overfitting check): {delta_mae*100:.2f} pp  "
+      f"{'-> OK' if delta_mae < 0.03 else '-> ATENCAO'}")
+
+# Grafico real vs previsto
+plt.figure(figsize=(7, 6))
+plt.scatter(y_test, lgd_pred_test, alpha=0.3, s=10, color='steelblue')
+plt.plot([0.01, 0.99], [0.01, 0.99], 'r--', lw=2, label='Perfeito (y=x)')
+plt.xlabel('LGD Real')
+plt.ylabel('LGD Previsto (GLM Gamma)')
+plt.title(f'Real vs Previsto | MAE={mae_te:.4f} | r={cor_te:.3f}')
+plt.legend()
+plt.tight_layout()
+plt.savefig('lgd_real_vs_previsto.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 6: APLICACAO PRATICA — PROVISAO COM LGD MODELADO vs LGD FIXO
+# Antes: todas as carteiras usam LGD fixo (ex: 60% para tudo)
+# Depois: cada contrato tem seu proprio LGD baseado nas suas caracteristicas
+# Resultado: provisao mais precisa, pricing mais justo
+# Contratos com garantia: LGD baixo → precisam de menos provisao
+# Contratos sem garantia: LGD alto → precisam de mais provisao
+# ---------------------------------------------------------------------------
+n_cart = 1000
+carteira_nova = pd.DataFrame({
+    'tem_garantia'    : np.random.choice([0, 1], n_cart, p=[0.5, 0.5]),
+    'valor_grt_ratio' : np.random.uniform(0, 1.5, n_cart),
+    'tempo_acao_meses': np.random.randint(6, 24, n_cart),
+    'score_atr_calote': np.random.uniform(300, 700, n_cart),
+    'tipo_produto'    : np.random.choice([0, 1, 2], n_cart),
+    'pd'              : np.random.uniform(0.01, 0.15, n_cart),
+    'ead'             : np.random.uniform(10_000, 200_000, n_cart)
+})
+
+X_nova = sm.add_constant(carteira_nova[X_cols])
+carteira_nova['lgd_modelado'] = model.predict(X_nova).clip(0.01, 0.99)
+carteira_nova['lgd_fixo']     = 0.60  # metodo antigo: 60% para todos
+
+carteira_nova['el_modelado'] = (carteira_nova['pd']
+                                * carteira_nova['lgd_modelado']
+                                * carteira_nova['ead'])
+carteira_nova['el_fixo']     = (carteira_nova['pd']
+                                * carteira_nova['lgd_fixo']
+                                * carteira_nova['ead'])
+
+print("\n=== COMPARACAO: LGD FIXO vs LGD MODELADO ===")
+print(f"EL com LGD fixo (60%):    R$ {carteira_nova['el_fixo'].sum():>15,.0f}")
+print(f"EL com LGD modelado:       R$ {carteira_nova['el_modelado'].sum():>15,.0f}")
+dif = carteira_nova['el_modelado'].sum() - carteira_nova['el_fixo'].sum()
+print(f"Diferenca (+ = mais rigor): R$ {dif:>15,.0f}")
+
+seg_grt = carteira_nova[carteira_nova['tem_garantia']==1]['lgd_modelado'].mean()
+sem_grt = carteira_nova[carteira_nova['tem_garantia']==0]['lgd_modelado'].mean()
+print(f"\nLGD medio modelado — COM garantia:  {seg_grt:.2%}")
+print(f"LGD medio modelado — SEM garantia:  {sem_grt:.2%}")
+print("O modelo diferencia: contratos com garantia provisonam menos!")
+
+print("\nProjeto 4 concluido!")
+</script>
+
+<script type="text/plain" id="raw-p5"># ===========================================================================
+# PROJETO 5: Previsao de Taxa de Inadimplencia com Series Temporais
+# ===========================================================================
+# Objetivo: prever a taxa de inadimplencia mensal para os proximos 12 meses
+#
+# Por que series temporais e nao regressao normal?
+#   Dados mensais de inadimplencia tem DEPENDENCIA TEMPORAL:
+#   o valor de hoje esta correlacionado com o de ontem, de 6 meses atras,
+#   do mesmo mes do ano passado (sazonalidade)
+#   Regressao OLS IGNORA essa dependencia e produz residuos autocorrelacionados
+#   ARIMA captura essas dependencias e produz forecasts bem calibrados
+#
+# pip install pandas numpy statsmodels matplotlib pmdarima
+# ===========================================================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+import warnings
+warnings.filterwarnings('ignore')
+np.random.seed(42)
+
+try:
+    from pmdarima import auto_arima
+    HAS_PMDARIMA = True
+except ImportError:
+    HAS_PMDARIMA = False
+    print("Instale pmdarima: pip install pmdarima")
+
+# ---------------------------------------------------------------------------
+# BLOCO 1: CRIAR SERIE TEMPORAL REALISTA DE INADIMPLENCIA
+# Composicao da serie (igual ao que acontece na vida real):
+#   Tendencia: crescimento gradual da carteira com leve deterioracao
+#   Sazonalidade: jan/fev sobem (pos-festas), jun/jul caem
+#   Choques: COVID (2020), juros altos (2022) alteram a serie abruptamente
+#   Ruido: variacao aleatoria mensal sempre presente
+# Na vida real: voce extrai essa serie do banco de dados do cliente
+# ---------------------------------------------------------------------------
+datas = pd.date_range('2018-01', '2024-12', freq='MS')  # MS = Month Start
+n = len(datas)
+
+tendencia    = np.linspace(0.035, 0.055, n)
+sazonalidade = 0.008 * np.sin(2 * np.pi * np.arange(n) / 12 + np.pi)
+choques      = np.zeros(n)
+choques[25:30] +=  0.012   # COVID abr-ago 2020: alta repentina
+choques[48:54] +=  0.008   # Juros altos 2022: pressao gradual
+choques[29:35] -= 0.005    # Recuperacao pos-COVID com estimulos do governo
+
+serie = pd.Series(
+    np.clip(tendencia + sazonalidade + choques + np.random.normal(0, 0.002, n),
+            0.01, 0.15),
+    index=datas,
+    name='taxa_inadimplencia'
+)
+
+print("=== ESTATISTICAS DA SERIE ===")
+print(serie.describe().round(4))
+print(f"\nMinimo: {serie.min():.2%} em {serie.idxmin().strftime('%b/%Y')}")
+print(f"Maximo: {serie.max():.2%} em {serie.idxmax().strftime('%b/%Y')}")
+
+# ---------------------------------------------------------------------------
+# BLOCO 2: DECOMPOSICAO DA SERIE
+# seasonal_decompose separa a serie nos 3 componentes:
+#   Tendencia: a direcao de longo prazo (queda? alta? estavel?)
+#   Sazonalidade: padrao que se repete todo ano (pos-natal, carnaval)
+#   Residuo: o que sobra apos remover os outros dois
+# Se o residuo tiver PADRAO VISUAL: algo nao foi capturado → modelo incorreto
+# Se o residuo parecer RUIDO BRANCO: decomposicao funcionou bem
+# ---------------------------------------------------------------------------
+decomp = seasonal_decompose(serie, model='additive', period=12)
+
+fig, axes = plt.subplots(4, 1, figsize=(13, 10))
+componentes = [serie, decomp.trend, decomp.seasonal, decomp.resid]
+nomes = ['Original', 'Tendencia', 'Sazonalidade', 'Residuo (deve ser ruido)']
+cores = ['steelblue', 'darkorange', 'seagreen', 'tomato']
+
+for ax, comp, nome, cor in zip(axes, componentes, nomes, cores):
+    ax.plot(comp, color=cor, lw=1.5)
+    ax.set_title(nome, fontweight='bold')
+    ax.grid(True, alpha=0.3)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.1%}'))
+
+plt.tight_layout()
+plt.savefig('decomposicao_inadimplencia.png', dpi=150)
+plt.show()
+
+# Exibir padrao sazonal mes a mes
+meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+saz   = decomp.seasonal.groupby(decomp.seasonal.index.month).mean()
+print("\n=== SAZONALIDADE MENSAL (desvio da media) ===")
+for m, v in zip(meses, saz):
+    barra = '▲' if v > 0 else '▼'
+    print(f"  {m}: {v:+.4f} {barra}")
+
+# ---------------------------------------------------------------------------
+# BLOCO 3: TESTE ADF — ESTACIONARIEDADE
+# ARIMA precisa de serie estacionaria (media e variancia constantes no tempo)
+# Teste ADF (Augmented Dickey-Fuller):
+#   H0: serie TEM raiz unitaria (nao e estacionaria)
+#   H1: serie e estacionaria
+#   p-valor < 0.05 → rejeita H0 → SERIE ESTACIONARIA → pode usar ARIMA
+#   p-valor >= 0.05 → NÃO estacionaria → diferencie com serie.diff()
+# ---------------------------------------------------------------------------
+def teste_adf(s, nome):
+    res = adfuller(s.dropna())
+    p   = res[1]
+    ok  = p < 0.05
+    print(f"  {nome}: p={p:.4f} → {'ESTACIONARIA ✓' if ok else 'NAO estacionaria → diff()'}")
+    return ok
+
+print("\n=== TESTE DE ESTACIONARIEDADE ===")
+ok = teste_adf(serie, 'Original')
+if not ok:
+    teste_adf(serie.diff().dropna(), 'Diferenciada (d=1)')
+
+# ---------------------------------------------------------------------------
+# BLOCO 4: ACF E PACF — IDENTIFICAR PADROES
+# ACF (Autocorrelation Function): correlacao da serie com suas versoes defasadas
+#   Pico significativo em lag 12: ha padrao anual (sazonalidade)
+#   Decaimento lento: serie tem tendencia (nao estacionaria)
+# PACF (Partial ACF): correlacao direta com lag k (sem intermediarios)
+#   Corte abrupto em lag p: componente AR(p)
+# Na pratica: auto_arima encontra os melhores parametros automaticamente
+# Mas voce precisa entender os graficos para explicar ao cliente
+# ---------------------------------------------------------------------------
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+plot_acf( serie, lags=24, ax=axes[0], title='ACF — Autocorrelacao (lag 12 = sazonalidade)')
+plot_pacf(serie, lags=24, ax=axes[1], title='PACF — Autocorrelacao Parcial')
+plt.tight_layout()
+plt.savefig('acf_pacf_inadimplencia.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 5: AUTO_ARIMA — ENCONTRAR O MELHOR MODELO
+# auto_arima testa combinacoes de (p,d,q)(P,D,Q,m) e escolhe pelo AIC
+# AIC (Akaike Information Criterion): penaliza modelos complexos
+#   Menor AIC = melhor modelo (equilibrio entre ajuste e parsimonia)
+# seasonal=True, m=12: inclui componentes sazonais (SARIMA)
+# trace=True: mostra o processo de busca (util para entender o que esta fazendo)
+# ---------------------------------------------------------------------------
+if HAS_PMDARIMA:
+    print("\n=== AUTO_ARIMA — BUSCA DO MELHOR MODELO ===")
+    modelo_final = auto_arima(
+        serie,
+        seasonal=True, m=12,
+        stepwise=True,            # busca inteligente, nao exaustiva (muito mais rapido)
+        information_criterion='aic',
+        trace=True,
+        suppress_warnings=True
+    )
+    print(f"\nMelhor modelo encontrado: ARIMA{modelo_final.order} x {modelo_final.seasonal_order}")
+    print(f"AIC do modelo: {modelo_final.aic():.2f}")
+
+    # ---------------------------------------------------------------------------
+    # BLOCO 6: VALIDACAO COM HOLDOUT DOS ULTIMOS 12 MESES
+    # Em series temporais NUNCA embaralhe os dados para fazer split
+    # O futuro nao pode estar no treino — seria data leakage temporal
+    # Estrategia: treina em 2018-2023, preve 2024, compara com o real
+    # ---------------------------------------------------------------------------
+    serie_treino = serie[:-12]   # tudo exceto os ultimos 12 meses
+    serie_teste  = serie[-12:]   # os ultimos 12 meses (holdout)
+
+    modelo_val = auto_arima(serie_treino, seasonal=True, m=12,
+                            stepwise=True, suppress_warnings=True, trace=False)
+    previsao_val, ic_val = modelo_val.predict(n_periods=12, return_conf_int=True)
+    prev_val = pd.Series(previsao_val, index=serie_teste.index)
+
+    mae_val  = np.mean(np.abs(serie_teste.values - previsao_val))
+    mape_val = np.mean(np.abs((serie_teste.values - previsao_val)
+                               / serie_teste.values)) * 100
+
+    print(f"\n=== VALIDACAO NO HOLDOUT (jan/2024 — dez/2024) ===")
+    print(f"MAE  = {mae_val:.4f} ({mae_val*100:.2f} pontos percentuais)")
+    print(f"MAPE = {mape_val:.2f}%")
+    print("(MAPE < 10% e considerado bom para series de inadimplencia)")
+
+    # ---------------------------------------------------------------------------
+    # BLOCO 7: PREVISAO FINAL — PROXIMOS 12 MESES
+    # Modelo treinado em toda a serie → preve os proximos 12 meses
+    # return_conf_int=True: retorna o intervalo de confianca de 95%
+    # O IC alarga conforme o horizonte aumenta — isso e ESPERADO e CORRETO
+    # (quanto mais distante o futuro, maior a incerteza)
+    # NAO oculte o IC do cliente: incerteza faz parte da previsao
+    # ---------------------------------------------------------------------------
+    datas_futuras = pd.date_range(serie.index[-1] + pd.DateOffset(months=1),
+                                   periods=12, freq='MS')
+    previsao, ic = modelo_final.predict(n_periods=12, return_conf_int=True)
+    prev_s  = pd.Series(previsao,    index=datas_futuras)
+    ic_inf  = pd.Series(ic[:, 0],   index=datas_futuras)
+    ic_sup  = pd.Series(ic[:, 1],   index=datas_futuras)
+
+    print("\n=== PREVISAO PARA OS PROXIMOS 12 MESES ===")
+    for d, v, lo, hi in zip(datas_futuras, previsao, ic[:, 0], ic[:, 1]):
+        print(f"  {d.strftime('%b/%Y')}: {v:.2%}   IC [{max(lo,0):.2%} — {hi:.2%}]")
+
+    # ---------------------------------------------------------------------------
+    # BLOCO 8: GRAFICO FINAL — HISTORICO + PREVISAO
+    # Grafico de comunicacao para o cliente: precisa ser claro e honesto
+    # Linha tracejada vertical: separa historico de previsao
+    # Banda colorida: mostra o IC (incerteza aumenta com o horizonte)
+    # ---------------------------------------------------------------------------
+    fig, ax = plt.subplots(figsize=(14, 5))
+    ax.plot(serie, color='steelblue', lw=2, label='Historico')
+    ax.plot(prev_s, color='tomato', lw=2.5, ls='--', label='Previsao 12 meses')
+    ax.fill_between(datas_futuras, np.maximum(ic_inf, 0), ic_sup,
+                    color='tomato', alpha=0.15, label='IC 95%')
+    ax.axvline(serie.index[-1], color='gray', lw=1, ls=':', alpha=0.8)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.1%}'))
+    ax.set_title('Taxa de Inadimplencia — Historico e Previsao (12 meses)',
+                 fontweight='bold')
+    ax.legend()
+    ax.grid(True, alpha=0.2)
+    plt.tight_layout()
+    plt.savefig('previsao_inadimplencia.png', dpi=150)
+    plt.show()
+
+    print("\nProjeto 5 concluido!")
+else:
+    print("Execute: pip install pmdarima  e rode novamente.")
+</script>
+
+<script type="text/plain" id="raw-p6"># ===========================================================================
+# PROJETO 6: Segmentacao de Clientes por Perfil de Risco (K-Means)
+# ===========================================================================
+# Objetivo: dividir a carteira em grupos com perfil de risco similar
+#
+# Por que K-Means e nao segmentacao manual por regras?
+#   Com 10 variaveis, criar regras manuais eficientes e impossivel
+#   K-Means encontra os grupos NATURAIS nos dados, sem viés subjetivo
+#   Considera TODAS as variaveis simultaneamente (nao uma de cada vez)
+#
+# Como vai usar na Management Solutions:
+#   Precificacao: segmento baixo risco paga taxa menor
+#   Limites: segmento alto risco recebe limite de credito menor
+#   Cobranca: abordagem diferente por perfil (proativa vs reativa)
+#
+# pip install pandas numpy scikit-learn matplotlib seaborn
+# ===========================================================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.metrics import silhouette_score
+import warnings
+warnings.filterwarnings('ignore')
+np.random.seed(42)
+
+# ---------------------------------------------------------------------------
+# BLOCO 1: GERAR BASE DE CLIENTES
+# Na vida real: join de tabelas do bureau de credito + transacional interno
+# Cada linha = 1 cliente com seu perfil completo
+# Simulamos 3 segmentos distintos que o K-Means vai "descobrir"
+# ---------------------------------------------------------------------------
+n = 5000
+
+# Vamos simular 3 grupos com caracteristicas distintas
+segs = np.random.choice(['baixo', 'medio', 'alto'], n, p=[0.40, 0.35, 0.25])
+
+dados_lista = []
+for seg in segs:
+    if seg == 'baixo':
+        dados_lista.append({
+            'idade': np.random.randint(35, 65),
+            'renda_mensal': np.random.uniform(5000, 25000),
+            'tempo_emprego_meses': np.random.randint(36, 180),
+            'score_bureau': np.random.randint(650, 900),
+            'n_contratos_ativos': np.random.randint(1, 4),
+            'atrasos_12m': np.random.choice([0, 1], p=[0.95, 0.05]),
+            'utilizacao_limite': np.random.uniform(0.05, 0.35),
+            'tempo_relacionamento': np.random.randint(24, 120),
+            'n_consultas_bureau': np.random.randint(0, 3),
+            'divida_renda': np.random.uniform(0.05, 0.25)
+        })
+    elif seg == 'medio':
+        dados_lista.append({
+            'idade': np.random.randint(25, 50),
+            'renda_mensal': np.random.uniform(2000, 8000),
+            'tempo_emprego_meses': np.random.randint(12, 60),
+            'score_bureau': np.random.randint(500, 700),
+            'n_contratos_ativos': np.random.randint(2, 7),
+            'atrasos_12m': np.random.choice([0, 1, 2, 3], p=[0.65, 0.2, 0.1, 0.05]),
+            'utilizacao_limite': np.random.uniform(0.30, 0.70),
+            'tempo_relacionamento': np.random.randint(6, 48),
+            'n_consultas_bureau': np.random.randint(2, 7),
+            'divida_renda': np.random.uniform(0.20, 0.55)
+        })
+    else:
+        dados_lista.append({
+            'idade': np.random.randint(18, 40),
+            'renda_mensal': np.random.uniform(1000, 4000),
+            'tempo_emprego_meses': np.random.randint(0, 24),
+            'score_bureau': np.random.randint(300, 550),
+            'n_contratos_ativos': np.random.randint(3, 10),
+            'atrasos_12m': np.random.choice([0,1,2,3,4,5], p=[0.3,.25,.2,.15,.07,.03]),
+            'utilizacao_limite': np.random.uniform(0.60, 1.00),
+            'tempo_relacionamento': np.random.randint(0, 24),
+            'n_consultas_bureau': np.random.randint(5, 15),
+            'divida_renda': np.random.uniform(0.45, 1.0)
+        })
+
+clientes = pd.DataFrame(dados_lista)
+clientes['segmento_real'] = segs
+features = [c for c in clientes.columns if c != 'segmento_real']
+
+print("=== PERFIL MEDIO DOS CLIENTES ===")
+print(clientes[features].describe().round(1).to_string())
+
+# ---------------------------------------------------------------------------
+# BLOCO 2: PADRONIZACAO — OBRIGATORIA ANTES DO K-MEANS
+# K-Means calcula DISTANCIA euclidiana entre pontos no espaco das features
+# Problema sem padronizacao:
+#   renda (10.000) vs atrasos (0-5)
+#   A distancia seria dominada pela renda → K-Means ignoraria os atrasos
+# Solucao: StandardScaler transforma cada variavel para media=0, std=1
+# Assim todas as features contribuem igualmente para a distancia
+# ---------------------------------------------------------------------------
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(clientes[features])
+
+print(f"\nApos padronizacao: media={X_scaled.mean():.2f}, std={X_scaled.std():.2f}")
+
+# ---------------------------------------------------------------------------
+# BLOCO 3: METODO DO COTOVELO + SILHOUETTE — ESCOLHER K
+# Como saber quantos clusters usar?
+# Inertia (WCSS): soma das distancias quadradas ao centroide → menor = melhor
+#   Mas ela sempre cai com mais clusters → use o "cotovelo"
+# Silhouette Score: mede quao separados sao os clusters (-1 a 1)
+#   Proximo de 1: clusters compactos e bem separados → excelente
+#   Proximo de 0: clusters sobrepostos → ruim
+#   Negativo: pontos podem estar no cluster errado → muito ruim
+# ---------------------------------------------------------------------------
+print("\n=== METODO DO COTOVELO + SILHOUETTE ===")
+inertias, silhs = [], []
+k_range = range(2, 9)
+
+for k in k_range:
+    km  = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X_scaled)
+    inertias.append(km.inertia_)
+    sil = silhouette_score(X_scaled, km.labels_, sample_size=2000)
+    silhs.append(sil)
+    print(f"  K={k}: Inertia={km.inertia_:>10.0f} | Silhouette={sil:.4f}")
+
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+axes[0].plot(list(k_range), inertias, 'o-', color='steelblue', lw=2)
+axes[0].set_xlabel('Numero de Clusters (K)')
+axes[0].set_ylabel('Inertia (WCSS)')
+axes[0].set_title('Metodo do Cotovelo — onde a queda desacelera?')
+axes[0].grid(True, alpha=0.3)
+
+axes[1].plot(list(k_range), silhs, 'o-', color='seagreen', lw=2)
+axes[1].set_xlabel('Numero de Clusters (K)')
+axes[1].set_ylabel('Silhouette Score (maior = melhor)')
+axes[1].set_title('Qualidade dos Clusters')
+axes[1].grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('elbow_silhouette.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 4: K-MEANS FINAL COM K=3
+# Escolhemos K=3 por dois motivos:
+#   1. O grafico do cotovelo "dobra" em K=3 (queda desacelera)
+#   2. Faz sentido de NEGOCIO: baixo/medio/alto risco (3 estrategias)
+# Na vida real: combine o grafico tecnico com o conhecimento do negocio
+# Nunca escolha K apenas pelo grafico sem validar se faz sentido comercial
+# ---------------------------------------------------------------------------
+K_FINAL = 3
+print(f"\n=== K-MEANS FINAL (K={K_FINAL}) ===")
+
+kmeans = KMeans(n_clusters=K_FINAL, random_state=42, n_init=10)
+clientes['cluster'] = kmeans.fit_predict(X_scaled)
+
+for k in range(K_FINAL):
+    nk = (clientes['cluster'] == k).sum()
+    print(f"  Cluster {k}: {nk} clientes ({nk/n*100:.1f}%)")
+
+# ---------------------------------------------------------------------------
+# BLOCO 5: PERFILAR OS CLUSTERS — QUEM E QUEM?
+# K-Means cria grupos por similaridade matematica
+# Mas nao os nomeia → voce precisa calcular as medias e INTERPRETAR
+# Compare cada variavel de cada cluster com a media geral
+# Valores muito acima da media: caracteristica marcante daquele cluster
+# ---------------------------------------------------------------------------
+perfil = clientes.groupby('cluster')[features].mean()
+ordem  = perfil['score_bureau'].sort_values(ascending=False).index.tolist()
+perfil = perfil.loc[ordem]
+
+nomes = {ordem[0]: 'Baixo Risco', ordem[1]: 'Medio Risco', ordem[2]: 'Alto Risco'}
+clientes['perfil_risco'] = clientes['cluster'].map(nomes)
+
+print("\n=== PERFIL MEDIO POR CLUSTER ===")
+print(perfil.round(2).to_string())
+
+# ---------------------------------------------------------------------------
+# BLOCO 6: HEATMAP DE PERFIL
+# Normaliza os valores de cada feature entre 0 e 1 (entre os clusters)
+# Celulas verdes: valor baixo (bom para risco)
+# Celulas vermelhas: valor alto (ruim para risco)
+# Voce le o perfil completo de cada cluster de uma so vez
+# ---------------------------------------------------------------------------
+perfil_n = (perfil - perfil.min()) / (perfil.max() - perfil.min() + 1e-8)
+perfil_n.index = [nomes[i] for i in perfil_n.index]
+
+fig, ax = plt.subplots(figsize=(13, 4))
+sns.heatmap(
+    perfil_n,
+    annot=perfil.round(0).values, fmt='.0f',
+    cmap='RdYlGn_r',           # vermelho = alto, verde = baixo (para variaveis de risco)
+    linewidths=0.5, ax=ax,
+    cbar_kws={'label': 'Normalizado 0-1'}
+)
+ax.set_title('Perfil Medio por Segmento de Risco', fontweight='bold', fontsize=13)
+plt.tight_layout()
+plt.savefig('heatmap_clusters.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 7: PCA — VISUALIZAR OS CLUSTERS EM 2D
+# 10 features = impossivel visualizar diretamente
+# PCA reduz para 2 dimensoes preservando a MAXIMA variancia possivel
+# Se os clusters aparecem separados no grafico 2D: modelo excelente
+# Se os clusters se misturam no 2D: a separacao existe em dimensoes maiores
+# ---------------------------------------------------------------------------
+pca = PCA(n_components=2, random_state=42)
+X2d = pca.fit_transform(X_scaled)
+var = pca.explained_variance_ratio_
+
+print(f"\n=== PCA — VISUALIZACAO 2D ===")
+print(f"PC1 explica: {var[0]:.1%} da variancia")
+print(f"PC2 explica: {var[1]:.1%} da variancia")
+print(f"Total 2D:    {sum(var):.1%}  (quanto da informacao foi preservada)")
+
+fig, ax = plt.subplots(figsize=(9, 7))
+cores = {'Baixo Risco': 'seagreen', 'Medio Risco': 'darkorange', 'Alto Risco': 'tomato'}
+for nome, cor in cores.items():
+    mask = clientes['perfil_risco'] == nome
+    ax.scatter(X2d[mask, 0], X2d[mask, 1], c=cor, alpha=0.4, s=12, label=nome)
+
+ax.set_xlabel(f'PC1 ({var[0]:.1%} da variancia)')
+ax.set_ylabel(f'PC2 ({var[1]:.1%} da variancia)')
+ax.set_title('Segmentacao de Risco — Projecao PCA 2D', fontweight='bold')
+ax.legend()
+plt.tight_layout()
+plt.savefig('pca_clusters.png', dpi=150)
+plt.show()
+
+# ---------------------------------------------------------------------------
+# BLOCO 8: RECOMENDACOES DE NEGOCIO
+# A parte mais importante: traduzir os clusters em ACAO
+# Sem isso, o cliente tem um grafico bonito e nada mais
+# Para cada segmento: limite, taxa, estrategia de cobranca, oferta
+# ---------------------------------------------------------------------------
+print("\n=== RECOMENDACOES DE NEGOCIO POR SEGMENTO ===")
+recs = {
+    'Baixo Risco' : {'limite': '150% renda', 'taxa': 'prime+2%',
+                     'cobranca': 'Automatica', 'oferta': 'Pre-aprovado agressivo'},
+    'Medio Risco' : {'limite': '80% renda',  'taxa': 'prime+8%',
+                     'cobranca': 'Regua padrao', 'oferta': 'Pre-aprovado conservador'},
+    'Alto Risco'  : {'limite': '30% renda',  'taxa': 'prime+18%',
+                     'cobranca': 'Proativa (1o dia)', 'oferta': 'Sem pre-aprovado'}
+}
+for seg, rec in recs.items():
+    qtd = (clientes['perfil_risco'] == seg).sum()
+    print(f"\n  {seg} — {qtd} clientes ({qtd/n:.0%})")
+    for k, v in rec.items():
+        print(f"    {k:<12}: {v}")
+
+print("\nProjeto 6 concluido!")
+</script>
+
+<script>
+// NAV
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    var sec = this.dataset.sec;
+    document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+    document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+    this.classList.add('active');
+    document.getElementById('sec-' + sec).classList.add('active');
+    window.scrollTo(0, 0);
+  });
+});
+
+// COPY
+function copyCode(btn) {
+  var pre = btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(function() {
+    btn.textContent = 'Copiado!';
+    setTimeout(function(){ btn.textContent = 'Copiar'; }, 2000);
+  });
+}
+
+// =====================================================================
+// INTEGRAÇÃO: accordion dos dias
+// =====================================================================
+function toggleDay(el) {
+  var body = el.nextElementSibling;
+  if (!body) return;
+  var isOpen = body.classList.contains('open');
+  // fecha todos
+  document.querySelectorAll('.int-day-body').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.int-day-head').forEach(function(h){ h.setAttribute('aria-expanded','false'); });
+  if (!isOpen) {
+    body.classList.add('open');
+    el.setAttribute('aria-expanded','true');
+  }
+}
+
+// =====================================================================
+// BATE PAPO: troca de cenário e revela respostas
+// =====================================================================
+function switchBP(scenarioId, btn) {
+  document.querySelectorAll('.bp-scenario').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.bp-tab').forEach(function(t){ t.classList.remove('active'); });
+  var sc = document.getElementById(scenarioId);
+  if (sc) sc.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function revealAns(hiddenEl) {
+  var parentMsg = hiddenEl.closest('.bp-msg');
+  if (parentMsg) parentMsg.style.display = 'none';
+  var answerEl = parentMsg ? parentMsg.nextElementSibling : null;
+  if (answerEl) answerEl.style.display = 'flex';
+}
+
+// PREENCHE OS PRE COM O CONTEUDO DOS SCRIPT TYPE=TEXT/PLAIN
+var mapa = {
+  'code-woe'      : 'raw-woe',
+  'code-validacao': 'raw-validacao',
+  'code-mc'       : 'raw-mc',
+  'code-glm'      : 'raw-glm',
+  'code-ts'       : 'raw-ts',
+  'code-p1'       : 'raw-p1',
+  'code-p2'       : 'raw-p2',
+  'code-p3'       : 'raw-p3',
+  'code-p4'       : 'raw-p4',
+  'code-p5'       : 'raw-p5',
+  'code-p6'       : 'raw-p6'
+};
+Object.keys(mapa).forEach(function(preId) {
+  var rawEl = document.getElementById(mapa[preId]);
+  var preEl = document.getElementById(preId);
+  if (rawEl && preEl) { preEl.textContent = rawEl.textContent.trim(); }
+});
+
+// =====================================================================
+// FLASHCARDS
+// =====================================================================
+var allCards = [
+  // --- ESTATÍSTICA ---
+  {cat:'Estatística', q:'O que é p-valor?', a:'Probabilidade de observar um resultado tão extremo quanto o observado, assumindo que a hipótese nula é verdadeira. p < 0.05 → rejeitamos H₀ e consideramos o coeficiente estatisticamente significante.'},
+  {cat:'Estatística', q:'O que é overfitting e como detectar em um scorecard?', a:'Modelo "decorou" os dados de treino, capturando até o ruído. Em scorecard: KS/Gini/AUC muito maior no treino do que no teste. Diferença de KS > 5 pontos percentuais é sinal de alerta.'},
+  {cat:'Estatística', q:'O que é AUC e o que ela representa probabilisticamente?', a:'Área Sob a Curva ROC. Probabilidade de que o modelo ranqueie um cliente mau acima de um bom pagador aleatório. AUC=0.5 → aleatório. AUC=1.0 → perfeito.'},
+  {cat:'Estatística', q:'Por que usar KS em vez de acurácia em crédito?', a:'Acurácia não funciona com dados desbalanceados (5% de defaults). Um modelo que prevê "bom" para todos tem 95% de acurácia mas é inútil. KS mede a separação real entre as distribuições de scores de bons e maus.'},
+  {cat:'Estatística', q:'O que é regularização L1 (Lasso)?', a:'Penalidade proporcional à soma dos |coeficientes|. Faz coeficientes irrelevantes irem a zero → seleção automática de variáveis. Útil com muitas features para simplificar o modelo.'},
+  {cat:'Estatística', q:'O que é regularização L2 (Ridge)?', a:'Penalidade proporcional à soma dos coeficientes². Reduz todos os coeficientes mas não zera nenhum. Útil quando todas as features têm alguma relevância e há multicolinearidade.'},
+  {cat:'Estatística', q:'O que é cross-validation e por que é melhor que um único split?', a:'Divide os dados em K folds. Treina em K-1, valida no restante. Repete K vezes e calcula a média. Usa TODOS os dados para validação e reduz a variância da estimativa de performance.'},
+  {cat:'Estatística', q:'O que são dados de treino, validação e teste?', a:'Treino: o modelo aprende. Validação: você ajusta hiperparâmetros. Teste: avaliação final, usado UMA vez. Nunca use o teste para tomar decisões de modelagem — contamina a avaliação.'},
+  {cat:'Estatística', q:'O que é intervalo de confiança de 95%?', a:'Se você repetisse o estudo 100 vezes, 95 dos intervalos calculados conteriam o verdadeiro parâmetro. NÃO significa "95% de chance de o parâmetro estar neste intervalo específico".'},
+  {cat:'Estatística', q:'O que é multicolinearidade e como detectar?', a:'Variáveis independentes altamente correlacionadas inflam os erros padrão dos coeficientes, tornando-os instáveis. Detecte com VIF (Variance Inflation Factor). VIF > 5: investigue. VIF > 10: problema grave.'},
+  {cat:'Estatística', q:'O que é kurtosis e por que importa em risco de mercado?', a:'Mede a gordura das caudas. Normal tem kurtosis = 3. Kurtosis > 3 → eventos extremos mais frequentes do que a normal prevê. VaR normal subestima o risco. CVaR captura a magnitude da cauda.'},
+  {cat:'Estatística', q:'Qual a diferença entre média e mediana? Quando usar cada uma?', a:'Média é sensível a outliers. Mediana é robusta (valor central). Para renda e LGD (distribuições assimétricas), mediana é mais representativa. Para cálculos de portfolio (EL), use média.'},
+  {cat:'Estatística', q:'O que é o Teorema Central do Limite?', a:'A média de amostras grandes tende à distribuição normal, independente da distribuição original. Base do VaR paramétrico e dos intervalos de confiança dos coeficientes logísticos.'},
+  {cat:'Estatística', q:'O que é bootstrapping?', a:'Reamostragem com reposição do mesmo dataset. Permite estimar a distribuição amostral de qualquer estatística (ex: KS, AUC) sem suposições sobre a distribuição dos dados. Útil para calcular IC de métricas de modelo.'},
+  {cat:'Estatística', q:'O que é o erro Tipo I e Tipo II em crédito?', a:'Tipo I: negar crédito para bom cliente (falso negativo). Tipo II: aprovar crédito para mau pagador (falso positivo). Em crédito, o custo de Tipo II (default) costuma ser maior que Tipo I (perda de receita).'},
+  {cat:'Estatística', q:'O que é McFadden R² (para regressão logística)?', a:'Análogo ao R² para modelos logísticos: McFadden R² = 1 - LL_modelo / LL_nulo. Valores: > 0.2 são bons, > 0.4 são excelentes. NÃO interprete igual ao R² linear.'},
+  {cat:'Estatística', q:'O que é AIC e para que serve?', a:'Akaike Information Criterion. Penaliza modelos complexos para evitar overfitting. AIC = 2k - 2LL (k = número de parâmetros). Menor AIC = melhor modelo. Usado pelo auto_arima para escolher a ordem do ARIMA.'},
+  {cat:'Estatística', q:'Por que normalizar variáveis antes do K-Means?', a:'K-Means usa distância euclidiana. Sem normalização, variáveis em escalas grandes (renda = 10.000) dominam a distância sobre variáveis em escalas pequenas (atrasos = 0-5). StandardScaler coloca todas na mesma escala.'},
+  {cat:'Estatística', q:'O que é Silhouette Score?', a:'Mede a qualidade dos clusters de K-Means. Compara a distância intra-cluster com a distância ao cluster mais próximo. Próximo de 1: clusters bem definidos. Próximo de 0: sobrepostos. Negativo: possível erro de atribuição.'},
+  {cat:'Estatística', q:'O que é a função sigmoid e onde aparece na logística?', a:'σ(x) = 1/(1+e^(-x)). Transforma qualquer número real em uma probabilidade entre 0 e 1. Na logística: p = σ(β₀ + β₁X₁ + ...). O coeficiente positivo aumenta o log-odds e portanto aumenta a probabilidade prevista.'},
+
+  // --- CRÉDITO ---
+  {cat:'Crédito', q:'O que são PD, LGD e EAD?', a:'PD = Probabilidade de Default. LGD = Loss Given Default (% perdida se calotar). EAD = Exposure at Default (saldo no momento do calote). Perda Esperada: EL = PD × LGD × EAD.'},
+  {cat:'Crédito', q:'O que é WoE (Weight of Evidence)?', a:'WoE = ln(% de bons na faixa / % de maus na faixa). WoE > 0: faixa com proporcionalmente mais bons. WoE < 0: mais maus. Transforma variáveis categóricas e contínuas em uma escala contínua com sinal intuitivo.'},
+  {cat:'Crédito', q:'O que é IV (Information Value) e como interpretar?', a:'Mede o poder preditivo de uma variável. IV = Σ (%bons - %maus) × WoE. IV < 0.02: inútil, descarte. 0.02-0.1: fraco. 0.1-0.3: médio. > 0.3: forte. > 0.5: suspeito (possível leakage).'},
+  {cat:'Crédito', q:'O que é PSI e o que fazer quando está alto?', a:'Population Stability Index. Compara distribuição de scores entre desenvolvimento e produção. PSI < 0.10: estável. 0.10-0.20: monitore e investigue. > 0.20: modelo inválido → retreinar.'},
+  {cat:'Crédito', q:'Por que logística e não Random Forest em scorecard regulado?', a:'Regulação (Basel III, IFRS 9) exige explicabilidade. O banco precisa explicar ao regulador e ao cliente negado quais variáveis foram usadas e com qual peso. Floresta de árvores não é explicável dessa forma.'},
+  {cat:'Crédito', q:'O que é vintage/safra e para que serve?', a:'Agrupa operações pelo mês de concessão. Compara a inadimplência acumulada de safras diferentes no mesmo ponto da vida do contrato. Detecta deterioração da qualidade do portfólio ao longo do tempo.'},
+  {cat:'Crédito', q:'O que é Gini Coefficient em crédito?', a:'Medida de poder discriminatório do modelo. Gini = 2×AUC - 1. Vai de 0% (aleatório) a 100% (perfeito). Modelo bom de crédito tem Gini > 40%. Acima de 70%: verifique se há data leakage.'},
+  {cat:'Crédito', q:'O que é o modelo de Merton para PD?', a:'Trata a empresa como uma call option sobre seus ativos. Default ocorre quando o valor dos ativos cai abaixo da dívida. Usa distribuição normal: PD = N(-d2). Base para abordagem IRB do Basel II/III.'},
+  {cat:'Crédito', q:'O que é abordagem IRB (Internal Ratings-Based)?', a:'Bancos usam seus próprios modelos de PD, LGD e EAD (aprovados pelo regulador) para calcular capital mínimo. Exige histórico de 5+ anos e validação rigorosa. Alternativa: abordagem Padronizada (tabelas do regulador).'},
+  {cat:'Crédito', q:'Como escolher o ponto de corte (cut-off) do score?', a:'Depende do apetite a risco e do custo de cada erro. Analise a curva de aprovação vs inadimplência em diferentes cut-offs. O corte ótimo maximiza o lucro esperado = receita dos bons aprovados - perda dos maus aprovados.'},
+  {cat:'Crédito', q:'O que é taxa de recuperação?', a:'1 - LGD. Se LGD = 0.60: taxa de recuperação = 40%. O banco recupera 40 centavos por cada real emprestado a clientes que calotaram. Contratos com garantia têm taxa de recuperação maior.'},
+  {cat:'Crédito', q:'O que é data leakage em modelagem de crédito?', a:'Informação do futuro vaza para o treino. Exemplos: usar o saldo após o default como feature, calcular WoE no dataset completo antes de dividir treino/teste. Resulta em métricas artificialmente altas e modelo que falha em produção.'},
+  {cat:'Crédito', q:'O que é concentração de risco em crédito?', a:'Exposição muito grande em um único cliente, setor ou região. Aumenta a correlação entre defaults: se o setor vai mal, muitos defaults ocorrem simultaneamente. Basel II exige limites de concentração.'},
+  {cat:'Crédito', q:'O que é stress testing em crédito?', a:'Simula cenários adversos (recessão, desemprego +5pp, queda de renda) e calcula o impacto na PD, LGD e capital regulatório. Exigido pelo regulador para grandes bancos. Usa Monte Carlo ou cenários históricos.'},
+  {cat:'Crédito', q:'Qual a diferença entre abordagem Padronizada e IRB?', a:'Padronizada: banco usa pesos de risco definidos pelo regulador (tabelas). IRB: banco usa modelos próprios de PD/LGD/EAD. IRB permite menor exigência de capital mas exige aprovação do regulador e validação contínua.'},
+  {cat:'Crédito', q:'O que é o GLM Gamma e quando usar para LGD?', a:'GLM com família Gamma e link log. Modelo correto quando o target é contínuo positivo com distribuição assimétrica (como LGD). Garante predições sempre positivas. exp(coeficiente) = multiplicador do LGD esperado.'},
+
+  // --- MERCADO ---
+  {cat:'Mercado', q:'O que é VaR e o que ele NÃO diz?', a:'Value at Risk: perda máxima esperada a um dado nível de confiança em um horizonte. VaR 95% = R$1M: "com 95% de confiança, não perco mais que R$1M hoje." NÃO diz quanto perde quando perde mais que o VaR.'},
+  {cat:'Mercado', q:'Diferença entre VaR e CVaR (Expected Shortfall)?', a:'VaR é o limiar (quantil). CVaR é a perda MÉDIA quando o VaR é superado. CVaR captura eventos de cauda gorda. Basel III exige CVaR porque ele penaliza mais os cenários extremos.'},
+  {cat:'Mercado', q:'Por que usar decomposição de Cholesky no Monte Carlo?', a:'Para simular retornos correlacionados. Sem Cholesky, os ativos seriam independentes (irreal). Cholesky decompõe a matriz de covariância: Σ = L × Lᵀ. Aplica L nas simulações para injetar a correlação histórica.'},
+  {cat:'Mercado', q:'O que é backtesting de VaR?', a:'Compara as perdas reais diárias com as previsões de VaR. Se o VaR 95% for superado mais de 5% dos dias: modelo subestima o risco. Regulador exige backtesting de 250 dias úteis (≈1 ano).'},
+  {cat:'Mercado', q:'O que é delta de uma opção?', a:'Sensibilidade do preço da opção em relação ao preço do ativo-objeto. Delta ∈ [0,1] para calls, [-1,0] para puts. Delta=0.6: para cada R$1 de alta no ativo, a opção sobe R$0,60.'},
+  {cat:'Mercado', q:'O que é volatilidade implícita vs realizada?', a:'Realizada: desvio padrão dos retornos históricos. Implícita: vol que faz Black-Scholes reproduzir o preço de mercado da opção. Implícita é a expectativa do mercado sobre volatilidade futura. VIX é a vol implícita do S&P500.'},
+  {cat:'Mercado', q:'O que é duration de um título de renda fixa?', a:'Sensibilidade do preço do título à variação da taxa de juros. Duration = 5: se a taxa sobe 1pp, o preço cai ≈5%. Títulos de longo prazo e cupom baixo têm maior duration (mais sensíveis à taxa).'},
+  {cat:'Mercado', q:'Por que retornos financeiros têm caudas gordas?', a:'Crises, pânicos e bolhas criam eventos extremos mais frequentes do que a normal prevê. Kurtosis dos retornos diários costuma ser 4-6 (normal = 3). VaR normal subestima o risco de cauda.'},
+  {cat:'Mercado', q:'O que é Monte Carlo e quando é preferível ao VaR histórico?', a:'Simula cenários futuros com base em parâmetros históricos. Preferível quando: (1) você quer modelar correlações explicitamente via Cholesky, (2) o histórico tem poucos eventos extremos, (3) quer fazer stress test com parâmetros modificados.'},
+  {cat:'Mercado', q:'O que é CreditVaR?', a:'Analogia do VaR de mercado para portfólio de crédito. Perda inesperada no percentil 99.9% da distribuição de perdas de crédito (acima do EL). Diferença entre EL e CreditVaR = capital regulatório exigido.'},
+
+  // --- SÉRIES TEMPORAIS ---
+  {cat:'Séries', q:'O que é série temporal estacionária?', a:'Média, variância e autocorrelação constantes ao longo do tempo. ARIMA precisa de estacionariedade. Teste: ADF (p < 0.05 → estacionária). Se não for: diferencie com serie.diff() até ser estacionária.'},
+  {cat:'Séries', q:'O que são os parâmetros ARIMA(p, d, q)?', a:'p = ordem AR (quantos lags passados usamos para prever). d = número de diferenciações para estacionarizar. q = ordem MA (quantos erros passados usamos). auto_arima encontra os melhores p, d, q por AIC.'},
+  {cat:'Séries', q:'O que é o teste ADF e como interpretar?', a:'Augmented Dickey-Fuller. H₀: série tem raiz unitária (não é estacionária). p < 0.05: rejeita H₀ → série é estacionária → OK para ARIMA. p ≥ 0.05: não é estacionária → diferencie.'},
+  {cat:'Séries', q:'O que é sazonalidade e como detectar?', a:'Padrão que se repete em intervalos fixos. Inadimplência sobe em jan/fev (pós-natal/carnaval). Detecte com seasonal_decompose (component.seasonal) e com pico em lag=12 no gráfico ACF.'},
+  {cat:'Séries', q:'Por que NÃO embaralhar dados de série temporal para treino/teste?', a:'O futuro não pode estar no treino — seria data leakage temporal. O modelo "aprenderia" o futuro. Sempre corte temporalmente: treina nos T-12 primeiros meses, testa nos 12 últimos.'},
+
+  // --- IFRS 9 ---
+  {cat:'IFRS', q:'O que é IFRS 9 e como mudou a provisão de crédito?', a:'Norma contábil em vigor desde 2018. Substituiu IAS 39. Mudança principal: provisão forward-looking (ECL prospectivo) em vez de backward-looking (perda incorrida). Provisão aumenta ANTES do default ocorrer.'},
+  {cat:'IFRS', q:'Quais são os 3 Stages do IFRS 9?', a:'Stage 1: sem deterioração. ECL = 12 meses. Stage 2: deterioração significativa (SICR). ECL = lifetime. Stage 3: default ocorreu. ECL = lifetime com LGD alto. Migrar de Stage 1 para 2 pode triplicar a provisão.'},
+  {cat:'IFRS', q:'O que define a migração para Stage 2 (SICR)?', a:'Significant Increase in Credit Risk. Critério quantitativo padrão: PD atual > 1.5x PD na originação. Critérios qualitativos: reestruturação, watchlist, atraso > 30 dias. Os critérios são definidos pela instituição e auditados.'},
+  {cat:'IFRS', q:'O que é ECL e como calcular?', a:'Expected Credit Loss = PD × LGD × EAD × DF (fator de desconto). Stage 1: ECL dos próximos 12 meses. Stage 2 e 3: ECL lifetime = integral de PD × LGD × EAD ao longo da vida do contrato, descontado a valor presente.'},
+  {cat:'IFRS', q:'O que é forward-looking adjustment no IFRS 9?', a:'A norma exige que PDs reflitam informações macroeconômicas FUTURAS (PIB projetado, desemprego esperado), não apenas o histórico. Complica a modelagem. Auditores verificam se a calibração é razoável.'},
+
+  // --- PYTHON ---
+  {cat:'Python', q:'Por que usar statsmodels.Logit e não sklearn.LogisticRegression?', a:'statsmodels gera p-valores, z-scores e intervalos de confiança para cada coeficiente — essencial para o relatório técnico regulatório. sklearn foca em predição, não em inferência estatística.'},
+  {cat:'Python', q:'O que faz pd.qcut e quando usar vs pd.cut?', a:'qcut: divide em quantis (faixas com mesmo número de observações). cut: divide por amplitude igual. Use qcut para WoE binning — garante representatividade em cada faixa para cálculo estável do WoE.'},
+  {cat:'Python', q:'O que é stratify no train_test_split?', a:'Mantém a proporção da variável target em ambos os splits. Essencial em crédito (5% de default): sem stratify, pode acabar com quase zero defaults no teste, tornando a validação inválida.'},
+  {cat:'Python', q:'Por que usar np.random.seed()?', a:'Garante reproduzibilidade. Monte Carlo com 100k simulações dá resultado diferente a cada execução sem seed. Com seed fixo, qualquer pessoa que rode o mesmo código terá exatamente o mesmo resultado.'},
+  {cat:'Python', q:'O que é sm.add_constant() no statsmodels?', a:'Adiciona a coluna do intercepto (β₀) ao DataFrame de features. Sem ela, o modelo forçaria a reta a passar pela origem (β₀ = 0), o que raramente é correto. Sempre use antes de sm.Logit ou sm.GLM.'},
+  {cat:'Python', q:'O que é np.linalg.cholesky() e onde usamos?', a:'Decompõe uma matriz de covariância positiva-definida em L tal que L @ L.T = Σ. Usamos no Monte Carlo: R = Z @ L.T + mu. Transforma ruído independente em retornos correlacionados.'}
+];
+
+var activeCards = allCards.slice();
+var cardIdx = 0;
+
+function showCard() {
+  var c = activeCards[cardIdx];
+  document.getElementById('fc-cat-label').textContent = c.cat;
+  document.getElementById('fc-q').textContent = c.q;
+  document.getElementById('fc-a').textContent = c.a;
+  document.getElementById('fc-prog').textContent = (cardIdx+1) + ' / ' + activeCards.length;
+  document.getElementById('fc-card-el').classList.remove('flipped');
+}
+
+function flipCard() {
+  document.getElementById('fc-card-el').classList.toggle('flipped');
+}
+
+function nextCard() {
+  cardIdx = (cardIdx + 1) % activeCards.length;
+  showCard();
+}
+
+function prevCard() {
+  cardIdx = (cardIdx - 1 + activeCards.length) % activeCards.length;
+  showCard();
+}
+
+function shuffleCards() {
+  for (var i = activeCards.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var t = activeCards[i]; activeCards[i] = activeCards[j]; activeCards[j] = t;
+  }
+  cardIdx = 0;
+  showCard();
+}
+
+function filterCards(cat, btn) {
+  document.querySelectorAll('.fc-cat').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  activeCards = cat === 'all' ? allCards.slice()
+    : allCards.filter(function(c){ return c.cat === cat; });
+  cardIdx = 0;
+  showCard();
+}
+
+// inicializa flashcards ao carregar
+showCard();
+</script>
+
+</body>
+</html>
