@@ -108,13 +108,20 @@ table.cmp td strong{color:var(--tx);}
 .fc-shuffle:hover{border-color:var(--pu);color:var(--pu);}
 /* --- PLANO --- */
 .plan-week{margin-bottom:30px;}
-.plan-week h3{font-size:1rem;color:var(--ac);margin-bottom:12px;}
+.plan-week h3{font-size:1rem;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+.plan-week h3 .week-prog{font-size:.75rem;color:var(--tm);font-weight:400;}
 .plan-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
-.plan-day{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 10px;font-size:.75rem;color:var(--tm);line-height:1.5;}
-.plan-day .dn{font-weight:700;color:var(--tx);font-size:.8rem;margin-bottom:4px;}
+.plan-day{background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 10px;font-size:.75rem;color:var(--tm);line-height:1.5;cursor:pointer;user-select:none;transition:opacity .2s;}
+.plan-day .dn{font-weight:700;color:var(--tx);font-size:.8rem;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
 .plan-day.focus{border-color:var(--ac);background:rgba(88,166,255,.05);}
 .plan-day.code{border-color:var(--gr);background:rgba(63,185,80,.05);}
 .plan-day.review{border-color:var(--pu);background:rgba(210,168,255,.05);}
+.plan-day.done{opacity:.5;text-decoration:line-through;}
+.plan-day.done .dn{color:var(--gr);}
+.plan-cb{width:14px;height:14px;border-radius:3px;border:1px solid var(--bd);display:inline-block;flex-shrink:0;}
+.plan-day.done .plan-cb{background:var(--gr);border-color:var(--gr);}
+.plan-reset{background:none;border:1px solid var(--bd);color:var(--td);padding:4px 12px;border-radius:4px;cursor:pointer;font-size:.72rem;transition:all .15s;}
+.plan-reset:hover{border-color:var(--rd);color:var(--rd);}
 /* --- START HERE --- */
 .start-hero{background:linear-gradient(135deg,rgba(255,166,87,.12),rgba(88,166,255,.08));border:1px solid var(--yl);border-radius:10px;padding:28px 32px;margin-bottom:24px;}
 .start-hero h3{font-size:1.2rem;color:var(--yl);margin-bottom:10px;}
@@ -125,11 +132,17 @@ table.cmp td strong{color:var(--tx);}
 .route-body strong{color:var(--tx);font-size:.9rem;display:block;margin-bottom:3px;}
 .route-body span{font-size:.82rem;color:var(--tm);}
 .route-arrow{text-align:center;color:var(--td);font-size:.8rem;padding:2px 0;}
-/* --- BATE PAPO --- */
-.bp-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.bp-tab{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:all .15s;}
-.bp-tab.active{background:var(--ac);border-color:var(--ac);color:#000;font-weight:700;}
-.bp-scenario{display:none;} .bp-scenario.active{display:block;}
+/* --- BATE PAPO QUIZ --- */
+.bp-filter{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.bp-fcat{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.78rem;transition:all .15s;}
+.bp-fcat.active,.bp-fcat:hover{background:var(--ac);border-color:var(--ac);color:#000;font-weight:700;}
+.bp-qcard{background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:20px;margin-top:4px;}
+.bp-qcontext{font-size:.75rem;color:var(--td);margin-bottom:8px;font-style:italic;}
+.bp-qtext{font-size:.95rem;color:var(--tx);font-weight:500;line-height:1.55;}
+.bp-rate-btn{padding:8px 18px;border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;transition:opacity .15s;}
+.bp-rate-btn:hover{opacity:.8;}
+.bp-nav-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+.bp-nav-btn:hover{border-color:var(--ac);}
 .bp-chat{display:flex;flex-direction:column;gap:16px;}
 .bp-msg{display:flex;gap:12px;align-items:flex-start;}
 .bp-msg.right{flex-direction:row-reverse;}
@@ -143,6 +156,55 @@ table.cmp td strong{color:var(--tx);}
 .bp-reveal{background:none;border:1px solid var(--ac);color:var(--ac);font-size:.78rem;padding:5px 14px;border-radius:4px;cursor:pointer;margin-top:8px;transition:all .15s;}
 .bp-reveal:hover{background:var(--ac);color:#000;}
 .bp-divider{text-align:center;font-size:.75rem;color:var(--td);padding:8px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);margin:4px 0;}
+/* --- NÍVEIS DE PROJETO --- */
+.level-badge{display:inline-flex;align-items:center;gap:5px;border-radius:4px;padding:3px 10px;font-size:.72rem;font-weight:700;letter-spacing:.4px;margin-right:8px;}
+.level-trainee{background:rgba(63,185,80,.15);border:1px solid var(--gr);color:var(--gr);}
+.level-junior{background:rgba(88,166,255,.15);border:1px solid var(--ac);color:var(--ac);}
+.level-pleno{background:rgba(255,166,87,.15);border:1px solid var(--yl);color:var(--yl);}
+.level-senior{background:rgba(247,129,102,.15);border:1px solid var(--rd);color:var(--rd);}
+.proj-levels-intro{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:20px 24px;margin-bottom:24px;}
+.proj-levels-intro h3{font-size:.95rem;color:var(--tx);margin-bottom:14px;}
+.levels-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.level-card{border-radius:6px;padding:12px 14px;}
+.level-card.trainee{background:rgba(63,185,80,.05);border:1px solid var(--gr);}
+.level-card.junior{background:rgba(88,166,255,.05);border:1px solid var(--ac);}
+.level-card.pleno{background:rgba(255,166,87,.05);border:1px solid var(--yl);}
+.level-card.senior{background:rgba(247,129,102,.05);border:1px solid var(--rd);}
+.level-card .lc-name{font-size:.78rem;font-weight:700;margin-bottom:4px;}
+.level-card.trainee .lc-name{color:var(--gr);}
+.level-card.junior .lc-name{color:var(--ac);}
+.level-card.pleno .lc-name{color:var(--yl);}
+.level-card.senior .lc-name{color:var(--rd);}
+.level-card p{font-size:.78rem;margin-bottom:0;}
+/* --- LINGUAGEM DE CONSULTOR --- */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+.compare-card{border-radius:8px;padding:16px 20px;}
+.compare-card.bad{background:rgba(247,129,102,.06);border:1px solid var(--rd);}
+.compare-card.good{background:rgba(63,185,80,.06);border:1px solid var(--gr);}
+.compare-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;}
+.compare-label.bad{color:var(--rd);}
+.compare-label.good{color:var(--gr);}
+.compare-text{font-size:.875rem;color:var(--tm);line-height:1.6;font-style:italic;}
+.phrase-block{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:18px 20px;margin-bottom:12px;}
+.phrase-situation{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--yl);margin-bottom:10px;}
+.phrase-item{padding:8px 0;border-bottom:1px solid var(--s2);font-size:.875rem;color:var(--tm);line-height:1.5;}
+.phrase-item:last-child{border-bottom:none;padding-bottom:0;}
+.phrase-item em{color:var(--tx);font-style:normal;font-weight:600;}
+.subst-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:16px 0;border:1px solid var(--bd);border-radius:8px;overflow:hidden;}
+.subst-head{padding:10px 16px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+.subst-head.bad{background:rgba(247,129,102,.1);color:var(--rd);}
+.subst-head.good{background:rgba(63,185,80,.1);color:var(--gr);}
+.subst-row{display:contents;}
+.subst-row:hover .subst-cell{background:var(--s2);}
+.subst-cell{padding:10px 16px;font-size:.84rem;color:var(--tm);border-top:1px solid var(--bd);}
+.subst-cell.bad{border-right:1px solid var(--bd);}
+.method-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--s2);}
+.method-step:last-child{border-bottom:none;}
+.method-phase{background:var(--yl);color:#000;border-radius:6px;padding:4px 10px;font-size:.72rem;font-weight:800;white-space:nowrap;height:fit-content;margin-top:2px;}
+.method-phase.gr{background:var(--gr);}
+.method-phase.pu{background:var(--pu);}
+.method-body strong{display:block;color:var(--tx);font-size:.9rem;margin-bottom:4px;}
+.method-body p{margin-bottom:0;font-size:.875rem;}
 /* --- INTEGRAÇÃO --- */
 .int-day{background:var(--s1);border:1px solid var(--bd);border-radius:8px;margin-bottom:16px;overflow:hidden;}
 .int-day-head{padding:14px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;background:var(--s2);}
@@ -190,15 +252,19 @@ table.cmp td strong{color:var(--tx);}
   <div class="nav-item" data-sec="m5">5. Séries Temporais</div>
   <div class="nav-section">Prática</div>
   <div class="nav-item" data-sec="batepapo">Bate Papo Simulado <span class="badge" style="background:#ffa657;">Novo</span></div>
+  <div class="nav-item" data-sec="linguagem">Linguagem de Consultor <span class="badge" style="background:#ffa657;">Novo</span></div>
   <div class="nav-item" data-sec="plano">Plano 1 Mês</div>
   <div class="nav-item" data-sec="flashcards">Flashcards <span class="badge pu">60+</span></div>
   <div class="nav-section">Projetos</div>
-  <div class="nav-item" data-sec="p1">Projeto 1 — Scorecard PD <span class="badge">Completo</span></div>
-  <div class="nav-item" data-sec="p2">Projeto 2 — Monte Carlo VaR <span class="badge">Completo</span></div>
-  <div class="nav-item" data-sec="p3">Projeto 3 — IFRS 9 <span class="badge pu">Você faz</span></div>
-  <div class="nav-item" data-sec="p4">Projeto 4 — LGD Modeling <span class="badge">Completo</span></div>
-  <div class="nav-item" data-sec="p5">Projeto 5 — Forecast Inadimp. <span class="badge">Completo</span></div>
-  <div class="nav-item" data-sec="p6">Projeto 6 — Segmentação Risco <span class="badge">Completo</span></div>
+  <div class="nav-item" data-sec="projetos">Visão Geral por Nível</div>
+  <div class="nav-item" data-sec="p1">P1 — Scorecard PD <span class="badge" style="background:#3fb950">Trainee</span></div>
+  <div class="nav-item" data-sec="p2">P2 — Monte Carlo VaR <span class="badge" style="background:#3fb950">Trainee</span></div>
+  <div class="nav-item" data-sec="p4">P4 — LGD Modeling <span class="badge" style="background:#3fb950">Trainee</span></div>
+  <div class="nav-item" data-sec="p5">P5 — Forecast Inadimp. <span class="badge" style="background:#3fb950">Trainee</span></div>
+  <div class="nav-item" data-sec="p6">P6 — Segmentação Risco <span class="badge" style="background:#3fb950">Trainee</span></div>
+  <div class="nav-item" data-sec="p3">P3 — IFRS 9 ECL <span class="badge pu">Júnior</span></div>
+  <div class="nav-item" data-sec="p7">P7 — EWS de Crédito <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
+  <div class="nav-item" data-sec="p8">P8 — Case Executivo <span class="badge" style="background:#f78166;color:#000">Sênior</span></div>
 </aside>
 
 <main class="main">
@@ -219,7 +285,7 @@ table.cmp td strong{color:var(--tx);}
   <div class="route-map">
     <div class="route-step">
       <div class="route-num">1</div>
-      <div class="route-body"><strong>Guia → Capítulo 1 (A Matemática Base)</strong><span>Derivada = sensibilidade. Integral = acúmulo. Estatística básica. Leva ~1h.</span></div>
+      <div class="route-body"><strong>Guia → Capítulo 1 (A Matemática Base)</strong><span>Logaritmo, Derivada, Integral, Distribuição Normal, Estatística — com exercícios de fixação. Reserve 2-3h sem pressa.</span></div>
     </div>
     <div class="route-arrow">↓ Depois</div>
     <div class="route-step">
@@ -990,10 +1056,48 @@ Você não precisa adivinhar p, d, q manualmente.</div>
   <div class="callout warn"><strong>Nunca embaralhe dados de série temporal.</strong> O futuro não pode estar no treino. Use sempre holdout temporal: treino = todo o período até data X, teste = período posterior a X. Nunca train_test_split com shuffle=True em série temporal.</div>
 </div>
 
+<!-- VISÃO GERAL PROJETOS -->
+<div class="section" id="sec-projetos">
+  <h2 class="pt">Projetos por Nível</h2>
+  <p class="ps">8 projetos organizados por nível de autonomia. Comece pelo Trainee — não pule etapas.</p>
+  <div class="proj-levels-intro">
+    <h3>O que cada nível exige de você</h3>
+    <div class="levels-grid">
+      <div class="level-card trainee">
+        <div class="lc-name">🟢 Trainee</div>
+        <p>Código 100% pronto. Rode, leia cada bloco, entenda o porquê. Documente os resultados.</p>
+      </div>
+      <div class="level-card junior">
+        <div class="lc-name">🔵 Júnior</div>
+        <p>Scaffolding fornecido. Você implementa as funções-chave marcadas como TODO.</p>
+      </div>
+      <div class="level-card pleno">
+        <div class="lc-name">🟡 Pleno</div>
+        <p>Só o problema e os dados. Você define a abordagem, o pipeline e o relatório.</p>
+      </div>
+      <div class="level-card senior">
+        <div class="lc-name">🔴 Sênior</div>
+        <p>Business case real. Você entrega uma análise que um diretor usaria para tomar decisão.</p>
+      </div>
+    </div>
+  </div>
+  <table class="cmp">
+    <tr><th>Projeto</th><th>Nível</th><th>Tema</th><th>Pré-requisito</th></tr>
+    <tr><td><strong>P1</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>Credit Scorecard PD end-to-end</td><td>Guia Cap. 2</td></tr>
+    <tr><td><strong>P2</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>Monte Carlo VaR com ações brasileiras</td><td>Guia Cap. 3</td></tr>
+    <tr><td><strong>P4</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>LGD Modeling com GLM Gamma</td><td>Guia Cap. 6</td></tr>
+    <tr><td><strong>P5</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>Forecast de Inadimplência (ARIMA)</td><td>Guia Cap. 5</td></tr>
+    <tr><td><strong>P6</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>Segmentação de Risco com K-Means</td><td>Guia Cap. 6</td></tr>
+    <tr><td><strong>P3</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>IFRS 9 ECL Calculator (você implementa)</td><td>P1 + Guia Cap. 6</td></tr>
+    <tr><td><strong>P7</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>Early Warning System de Crédito</td><td>P1 + P3</td></tr>
+    <tr><td><strong>P8</strong></td><td><span class="level-badge level-senior">Sênior</span></td><td>Business Case Executivo (só o problema)</td><td>Todos os anteriores</td></tr>
+  </table>
+</div>
+
 <!-- PROJETO 1 -->
 <div class="section" id="sec-p1">
-  <h2 class="pt">Projeto 1 — Credit Scorecard</h2>
-  <p class="ps">Código completo. Baixe o dataset, cole o código, rode.</p>
+  <h2 class="pt"><span class="level-badge level-trainee">🟢 Trainee</span>Projeto 1 — Credit Scorecard</h2>
+  <p class="ps">Código 100% completo. Rode, leia cada bloco, entenda o porquê de cada decisão.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 2 — Risco de Crédito (EL = PD × LGD × EAD, WoE, IV, KS, Gini). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 2. Depois volte aqui e rode o projeto.
   </div>
@@ -1010,8 +1114,8 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 
 <!-- PROJETO 2 -->
 <div class="section" id="sec-p2">
-  <h2 class="pt">Projeto 2 — Monte Carlo VaR</h2>
-  <p class="ps">Código completo. Apenas instale yfinance e rode.</p>
+  <h2 class="pt"><span class="level-badge level-trainee">🟢 Trainee</span>Projeto 2 — Monte Carlo VaR</h2>
+  <p class="ps">Código completo. Instale yfinance e rode. Altere os parâmetros para entender o efeito.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 3 — Risco de Mercado (VaR, CVaR, Volatilidade, Diversificação, Cholesky). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 3. Entenda a lógica do Monte Carlo e da decomposição de Cholesky antes de rodar.
   </div>
@@ -1028,8 +1132,8 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 
 <!-- PROJETO 3 -->
 <div class="section" id="sec-p3">
-  <h2 class="pt">Projeto 3 — IFRS 9 ECL</h2>
-  <p class="ps">Este você faz sozinho. Dataset gerado no script, steps listados, preencha o código.</p>
+  <h2 class="pt"><span class="level-badge level-junior">🔵 Júnior</span>Projeto 3 — IFRS 9 ECL</h2>
+  <p class="ps">Scaffolding fornecido. Você implementa as 4 funções-chave marcadas como TODO.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção IFRS 9 (Stage 1, 2 e 3, ECL = PD × LGD × EAD por fase). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda a lógica dos Stages antes de implementar as funções do TODO.
   </div>
@@ -1069,95 +1173,341 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 <!-- BATE PAPO SIMULADO -->
 <div class="section" id="sec-batepapo">
   <h2 class="pt">Bate Papo Simulado</h2>
-  <p class="ps">Pratique responder perguntas reais. Pense na sua resposta, depois clique para ver a resposta de referência.</p>
-  <div class="bp-tabs">
-    <div class="bp-tab active" onclick="switchBP('bp-senior',this)">Com o Gerente Senior</div>
-    <div class="bp-tab" onclick="switchBP('bp-parceiro',this)">Com o Parceiro do Banco</div>
-    <div class="bp-tab" onclick="switchBP('bp-comite',this)">No Comitê de Risco</div>
-    <div class="bp-tab" onclick="switchBP('bp-tecnico',this)">Técnico de DS</div>
+  <p class="ps">30 perguntas reais de consultores, gerentes e diretores. Pense na resposta, revele, e avalie você mesmo. O robô rastreia seu score por categoria.</p>
+
+  <!-- FILTRO DE CATEGORIA -->
+  <div class="bp-filter">
+    <button class="bp-fcat active" data-cat="all" onclick="bpSetFilter('all',this)">Todas (30)</button>
+    <button class="bp-fcat" data-cat="credit" onclick="bpSetFilter('credit',this)">🏦 Crédito (7)</button>
+    <button class="bp-fcat" data-cat="market" onclick="bpSetFilter('market',this)">📈 Mercado (6)</button>
+    <button class="bp-fcat" data-cat="ifrs" onclick="bpSetFilter('ifrs',this)">📋 IFRS 9 (5)</button>
+    <button class="bp-fcat" data-cat="ds" onclick="bpSetFilter('ds',this)">🤖 DS Técnico (7)</button>
+    <button class="bp-fcat" data-cat="consult" onclick="bpSetFilter('consult',this)">💼 Consultor (5)</button>
   </div>
 
-  <!-- CENÁRIO 1: GERENTE SENIOR -->
-  <div class="bp-scenario active" id="bp-senior">
-    <div class="bp-chat">
-      <div class="bp-divider">David (Gerente Senior MS) — ele sabe tudo, está avaliando como você pensa</div>
-      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "O modelo de PD tem KS 42% no treino e 35% no teste. Você aprovaria?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro. Depois clique.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "A diferença de 7 pontos de KS está no limite — threshold padrão é 5 pontos. Há leve overfitting. Eu aprovaria com ressalva: aplicar regularização L2 na próxima iteração e monitorar o PSI mensalmente. Se o PSI passar de 0.10 nos primeiros 3 meses, revisamos antes do prazo padrão. O modelo está funcional mas não está no ponto ótimo."</div></div>
+  <!-- BARRA DE PROGRESSO -->
+  <div style="margin:14px 0 6px">
+    <div style="background:var(--s2);border-radius:4px;height:8px;overflow:hidden">
+      <div id="bp-prog-bar" style="height:100%;background:var(--gr);width:0%;transition:width .3s"></div>
+    </div>
+    <div id="bp-prog-text" style="font-size:.75rem;color:var(--td);margin-top:4px">Pergunta 1 de 30 · Score: —</div>
+  </div>
 
-      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "Por que logística? O XGBoost deu KS 15 pontos maior nos testes internos."</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Performance maior não é o único critério em ambiente regulado. A resolução do Bacen exige que o banco explique ao regulador e ao cliente negado exatamente quais variáveis foram usadas e com qual peso. XGBoost não entrega isso. A logística converte em scorecard de pontos que o comitê entende e que pode ser auditado. Se o ganho de KS for maior que 10 pontos, podemos usar XGBoost para feature selection e logística para o modelo final — o melhor dos dois mundos."</div></div>
+  <!-- CARD DA PERGUNTA -->
+  <div class="bp-qcard" id="bp-qcard">
+    <div class="bp-qcontext" id="bp-qcontext"></div>
+    <div class="bp-qtext" id="bp-qtext"></div>
+    <p style="font-size:.8rem;color:var(--td);font-style:italic;margin:12px 0 0" id="bp-think">💭 Pense na sua resposta antes de revelar.</p>
+    <button class="btn-primary" id="bp-reveal-btn" onclick="bpReveal()" style="margin-top:14px">Ver Resposta de Referência</button>
 
-      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "PSI subiu para 0.22 em produção. Me diga o que você faz agora — passo a passo."</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "PSI de 0.22 está na zona vermelha. Passo 1: identificar quais decis do score mudaram mais (PSI por decil). Passo 2: checar se o drift é real (perfil de clientes mudou) ou é erro de dados (nova coluna, formato diferente). Passo 3: se for drift real, iniciamos retreinamento com dados dos últimos 12 meses. No interim: comunicar ao banco e usar threshold mais conservador até o novo modelo ser validado."</div></div>
-
-      <div class="bp-msg"><div class="bp-avatar">👨‍💼</div><div class="bp-bubble question"><strong>David:</strong> "Você tem 3 dias para explorar uma base de 500k clientes. Como prioriza?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Dia 1: qualidade dos dados — missing, inconsistências, leakage suspeito. Isso determina o que posso usar. Dia 2: análise bivariada focando nas variáveis com maior correlação com o target, taxa de default por segmento. Dia 3: documento com no máximo 5 achados priorizados por impacto + lista de decisões que precisam do cliente. Não apresento tudo — apresento o que importa para o próximo passo."</div></div>
+    <div id="bp-answer-block" style="display:none;margin-top:18px">
+      <div class="callout info" id="bp-answer-text" style="font-size:.84rem;line-height:1.65"></div>
+      <div style="margin-top:16px">
+        <p style="font-size:.8rem;color:var(--td);margin-bottom:10px"><strong>Como foi a sua resposta?</strong></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="bp-rate-btn" style="background:#16a34a22;border:1px solid #16a34a;color:#16a34a" onclick="bpRate(2)">✓ Acertei</button>
+          <button class="bp-rate-btn" style="background:#d9770622;border:1px solid #d97706;color:#d97706" onclick="bpRate(1)">~ Parcial</button>
+          <button class="bp-rate-btn" style="background:#dc262622;border:1px solid #dc2626;color:#dc2626" onclick="bpRate(0)">✗ Errei</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- CENÁRIO 2: PARCEIRO DO BANCO -->
-  <div class="bp-scenario" id="bp-parceiro">
-    <div class="bp-chat">
-      <div class="bp-divider">Gerente de Risco do Banco — ele quer entender, não quer fórmula</div>
-      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "O modelo deu score alto para o João, mas o João calotou. O modelo falhou?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "O modelo não prevê certeza — prevê probabilidade. Score 750 significa que 95% dos clientes com aquele perfil pagam. João caiu nos 5%. Isso é esperado. O que avaliamos: na carteira toda, clientes com score 750+ estão calotando em linha com o previsto? Se a taxa esperada era 5% e a real é 5%, o modelo está funcionando perfeitamente. O problema seria se esses clientes estivessem calotando 15%."</div></div>
+  <!-- NAVEGAÇÃO -->
+  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center">
+    <button class="bp-nav-btn" id="bp-prev-btn" onclick="bpNav(-1)">← Anterior</button>
+    <button class="bp-nav-btn" id="bp-next-btn" onclick="bpNav(1)" style="background:var(--ac);color:#000;font-weight:700">Próxima →</button>
+    <button class="bp-nav-btn" onclick="bpShuffle()" style="margin-left:auto">🔀 Embaralhar</button>
+    <button class="bp-nav-btn" onclick="bpReset()">↺ Reiniciar</button>
+  </div>
 
-      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "Qual a diferença entre o modelo que vocês construíram e o score do Serasa que já usamos?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "O Serasa é genérico — treinado com dados do mercado inteiro. Nosso modelo é treinado especificamente com os seus dados históricos: seus clientes aprovados, seus critérios, seus produtos. Ele captura os padrões de risco específicos da sua carteira, não do mercado geral. Podemos incluir variáveis que o Serasa não acessa: histórico de relacionamento, saldo médio em conta, comportamento com outros produtos seus. Na prática, modelo customizado tende a ter KS 10-15 pontos maior aplicado à sua carteira."</div></div>
+  <!-- TELA DE RESULTADO FINAL -->
+  <div id="bp-result-screen" style="display:none;margin-top:24px"></div>
 
-      <div class="bp-msg"><div class="bp-avatar">🏦</div><div class="bp-bubble question"><strong>Gerente:</strong> "Precisamos provisionar mais por causa do IFRS 9. O que mudou na metodologia?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Antes do IFRS 9, o banco provisiona só quando o cliente JÁ calotou. Com IFRS 9, você provisiona pela perda FUTURA esperada — olha para frente. Quando um cliente deteriora (Stage 1→2), você passa a provisionar o ECL de toda a vida do contrato, não só dos próximos 12 meses. Isso pode multiplicar a provisão por 5 a 6 vezes. A grande mudança: o modelo precisa ser 'forward-looking', incorporando cenários de juros e desemprego projetados. Não dá mais trabalhar só com dados históricos."</div></div>
+</div>
+
+<!-- LINGUAGEM DE CONSULTOR -->
+<div class="section" id="sec-linguagem">
+  <h2 class="pt">Linguagem de Consultor</h2>
+  <p class="ps">A diferença entre o júnior que fica e o que some em 3 meses não é técnica — é comunicação. O cliente paga pelo que você <strong>transmite</strong>, não pelo que você sabe.</p>
+
+  <div class="callout warn">
+    <strong>A armadilha do técnico:</strong> você sabe Python, sabe modelar, sabe validar. Mas se você fala "o modelo errou" para um diretor, perdeu a confiança. Consultor não erra — ele "identifica oportunidade de calibração." A técnica é igual. A linguagem é diferente.
+  </div>
+
+  <!-- BLOCO 1: O PRINCÍPIO -->
+  <h3 class="sh">O Princípio Mais Importante — Resposta Primeiro</h3>
+  <div class="card">
+    <p><strong style="color:var(--tx)">O júnior conta a história. O consultor entrega a conclusão.</strong></p>
+    <p>Quando alguém te pergunta algo, o cérebro de júnior quer explicar o processo: "então eu peguei os dados, fiz a limpeza, rodei o modelo, e aí vi que..." O problema: o sênior parou de ouvir no segundo 5.</p>
+    <p>O consultor faz o oposto — responde primeiro, explica depois, só se perguntarem.</p>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Júnior — conta o processo</div>
+      <div class="compare-text">"Então eu baixei a base, tinha uns problemas de missing que eu tratei, rodei a regressão logística com as variáveis que tinham mais IV, aí o KS deu 40% e a AUC foi 0.82..."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Consultor — entrega a conclusão</div>
+      <div class="compare-text">"O modelo discrimina corretamente 82% dos casos. Isso representa redução estimada de 15% na inadimplência sem impacto no volume aprovado. Posso detalhar a metodologia se quiser."</div>
     </div>
   </div>
 
-  <!-- CENÁRIO 3: COMITÊ -->
-  <div class="bp-scenario" id="bp-comite">
-    <div class="bp-chat">
-      <div class="bp-divider">Diretor de Risco — perguntas estratégicas, respostas diretas e curtas</div>
-      <div class="bp-msg"><div class="bp-avatar">👔</div><div class="bp-bubble question"><strong>Diretor:</strong> "Banco Central subiu 200bps. Qual o impacto na nossa carteira?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Três frentes: (1) Crédito: dívida variável fica mais cara, parcela pesa mais, PD sobe — especialmente em PF de renda mais baixa. (2) LGD pode subir porque vender bem dado em garantia em leilão fica mais difícil com juros altos. (3) Modelos: as variáveis macro de comprometimento de renda vão se deteriorar — precisamos rodar stress test para quantificar o impacto na provisão e ver se os modelos precisam recalibração."</div></div>
-
-      <div class="bp-msg"><div class="bp-avatar">👔</div><div class="bp-bubble question"><strong>Diretor:</strong> "Nosso VaR está muito diferente do prejuízo real do mês passado. Por quê?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Duas causas prováveis: (1) o VaR é calculado com volatilidade histórica — se o mês teve evento fora do padrão histórico, o modelo estava calibrado para um ambiente diferente; (2) o VaR não diz o tamanho da perda quando você cruza o limiar — só diz onde está o limiar. Em eventos extremos (cauda), o prejuízo real pode ser 3-5x o VaR. A solução de longo prazo é o Expected Shortfall (CVaR), que mede a média do prejuízo nos piores dias. Também recomendo Backtesting mensal para verificar quantos dias o prejuízo real superou o VaR previsto."</div></div>
+  <h3 class="sh">O Framework PREP — Qualquer Resposta em 4 Passos</h3>
+  <div class="steps">
+    <div class="srow">
+      <div class="snum" style="background:var(--ac)">P</div>
+      <div class="sbody"><h4>Ponto — Responda diretamente</h4><p>Comece com a resposta. "O modelo está aprovado para produção." "A provisão vai aumentar 12%." "Recomendamos o XGBoost." Uma frase.</p></div>
+    </div>
+    <div class="srow">
+      <div class="snum" style="background:var(--gr)">R</div>
+      <div class="sbody"><h4>Razão — Por que você chegou lá</h4><p>A lógica por trás. "Porque o KS de 40% supera o threshold de aprovação de 30% definido pelo banco." Uma ou duas frases.</p></div>
+    </div>
+    <div class="srow">
+      <div class="snum" style="background:var(--yl)">E</div>
+      <div class="sbody"><h4>Evidência — O dado que sustenta</h4><p>Um número concreto, um exemplo, uma comparação. "Na safra de teste, a taxa de default dos aprovados caiu de 8% para 5%." Seja específico.</p></div>
+    </div>
+    <div class="srow">
+      <div class="snum" style="background:var(--pu)">P</div>
+      <div class="sbody"><h4>Ponto — Reforce ou recomende</h4><p>Fecha com ação ou reafirmação. "Portanto, recomendo aprovação com monitoramento de PSI mensal nos primeiros 6 meses." Dê o próximo passo.</p></div>
     </div>
   </div>
 
-  <!-- CENÁRIO 4: TÉCNICO DS -->
-  <div class="bp-scenario" id="bp-tecnico">
-    <div class="bp-chat">
-      <div class="bp-divider">Senior técnico — quer saber se você entende o mecanismo, não a decoreba</div>
-      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Base com 2% de default. Você usa SMOTE. SMOTE vai antes ou depois de separar treino e teste?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Cuidado, é pegadinha clássica.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Depois do split. Sempre. Se eu aplicar SMOTE antes, vou ter amostras sintéticas no conjunto de teste criadas interpolando o treino — o modelo vai 'reconhecer' versões do treino no teste, a avaliação fica contaminada e parece melhor do que é. SMOTE vai só no X_train e y_train. O teste fica com a distribuição real, desbalanceada — porque é o que vai acontecer em produção."</div></div>
+  <!-- BLOCO 2: ANTES E DEPOIS -->
+  <h3 class="sh">Antes e Depois — As 8 Situações Mais Comuns</h3>
 
-      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Por que o ARIMA falha em séries sazonais se você não configurar o 'm' correto?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "ARIMA básico tenta capturar autocorrelação de lags adjacentes, mas não de lags sazonais. Se a inadimplência tem pico todo janeiro, o ARIMA interpreta isso como ruído aleatório em vez de estrutura. O SARIMA com m=12 cria termos AR e MA também nos lags sazonais (12, 24, 36...), capturando o padrão anual. Resultado prático: resíduos mais limpos e previsões que respeitam a sazonalidade histórica."</div></div>
-
-      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "GLM Gamma para LGD. O coeficiente de 'tem_garantia' deu -0.85. O que você escreve no relatório?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "No GLM Gamma com link log, o coeficiente não se interpreta diretamente — precisa do exp(). exp(-0.85) = 0.43. Isso significa que contratos com garantia têm LGD esperado 57% menor do que contratos sem garantia, mantendo os demais fatores constantes. No relatório: 'A presença de garantia real reduz a perda esperada em caso de default em 57%. Recomenda-se diferenciação de pricing e provisão entre as duas carteiras.'"</div></div>
-
-      <div class="bp-msg"><div class="bp-avatar">🧑‍🔬</div><div class="bp-bubble question"><strong>Senior:</strong> "Um modelo de fraude tem Precision 95% e Recall 40%. Isso é aceitável?"</div></div>
-      <div class="bp-msg right"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble hidden-ans" onclick="revealAns(this)">← Pense primeiro.</div></div>
-      <div class="bp-msg right" style="display:none"><div class="bp-avatar">🧑‍💻</div><div class="bp-bubble answer"><strong>Você:</strong> "Para fraude, não. Precision 95% significa que quando o modelo acusa fraude, ele acerta 95% das vezes — ótimo. Mas Recall 40% significa que de todas as fraudes reais que aconteceram, o modelo só pegou 40%. Deixou 60% das fraudes passarem. Em fraude, o custo do Falso Negativo (fraude que passou) é muito maior que o do Falso Positivo (transação legítima bloqueada). Um modelo de fraude com Recall 40% está errando onde mais importa. O ideal seria Recall acima de 85-90%, mesmo que isso abaixe a Precision para 70-80%."</div></div>
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Quando perguntam sobre resultado</div>
+      <div class="compare-text">"O modelo tá rodando, o KS deu 40%, mas acho que dá pra melhorar ainda, talvez ajustando o threshold..."</div>
     </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"O modelo está dentro do critério de aprovação. KS de 40%, superando o mínimo de 30%. Há espaço para refinamento — trago proposta de melhoria na próxima iteração."</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Quando não sabe a resposta</div>
+      <div class="compare-text">"Não sei... não vi isso na análise... teria que verificar."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Ainda não tenho esse número confirmado. Posso trazer até o fim do dia com precisão. Você precisa para a reunião de agora?"</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Quando o modelo tem problema</div>
+      <div class="compare-text">"O modelo tá dando resultado estranho, acho que tem um bug nos dados de entrada."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Identificamos uma inconsistência na origem dos dados que impacta a calibração. Já mapeamos a causa raiz — correção disponível em 24h."</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Apresentando um achado</div>
+      <div class="compare-text">"Então eu vi que os clientes de renda mais alta têm menos default, o que faz sentido né..."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Principal achado: clientes com renda acima de R$5k têm probabilidade de default 3× menor. Isso viabiliza uma trilha de aprovação diferenciada — ganho de volume sem aumento de risco."</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Discordando do sênior</div>
+      <div class="compare-text">"Mas eu acho que não é assim..." — ou ficar calado por medo.</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Faz sentido. Quero garantir alinhamento em um ponto: os dados de [X] mostram [Y]. Isso já está na sua análise ou vale revisitar juntos?"</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Pedindo prazo ou adiando entrega</div>
+      <div class="compare-text">"Ainda não terminei, tive problemas com a base de dados..."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Estou finalizando a validação para garantir robustez antes de apresentar. Entrego até [hora específica]. Funciona para você?"</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Em reunião com cliente — pergunta difícil</div>
+      <div class="compare-text">"Hmm... isso eu teria que verificar... não tenho certeza agora..."</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Ótima pergunta — vou confirmar com os dados completos e retorno ainda hoje por escrito, para garantir precisão no número."</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label bad">❌ Recebendo crítica do sênior</div>
+      <div class="compare-text">"Ah, tá... vou refazer então." (sem mostrar que entendeu o porquê)</div>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label good">✓ Como falar</div>
+      <div class="compare-text">"Entendido. Só para confirmar o alinhamento: você quer que eu priorize [X] em vez de [Y], correto? Dessa forma consigo entregar mais ajustado ao que você precisa."</div>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: FRASES PRONTAS -->
+  <h3 class="sh">Frases Prontas — Cole e Use</h3>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Abrindo uma apresentação</div>
+    <div class="phrase-item"><em>"O objetivo desta análise é [X]. O principal achado é [Y]. Recomendamos [Z]."</em></div>
+    <div class="phrase-item"><em>"Com base nos dados dos últimos [X] meses, identificamos três pontos de atenção..."</em></div>
+    <div class="phrase-item"><em>"Vou estruturar em três blocos: contexto, achados e recomendação."</em></div>
+  </div>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Apresentando números</div>
+    <div class="phrase-item"><em>"Os dados indicam que..."</em> — nunca "eu acho que"</div>
+    <div class="phrase-item"><em>"A análise mostra um padrão consistente de [X] ao longo de [período]."</em></div>
+    <div class="phrase-item"><em>"O impacto estimado é de [X], com intervalo de confiança de [Y]."</em></div>
+    <div class="phrase-item"><em>"Esse resultado é [esperado / acima do esperado / requer atenção] porque [razão]."</em></div>
+  </div>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Quando não sabe / precisa de tempo</div>
+    <div class="phrase-item"><em>"Ainda não tenho esse dado confirmado. Posso trazer até [hora] com precisão."</em></div>
+    <div class="phrase-item"><em>"Prefiro não arriscar um número sem validar. Confirmo ainda hoje."</em></div>
+    <div class="phrase-item"><em>"Para responder com segurança, preciso verificar [X]. Leva 20 minutos — posso retornar depois da reunião?"</em></div>
+  </div>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Concordando e construindo em cima</div>
+    <div class="phrase-item"><em>"Concordo. E complementando esse ponto — [adiciona perspectiva]."</em></div>
+    <div class="phrase-item"><em>"Exatamente. Isso alinha com o que vemos nos dados de [X], onde [Y]."</em></div>
+  </div>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Discordando com elegância</div>
+    <div class="phrase-item"><em>"Faz sentido. Quero garantir que estamos alinhados em um ponto antes de avançar..."</em></div>
+    <div class="phrase-item"><em>"Concordo com a direção. Minha dúvida é sobre [X específico] — os dados de [Y] apontam diferente. Vale revisitar?"</em></div>
+    <div class="phrase-item"><em>"Posso estar enxergando de forma diferente — você poderia me ajudar a entender o racional de [X]?"</em></div>
+  </div>
+
+  <div class="phrase-block">
+    <div class="phrase-situation">Pedindo orientação sem parecer perdido</div>
+    <div class="phrase-item"><em>"Para garantir que estou priorizando certo: [opção A] ou [opção B] faz mais sentido para o que você precisa?"</em></div>
+    <div class="phrase-item"><em>"Tenho duas abordagens possíveis para isso. Qual alinha melhor com o que o cliente espera: [A] ou [B]?"</em></div>
+    <div class="phrase-item"><em>"Antes de avançar, quero alinhar o escopo — [descreve o que vai fazer]. Está correto?"</em></div>
+  </div>
+
+  <!-- BLOCO 4: VOCABULÁRIO — TROCA DIRETA -->
+  <h3 class="sh">Dicionário de Substituição — Palavras que Matam vs. Palavras que Vendem</h3>
+
+  <div class="subst-grid">
+    <div class="subst-head bad">❌ Nunca diga</div>
+    <div class="subst-head good">✓ Diga assim</div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"O modelo errou"</div>
+      <div class="subst-cell good">"Identificamos oportunidade de calibração"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Não sei"</div>
+      <div class="subst-cell good">"Vou confirmar e retorno até [hora]"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Problema"</div>
+      <div class="subst-cell good">"Ponto de atenção" / "Oportunidade de melhoria"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Bug"</div>
+      <div class="subst-cell good">"Inconsistência identificada na origem"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Eu acho que..."</div>
+      <div class="subst-cell good">"Os dados indicam..." / "A análise sugere..."</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"A gente fez..."</div>
+      <div class="subst-cell good">"A análise mostra..." / "O modelo indica..."</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Tá pronto"</div>
+      <div class="subst-cell good">"Está disponível para revisão"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Não entendi"</div>
+      <div class="subst-cell good">"Para garantir alinhamento, pode detalhar [X]?"</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Depende" (sem mais nada)</div>
+      <div class="subst-cell good">"Depende de [X]. Se for [cenário A], recomendo [Y]. Se for [B], recomendo [Z]."</div>
+    </div>
+    <div class="subst-row">
+      <div class="subst-cell bad">"Não dá pra saber"</div>
+      <div class="subst-cell good">"Com os dados disponíveis, a estimativa mais conservadora é [X]"</div>
+    </div>
+  </div>
+
+  <!-- BLOCO 5: COMO APRENDER -->
+  <h3 class="sh">Como Internalizar — O Método dos 3 Estágios</h3>
+  <div class="callout info"><strong>Regra de ouro:</strong> você não vai criar sua linguagem de consultor. Você vai <strong>copiar</strong> primeiro. Depois adaptar. Depois criar. Nessa ordem, sempre.</div>
+
+  <div class="card">
+    <div class="method-step">
+      <div class="method-phase">Dias 1–7</div>
+      <div class="method-body">
+        <strong>Estágio 1: Shadow Mode — só observe e copie</strong>
+        <p>Não tente ser criativo ainda. Pegue as frases deste guia e use literalmente, palavra por palavra. Em reuniões, observe como o sênior formula as respostas. Anote as expressões que ele repete. Seu único objetivo esta semana é <em>não falar como júnior</em>.</p>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="method-phase gr">Dias 8–21</div>
+      <div class="method-body">
+        <strong>Estágio 2: Substituição Consciente</strong>
+        <p>Antes de abrir a boca ou mandar uma mensagem, pause 1 segundo e pergunte: <em>"como um consultor diria isso?"</em> Use o dicionário de substituição acima. Escolha 1 frase nova por dia e use pelo menos uma vez. Toda sexta, grave um áudio de 2 minutos explicando o projeto da semana como se fosse para o cliente — escute de volta.</p>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="method-phase pu">Dia 22+</div>
+      <div class="method-body">
+        <strong>Estágio 3: Construindo Seu Estilo</strong>
+        <p>Agora você adapta. As frases já estão na sua cabeça — comece a moldá-las para o seu jeito de falar, mantendo a estrutura (resposta primeiro, dado, recomendação). Peça feedback ao sênior sobre a sua comunicação escrita — e-mails e documentos dizem muito sobre como você pensa.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sh">O Drill Diário — 5 Minutos por Dia</h3>
+  <div class="card">
+    <ul class="list">
+      <li><strong>Manhã:</strong> escolha 1 frase do dicionário de substituição e comprometa-se a usá-la hoje</li>
+      <li><strong>Antes de qualquer reunião:</strong> prepare a resposta para "como está o projeto?" usando PREP (Ponto → Razão → Evidência → Ponto)</li>
+      <li><strong>Antes de mandar mensagem para o sênior:</strong> releia e substitua toda palavra de júnior</li>
+      <li><strong>Sexta à noite:</strong> grave 2 minutos explicando o projeto da semana em voz alta — sem ler, sem papelão. Escute e identifique onde você "soou" júnior</li>
+    </ul>
+  </div>
+
+  <div class="callout success">
+    <strong>Como você sabe que está evoluindo:</strong> quando o sênior começar a te passar o e-mail direto para o cliente sem revisar — ele confia que a sua linguagem está no nível certo.
   </div>
 </div>
 
 <!-- PLANO 1 MÊS -->
 <div class="section" id="sec-plano">
-  <h2 class="pt">Plano de 1 Mês</h2>
-  <p class="ps">4 semanas. Cada semana tem um objetivo concreto e entregáveis que o senior poderia cobrar de você.</p>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+    <h2 class="pt" style="margin-bottom:0">Plano de 1 Mês</h2>
+    <button class="plan-reset" onclick="resetPlano()">↺ Zerar progresso</button>
+  </div>
+  <p class="ps" id="plano-progresso">4 semanas, 28 dias. Clique em cada dia para marcar como concluído.</p>
   <div class="callout info" style="border-left-color:#ffa657;">
     <strong>Como usar:</strong> Guia (guia_matematica_risco.html) aberto em uma aba, este site em outra. Leia o capítulo do guia indicado → faça o módulo do site → rode o projeto. Não passe para o próximo dia sem completar o anterior.
   </div>
@@ -1269,7 +1619,7 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 
 <!-- PROJETO 4 -->
 <div class="section" id="sec-p4">
-  <h2 class="pt">Projeto 4 — LGD Modeling</h2>
+  <h2 class="pt"><span class="level-badge level-trainee">🟢 Trainee</span>Projeto 4 — LGD Modeling</h2>
   <p class="ps">Código completo e comentado. Por que Gamma e não Normal? Aprenda aqui.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção GLM e LGD. Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda por que a distribuição Gamma e o link logarítmico são a escolha correta para LGD.
@@ -1286,7 +1636,7 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 
 <!-- PROJETO 5 -->
 <div class="section" id="sec-p5">
-  <h2 class="pt">Projeto 5 — Forecast de Inadimplência</h2>
+  <h2 class="pt"><span class="level-badge level-trainee">🟢 Trainee</span>Projeto 5 — Forecast de Inadimplência</h2>
   <p class="ps">Série temporal mensal de taxa de default. Decomposição + ARIMA + previsão 12 meses.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 5 — Séries Temporais (Tendência, Sazonalidade, Ruído, Estacionariedade, ARIMA). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 5. Entenda os 4 conceitos antes de rodar o pipeline.
@@ -1303,7 +1653,7 @@ Você não precisa adivinhar p, d, q manualmente.</div>
 
 <!-- PROJETO 6 -->
 <div class="section" id="sec-p6">
-  <h2 class="pt">Projeto 6 — Segmentação de Risco</h2>
+  <h2 class="pt"><span class="level-badge level-trainee">🟢 Trainee</span>Projeto 6 — Segmentação de Risco</h2>
   <p class="ps">K-Means para criar perfis de risco. Do elbow method à recomendação de negócio.</p>
   <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
     <strong>📖 Leia antes no Guia:</strong> Cap. 6 — Modelagem Avançada, seção Clustering (K-Means, padronização, Elbow, Silhouette). Abra o arquivo <strong>guia_matematica_risco.html</strong> → Capítulo 6. Entenda por que padronizar é obrigatório antes de usar K-Means.
@@ -1314,6 +1664,78 @@ Você não precisa adivinhar p, d, q manualmente.</div>
     <div class="code-block">
       <div class="code-header"><span class="lang">Python — segmentacao_risco.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
       <pre id="code-p6"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- PROJETO 7 -->
+<div class="section" id="sec-p7">
+  <h2 class="pt"><span class="level-badge level-junior">🔵 Júnior</span>Projeto 7 — Early Warning System de Crédito</h2>
+  <p class="ps">Você implementa as funções-chave. O objetivo e a estrutura estão dados — o raciocínio é seu.</p>
+  <div class="callout info" style="margin-bottom:8px;border-left-color:#7b2ff7;background:#f3e8ff;">
+    <strong>📖 Pré-requisito:</strong> Projetos 1 e 3 completos. Você precisa saber: WoE/IV, regressão logística, IFRS 9 stages, e pandas avançado.
+  </div>
+  <div class="ph" style="background:rgba(88,166,255,.06);border-color:var(--ac);border-radius:8px 8px 0 0;padding:16px 20px;">
+    <h3 style="color:var(--ac)">🔵 Projeto Júnior — Early Warning System</h3>
+    <div class="pm">Dataset sintético gerado no script · Você implementa as funções marcadas com # TODO</div>
+  </div>
+  <div class="pb">
+    <div class="callout info"><strong>O que é um EWS:</strong> Early Warning System detecta clientes que AINDA não calotaram mas estão em trajetória de deterioração. O banco usa isso para agir antes do calote: reduzir limite, acionar cobrança preventiva, oferecer renegociação. É mais valioso que o modelo de PD puro — previne a perda em vez de só medi-la.</div>
+    <div class="card">
+      <h3 class="ct ac">O que você precisa construir</h3>
+      <ul class="list">
+        <li><strong>Função flag_deterioracao(df):</strong> identifica clientes com atraso crescente (30→60→90 dias) nos últimos 3 meses</li>
+        <li><strong>Função calcular_score_ews(df):</strong> combina variáveis comportamentais em score 0-100 de risco iminente</li>
+        <li><strong>Função classificar_alerta(score):</strong> Verde / Amarelo / Vermelho baseado em thresholds que você define</li>
+        <li><strong>Relatório final:</strong> quantos clientes em cada alerta, valor de saldo exposto, ação recomendada por tier</li>
+      </ul>
+    </div>
+    <div class="todo">
+      <h4>Variáveis comportamentais para usar no score:</h4>
+      <ul>
+        <li>Variação no atraso máximo nos últimos 3 meses (delta_atraso)</li>
+        <li>Utilização do limite nos últimos 30 dias vs média dos 6 meses anteriores</li>
+        <li>Número de produtos com algum atraso (concentração de risco)</li>
+        <li>Tempo desde o último pagamento acima do mínimo</li>
+        <li>Razão saldo_atual / saldo_6meses_atrás (crescimento de dívida)</li>
+      </ul>
+    </div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — ews_credito_scaffold.py (complete os TODOs)</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p7"></pre>
+    </div>
+    <div class="callout warn"><strong>Entregável esperado:</strong> Um relatório com: (1) distribuição de alertas Verde/Amarelo/Vermelho, (2) saldo em risco por tier, (3) uma recomendação de negócio escrita em linguagem de consultor — como você apresentaria para o gerente do banco.</div>
+  </div>
+</div>
+
+<!-- PROJETO 8 -->
+<div class="section" id="sec-p8">
+  <h2 class="pt"><span class="level-badge level-senior">🔴 Sênior</span>Projeto 8 — Business Case Executivo</h2>
+  <p class="ps">Sem código fornecido. Você recebe o problema e os dados — entrega uma análise que um diretor usaria para tomar decisão.</p>
+  <div class="callout warn"><strong>Pré-requisito absoluto:</strong> Projetos 1 a 7 completos. Este projeto não é técnico — é de comunicação e raciocínio estratégico. A análise técnica é só a base.</div>
+  <div class="ph" style="background:rgba(247,129,102,.06);border-color:var(--rd);border-radius:8px 8px 0 0;padding:16px 20px;">
+    <h3 style="color:var(--rd)">🔴 Projeto Sênior — Análise de Portfólio para o Diretor</h3>
+    <div class="pm">Problema aberto · Você define a abordagem · Entregável: documento executivo de 1 página</div>
+  </div>
+  <div class="pb">
+    <div class="card red">
+      <h3 class="ct rd">O Cenário</h3>
+      <p>Você foi contratado pelo Banco Alfa para fazer uma análise da carteira de crédito pessoal. O banco está com inadimplência subindo há 3 safras consecutivas e não sabe a causa. O Diretor de Risco quer uma reunião em 48h com diagnóstico e recomendação.</p>
+      <p>Você recebe apenas: base de dados com 50k contratos (gere com o script abaixo), taxa macro de desemprego dos últimos 24 meses, e acesso ao time de TI para tirar dúvidas de dados.</p>
+    </div>
+    <div class="card">
+      <h3 class="ct ac">O que você deve entregar</h3>
+      <ul class="list">
+        <li><strong>Diagnóstico:</strong> qual safra começou a deteriorar? É um problema de originação (perfil de clientes aprovados) ou de macro (desemprego afetou todos)?</li>
+        <li><strong>Evidência quantitativa:</strong> 2-3 gráficos ou tabelas que provam sua hipótese</li>
+        <li><strong>Recomendação:</strong> o que o banco deve fazer nas próximas 2 semanas? E nos próximos 3 meses?</li>
+        <li><strong>Formato executivo:</strong> escreva como um consultor — resposta direta primeiro, evidência depois, risco e limitações no final</li>
+      </ul>
+    </div>
+    <div class="callout info"><strong>Critério de sucesso:</strong> Mostre sua análise para alguém que não é de dados. Se ele entender o problema e a recomendação sem precisar perguntar nada, você passou. Se precisar explicar as métricas, você ainda não chegou no nível sênior de comunicação.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — gera_base_banco_alfa.py (apenas gera os dados)</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p8"></pre>
     </div>
   </div>
 </div>
@@ -2635,6 +3057,211 @@ for seg, rec in recs.items():
 print("\nProjeto 6 concluido!")
 </script>
 
+<script type="text/plain" id="raw-p7">
+# ===========================================================================
+# PROJETO 7: Early Warning System (EWS) de Credito
+# Nivel: Junior — Voce implementa as funcoes marcadas com # TODO
+# ===========================================================================
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+
+np.random.seed(42)
+n = 5000
+
+# ---------------------------------------------------------------------------
+# BLOCO 1: GERACAO DA BASE DE DADOS COMPORTAMENTAL
+# Simula 5.000 contratos com historico comportamental dos ultimos 6 meses
+# ---------------------------------------------------------------------------
+clientes = pd.DataFrame({
+    'contrato_id': range(1, n+1),
+    'saldo_atual': np.random.lognormal(9, 1, n),           # ~R$8k median
+    'limite': np.random.lognormal(10, 0.8, n),
+    'atraso_mes1': np.random.choice([0,30,60,90,120], n, p=[0.70,0.15,0.08,0.05,0.02]),
+    'atraso_mes2': np.random.choice([0,30,60,90,120], n, p=[0.72,0.14,0.07,0.05,0.02]),
+    'atraso_mes3': np.random.choice([0,30,60,90,120], n, p=[0.74,0.13,0.07,0.04,0.02]),
+    'pagamento_minimo': np.random.choice([0,1], n, p=[0.35,0.65]),  # 1=pagou minimo, 0=nao pagou
+    'n_produtos_atraso': np.random.choice([0,1,2,3], n, p=[0.65,0.20,0.10,0.05]),
+    'saldo_ha6meses': np.random.lognormal(8.8, 1, n),
+})
+clientes['utilizacao_limite'] = np.clip(clientes['saldo_atual'] / clientes['limite'], 0, 1)
+
+print("=== BASE COMPORTAMENTAL ===")
+print(f"Total de contratos: {n:,}")
+print(f"Saldo total: R${clientes['saldo_atual'].sum():,.0f}")
+
+# ---------------------------------------------------------------------------
+# BLOCO 2: FUNCOES DO EWS — IMPLEMENTE OS TODOs
+# ---------------------------------------------------------------------------
+
+def flag_deterioracao(row):
+    """
+    Retorna True se o cliente esta em trajetoria de piora no atraso.
+    Logica: atraso crescente nos ultimos 3 meses.
+
+    # TODO: implemente a logica de deterioracao
+    # Dica: compare atraso_mes1 vs atraso_mes2 vs atraso_mes3
+    # Lembre: mes1 = mais recente, mes3 = mais antigo
+    # Deterioracao = mes1 >= mes2 >= mes3 E pelo menos um deles > 0
+    """
+    # TODO: substituir o return abaixo pela logica correta
+    return False  # placeholder
+
+def calcular_score_ews(row):
+    """
+    Calcula um score de 0 a 100 de risco iminente.
+    Quanto maior o score, maior o risco de default nos proximos 90 dias.
+
+    # TODO: combine os sinais comportamentais em um score
+    # Sugestao de pesos (voce pode ajustar):
+    #   - flag_deterioracao:   peso 30
+    #   - utilizacao_limite:   peso 25 (0-1 -> 0-25)
+    #   - n_produtos_atraso:   peso 20 (0-3 -> 0-20)
+    #   - pagamento_minimo:    peso 15 (0=nao pagou -> 15, 1=pagou -> 0)
+    #   - crescimento_saldo:   peso 10 (saldo/saldo_ha6meses > 1.5 -> alto)
+    """
+    # TODO: substituir o return abaixo pela logica de score
+    return 0  # placeholder
+
+def classificar_alerta(score):
+    """
+    Classifica o score em Verde / Amarelo / Vermelho.
+
+    # TODO: defina os thresholds que fazem sentido para o negocio
+    # Dica: pense em quantos % da carteira voce quer em cada tier
+    # Regra geral: Vermelho = top 10-15%, Amarelo = 15-25%, Verde = restante
+    """
+    # TODO: substituir abaixo pelos thresholds corretos
+    return 'Verde'  # placeholder
+
+# ---------------------------------------------------------------------------
+# BLOCO 3: APLICA O EWS NA BASE
+# ---------------------------------------------------------------------------
+print("\n=== APLICANDO EWS ===")
+clientes['deterioracao'] = clientes.apply(flag_deterioracao, axis=1)
+clientes['score_ews'] = clientes.apply(calcular_score_ews, axis=1)
+clientes['alerta'] = clientes['score_ews'].apply(classificar_alerta)
+
+print(f"Clientes em deterioracao: {clientes['deterioracao'].sum():,} ({clientes['deterioracao'].mean():.1%})")
+print(f"\nScore EWS — estatisticas:")
+print(clientes['score_ews'].describe().round(1))
+
+# ---------------------------------------------------------------------------
+# BLOCO 4: RELATORIO EXECUTIVO
+# Voce deve preencher os numeros e escrever a recomendacao final
+# ---------------------------------------------------------------------------
+print("\n=== RELATORIO EXECUTIVO — EWS ===")
+for alerta in ['Vermelho', 'Amarelo', 'Verde']:
+    grupo = clientes[clientes['alerta'] == alerta]
+    print(f"\n{alerta}:")
+    print(f"  Contratos:         {len(grupo):,}")
+    print(f"  Saldo exposto:     R${grupo['saldo_atual'].sum():,.0f}")
+    print(f"  % da carteira:     {len(grupo)/n:.1%}")
+    print(f"  Score EWS medio:   {grupo['score_ews'].mean():.1f}")
+
+# TODO: Escreva abaixo a recomendacao de negocio para cada tier
+# Exemplo para preencher:
+# VERMELHO -> acao: "Reducao imediata de limite + acionamento de cobranca preventiva"
+# AMARELO  -> acao: "Monitoramento semanal + oferta de renegociacao proativa"
+# VERDE    -> acao: "Monitoramento mensal padrao"
+
+print("\n=== RECOMENDACOES (preencha) ===")
+recomendacoes = {
+    'Vermelho': '# TODO: escreva a acao recomendada',
+    'Amarelo':  '# TODO: escreva a acao recomendada',
+    'Verde':    '# TODO: escreva a acao recomendada',
+}
+for tier, acao in recomendacoes.items():
+    print(f"  {tier}: {acao}")
+
+print("\nProjeto 7: verifique se os seus scores fazem sentido de negocio!")
+print("Se todo mundo ficou Verde ou Vermelho, revise os thresholds.")
+</script>
+
+<script type="text/plain" id="raw-p8">
+# ===========================================================================
+# PROJETO 8: Gerador de Base — Business Case Banco Alfa
+# Apenas gera os dados. A analise e inteiramente sua.
+# ===========================================================================
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+
+np.random.seed(99)
+N = 50000
+
+# ---------------------------------------------------------------------------
+# CENARIO: Banco Alfa — inadimplencia crescendo por 3 safras
+# A causa esta escondida nos dados — cabe a voce encontrar
+# ---------------------------------------------------------------------------
+
+# Safras mensais de originacao (ultimos 24 meses)
+safras = pd.date_range(start='2023-01-01', periods=24, freq='ME')
+
+# Perfil de clientes — mudanca sutil a partir de safra 2024-04 (mes 16)
+# Hint: o banco relaxou o criterio de aprovacao nessa epoca
+contratos = []
+for i, safra in enumerate(safras):
+    n_safra = int(N / 24)
+
+    # A partir do mes 16, perfil de risco piora (mas sutilmente)
+    score_base = 650 if i < 15 else 580
+    score_std  = 80  if i < 15 else 110
+
+    df = pd.DataFrame({
+        'safra': safra.strftime('%Y-%m'),
+        'score_bureau': np.clip(np.random.normal(score_base, score_std, n_safra), 300, 850).astype(int),
+        'renda_mensal': np.random.lognormal(7.8, 0.6, n_safra),
+        'valor_contrato': np.random.lognormal(8.5, 0.7, n_safra),
+        'prazo_meses': np.random.choice([12, 24, 36, 48], n_safra, p=[0.2, 0.35, 0.30, 0.15]),
+        'tem_garantia': np.random.choice([0, 1], n_safra, p=[0.6, 0.4]),
+        'produto': np.random.choice(['CDC', 'Consignado', 'Pessoal'], n_safra, p=[0.4, 0.35, 0.25]),
+    })
+
+    # Default aumenta nas safras mais recentes (maturacao 6-12 meses)
+    meses_maturados = len(safras) - i
+    if meses_maturados < 6:
+        taxa_default_base = 0.01  # safras recentes ainda nao maturaram
+    elif i < 15:
+        taxa_default_base = 0.042  # safras antigas: 4.2%
+    else:
+        taxa_default_base = 0.042 + (i - 15) * 0.008  # piora 0.8pp por safra
+
+    # Score mais baixo = mais default
+    pd_individual = taxa_default_base * (750 / df['score_bureau']) ** 1.5
+    df['default_realizado'] = np.random.binomial(1, np.clip(pd_individual, 0, 1))
+
+    contratos.append(df)
+
+base = pd.concat(contratos, ignore_index=True)
+base['renda_mensal'] = base['renda_mensal'].round(2)
+base['valor_contrato'] = base['valor_contrato'].round(2)
+base['comprometimento_renda'] = (base['valor_contrato'] / base['prazo_meses']) / base['renda_mensal']
+
+# Desemprego macro (correlaciona com default mas nao e a causa principal aqui)
+desemprego_macro = pd.DataFrame({
+    'mes': [s.strftime('%Y-%m') for s in safras],
+    'taxa_desemprego': [8.2, 8.1, 7.9, 7.8, 7.6, 7.5, 7.7, 7.9, 8.1, 8.3,
+                        8.5, 8.4, 8.3, 8.2, 8.1, 8.0, 7.9, 8.1, 8.3, 8.5,
+                        8.7, 8.9, 9.1, 9.3]
+})
+
+base.to_csv('banco_alfa_carteira.csv', index=False)
+desemprego_macro.to_csv('banco_alfa_macro.csv', index=False)
+
+print("=== BASE GERADA ===")
+print(f"Total contratos: {len(base):,}")
+print(f"Taxa de default geral: {base['default_realizado'].mean():.2%}")
+print(f"\nArquivos salvos: banco_alfa_carteira.csv e banco_alfa_macro.csv")
+print("\n=== AGORA E COM VOCE ===")
+print("Perguntas que o Diretor vai fazer:")
+print("1. A partir de qual safra o default comecou a piorar?")
+print("2. E um problema de macro (desemprego) ou de originacao (perfil dos aprovados)?")
+print("3. O que o banco deve fazer nas proximas 2 semanas?")
+print("4. Como voce apresentaria isso em 5 minutos para o Diretor?")
+</script>
+
 <script>
 // NAV
 document.querySelectorAll('.nav-item').forEach(function(item) {
@@ -2674,22 +3301,309 @@ function toggleDay(el) {
 }
 
 // =====================================================================
-// BATE PAPO: troca de cenário e revela respostas
+// BATE PAPO — QUIZ ENGINE INTERATIVO
 // =====================================================================
-function switchBP(scenarioId, btn) {
-  document.querySelectorAll('.bp-scenario').forEach(function(s){ s.classList.remove('active'); });
-  document.querySelectorAll('.bp-tab').forEach(function(t){ t.classList.remove('active'); });
-  var sc = document.getElementById(scenarioId);
-  if (sc) sc.classList.add('active');
-  if (btn) btn.classList.add('active');
+var bpAllQ = [
+  // --- CRÉDITO (7) ---
+  {cat:'credit',ctx:'👨‍💼 David (Gerente Sênior MS) — está avaliando como você pensa',
+   q:'O modelo de PD tem KS 42% no treino e 35% no teste. Você aprovaria?',
+   a:'A queda de 7 pontos de KS (17% relativo) está no limite aceitável. KS 35% em teste supera o mínimo regulatório (~30% para carteiras PJ). Aprovaria com ressalva: monitorar PSI mensalmente. Se PSI > 0.10 nos primeiros 3 meses, revisamos antes do prazo padrão. O modelo está funcional — mas ainda não está no ponto ótimo. Aprovação condicionada ao plano de monitoramento.'},
+  {cat:'credit',ctx:'👨‍💼 David (Gerente Sênior MS)',
+   q:'Por que logística? O XGBoost deu KS 15 pontos maior nos testes internos.',
+   a:'Performance maior não é o único critério em ambiente regulado. O Bacen exige que o banco explique ao regulador e ao cliente negado quais variáveis foram usadas e com qual peso — XGBoost não entrega isso. A logística converte em scorecard de pontos auditável pelo comitê. Estratégia: usar XGBoost para feature selection e logística para o modelo final. O melhor dos dois mundos — interpretabilidade regulatória + poder preditivo das melhores variáveis.'},
+  {cat:'credit',ctx:'👨‍💼 David (Gerente Sênior MS)',
+   q:'PSI subiu para 0.22 em produção. Me diga o que você faz agora — passo a passo.',
+   a:'PSI 0.22 está na zona amarela/vermelha (acima de 0.20 = alerta crítico). Passo 1: PSI por feature — identificar qual variável está derivando mais. Passo 2: distinguir data drift (perfil do cliente mudou) de model drift (relação entre features e default mudou). Passo 3: se data drift confirmado nos dados mais recentes — iniciar retreinamento com janela dos últimos 12 meses. No interim: comunicar ao banco, threshold mais conservador até o novo modelo ser validado. Nunca retreinar sem entender a causa raiz.'},
+  {cat:'credit',ctx:'👨‍💼 David (Gerente Sênior MS)',
+   q:'Você tem 3 dias para explorar uma base de 500k clientes. Como prioriza?',
+   a:'Dia 1: entender o problema de negócio e a variável-target. Calcular taxa de default, distribuição por safra, verificar missing e outliers graves. Isso define o que posso usar. Dia 2: IV de todas as variáveis (>0.02 é candidata), WoE binning nas top 20. Dia 3: modelo rápido (GLM com top 10 vars), KS/Gini/PSI da base OOT. Entrego documento com no máximo 5 achados priorizados por impacto + lista de decisões que precisam do cliente. Não apresento tudo — apresento o que importa para o próximo passo.'},
+  {cat:'credit',ctx:'🏦 Gerente de Risco do Banco — quer entender, não quer fórmula',
+   q:'O modelo deu score alto para o João, mas o João calotou. O modelo falhou?',
+   a:'Não necessariamente. O modelo prevê probabilidade, não certeza. Score 750 significa que ~95% dos clientes com aquele perfil pagam — o João pertencia aos 5% que não pagam. Isso é esperado e matematicamente inevitável. O modelo é avaliado na POPULAÇÃO, não no indivíduo. A pergunta certa é: dos 1.000 clientes com score parecido ao João, quantos calotaram? Se foi ~5%, o modelo está perfeito. O problema seria se esses clientes estivessem calotando 20%.'},
+  {cat:'credit',ctx:'🏦 Gerente de Risco do Banco',
+   q:'Qual a diferença entre o modelo que vocês construíram e o score do Serasa que já usamos?',
+   a:'Score Serasa: genérico, treinado com dados de todo o mercado, não conhece os seus clientes específicos. Modelo interno: calibrado na SUA carteira, com variáveis comportamentais internas que o Serasa não acessa — tempo de conta, saldo médio, comportamento transacional. O modelo interno tende a ganhar 10-15 pontos de KS sobre o Serasa para o público-alvo específico. Estratégia ideal: usar Serasa como variável de entrada no modelo interno — o melhor dos dois.'},
+  {cat:'credit',ctx:'🧑‍🔬 Sênior técnico — quer saber se você entende o mecanismo',
+   q:'Base com 2% de default. Você usa SMOTE. SMOTE vai antes ou depois de separar treino e teste? ⚠️ Pegadinha clássica.',
+   a:'DEPOIS do split. SEMPRE. Se aplicar SMOTE antes, dados sintéticos do treino vão contaminar o teste — você avalia o modelo em exemplos que ele "ajudou a criar". A avaliação fica inflada artificialmente. O teste precisa ser PURO, com a distribuição real (2% default), porque é o que vai acontecer em produção. Fluxo correto: split → SMOTE só no X_train/y_train → treinar → avaliar no X_test/y_test original.'},
+  // --- MERCADO (6) ---
+  {cat:'market',ctx:'👔 Diretor de Risco — perguntas estratégicas, respostas curtas e diretas',
+   q:'Banco Central subiu 200bps. Qual o impacto na nossa carteira?',
+   a:'Três frentes: (1) MTM imediato — carteira de títulos perde valor. Duration média 5 × 2% = queda estimada de 10% no valor marcado a mercado. (2) Crédito com defasagem — dívida variável fica mais cara, comprometimento de renda sobe, inadimplência tende a subir em 3-6 meses especialmente em PF renda baixa. (3) LGD pode piorar — vender garantias em leilão em ambiente de juro alto é mais difícil. Recomendação: stress test quantificando o impacto na provisão e revisão dos thresholds de alerta de risco de mercado.'},
+  {cat:'market',ctx:'👔 Diretor de Risco',
+   q:'Nosso VaR está muito diferente do prejuízo real do mês passado. Por quê?',
+   a:'Três causas prováveis: (1) VaR é calibrado com volatilidade histórica — se o mês teve evento fora do padrão (fat tail), o modelo estava calibrado para ambiente diferente; (2) correlações sobem em crises — o VaR assume correlações "normais", mas em stress todo ativo cai junto, amplificando o prejuízo real; (3) o VaR diz onde está o limiar, não o tamanho da perda além dele — em cauda, o prejuízo pode ser 3-5× o VaR. Solução: CVaR (Expected Shortfall) + Backtesting mensal para verificar quantas violações ocorreram vs as esperadas.'},
+  {cat:'market',ctx:'🧑‍🔬 Sênior técnico — Risco de Mercado',
+   q:'Duration de um bond é 5. A Selic sobe +1%. Qual o impacto estimado no preço?',
+   a:'ΔP ≈ −Duration × Δy = −5 × 1% = −5%. Um bond com valor de face R$ 1.000 passaria a valer ~R$ 950 (queda de R$ 50). Duration é a elasticidade do preço em relação à taxa — quanto maior o Duration (títulos longos, cupons baixos), mais sensível. Lógica de gestão: em cenário de alta de juros → vender títulos longos, comprar curtos (menor Duration = menor sensibilidade). Duration modificada = Duration / (1 + yield) para cálculo mais preciso.'},
+  {cat:'market',ctx:'🧑‍🔬 Sênior técnico',
+   q:'CVaR vs VaR — quando o CVaR é mais relevante que o VaR?',
+   a:'VaR responde "qual a perda máxima em X% dos cenários?" — diz onde está o corte, mas não o que há além. CVaR (Expected Shortfall) responde "se ultrapassar o VaR, qual a perda média esperada?" — captura a cauda inteira. CVaR é mais importante quando as perdas têm cauda gorda: carteiras de crédito, derivativos exóticos, exposições concentradas. Por isso Basileia IV migrou de VaR para CVaR: o 1% pior dos cenários pode ser catastrófico e o VaR não quantifica isso. CVaR ≥ VaR sempre.'},
+  {cat:'market',ctx:'🧑‍🔬 Sênior técnico',
+   q:'Monte Carlo para VaR — o que a simulação está fazendo concretamente?',
+   a:'Simula N cenários (tipicamente 10.000-100.000) de retorno com base na distribuição histórica + correlação entre ativos (via Cholesky decomposition — para garantir que a correlação seja respeitada entre os ativos). Cada cenário gera um P&L hipotético da carteira. Ordena do pior ao melhor e pega o percentil: ex. 5% para VaR 95% (o 500º pior cenário de 10.000). Vantagem: captura não-linearidades como opções. Desvantagem: computacionalmente caro e tão bom quanto as premissas de correlação e distribuição.'},
+  {cat:'market',ctx:'🧑‍🔬 Sênior técnico',
+   q:'Correlação PETR4 e VALE3 está em 0.7. Você quer diversificar. Qual tipo de ativo adiciona à carteira?',
+   a:'Ativos com correlação BAIXA ou negativa com a carteira atual: renda fixa pós-fixada (correlação muito baixa com ações), dólar (tende a subir quando bolsa cai — boa proteção anti-crise), ouro (store of value em períodos de stress). Adicionar mais ações brasileiras não diversifica bem — correlação estruturalmente alta (~0.5-0.7 entre ações do Ibovespa). A lógica matemática: Var(P) = w1²σ1² + w2²σ2² + 2w1w2Cov12. Para reduzir a variância, você quer Cov12 baixo (correlação próxima a zero ou negativa).'},
+  // --- IFRS 9 (5) ---
+  {cat:'ifrs',ctx:'🏦 Gerente de Risco do Banco',
+   q:'Precisamos provisionar mais por causa do IFRS 9. O que mudou na metodologia?',
+   a:'Antes do IFRS 9 (modelo incurred loss): provisiona só quando há evidência de perda REALIZADA. Depois: provisão ANTECIPADA baseada em perdas esperadas ao longo da vida do contrato (ECL). Três mudanças principais: (1) ECL forward-looking — inclui cenários macroeconômicos futuros (PIB, desemprego, Selic); (2) Stage 1/2/3 — Stage 2 provisiona toda a vida útil mesmo sem default ainda; (3) PD Point-in-Time (mais reativa ao ciclo atual) vs TTC histórica. Na prática: Stage 1→2 pode multiplicar a provisão por 5-6×.'},
+  {cat:'ifrs',ctx:'🧑‍🔬 Sênior técnico — IFRS 9',
+   q:'Quando uma exposição migra do Stage 1 para o Stage 2?',
+   a:'Quando há Aumento Significativo de Risco de Crédito (ASRC) desde o reconhecimento inicial. Critérios: (1) PD aumentou significativamente (muitos bancos usam >2× a PD da originação como gatilho); (2) 30 dias de atraso — simplification approach do IFRS 9 (presunção refutável); (3) indicadores qualitativos: cliente com restrições, setor em stress, renegociação de dívida. Stage 2 = provisão por toda a vida (Lifetime ECL) vs Stage 1 que provisiona só 12 meses.'},
+  {cat:'ifrs',ctx:'🧑‍🔬 Sênior técnico',
+   q:'Diferença entre PD Point-in-Time (PIT) e Through-the-Cycle (TTC)?',
+   a:'TTC: calibrada no ciclo econômico completo — mais estável, não reage muito ao ciclo. Usada em Basileia II para capital regulatório. PIT: reflete as condições ATUAIS do ciclo — sobe em recessões, cai em expansão. IFRS 9 exige PIT (ou híbrida PIT/TTC). A diferença prática: em recessão, PD PIT pode ser 3× maior que PD TTC para o mesmo devedor. Bancos que confundem as duas causam provisionamento incorreto: TTC subestima provisão em recessão, PIT superestima em expansão.'},
+  {cat:'ifrs',ctx:'🧑‍🔬 Sênior técnico',
+   q:'Forward-looking information — como você incorpora na ECL?',
+   a:'Com cenários macroeconômicos ponderados por probabilidade. Exemplo prático: Cenário Base (60%): PIB +2%, inadimplência cresce 10% → ECL_base. Cenário Otimista (20%): PIB +3.5%, inadimplência cai → ECL_otim. Cenário Adverso (20%): PIB -1%, desemprego +2pp → ECL_adv. ECL Final = 0.6×ECL_base + 0.2×ECL_otim + 0.2×ECL_adv. Variáveis macro mais comuns: PIB, taxa de desemprego, Selic, inflação (IPCA), câmbio (USD/BRL). Fontes: Focus Bacen, cenários proprietários do banco.'},
+  {cat:'ifrs',ctx:'🧑‍🔬 Sênior técnico',
+   q:'Empresa reestruturou a dívida, ficou em dia há 2 meses. Stage 2 ou Stage 3?',
+   a:'Stage 3. Reestruturação por dificuldade financeira é um Evento de Default pelo IFRS 9 — a empresa entra em Stage 3 automaticamente no momento da reestruturação. Para sair do Stage 3 e voltar ao Stage 2, precisa de período probatório de CURA: tipicamente 12 meses sem atraso e sem evidência de deterioração adicional após a reestruturação. Dois meses ainda está dentro do período probatório — Stage 3. Erro comum: migrar para Stage 2 imediatamente após ficar em dia.'},
+  // --- DS TÉCNICO (7) ---
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'Por que o ARIMA falha em séries sazonais se você não configurar o "m" correto?',
+   a:'ARIMA padrão captura autocorrelação em lags adjacentes (1, 2, 3…), mas não em lags sazonais (12, 24, 36 para mensal). Se a inadimplência tem pico todo dezembro, o ARIMA interpreta isso como ruído aleatório — sem estrutura. O SARIMA com m=12 adiciona termos AR e MA nos lags sazonais, capturando o padrão anual. Diagnóstico: ACF (autocorrelação) com picos proeminentes nos múltiplos de m. Solução prática: usar auto_arima com seasonal=True que testa m automaticamente.'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'GLM Gamma para LGD. O coeficiente de "tem_garantia" deu -0.85. O que você escreve no relatório?',
+   a:'No GLM Gamma com link log, o coeficiente precisa passar pelo exp() para ser interpretado. exp(-0.85) ≈ 0.43. Interpretação: contratos com garantia têm LGD esperado 57% MENOR do que contratos sem garantia, mantendo os demais fatores constantes. No relatório executivo: "A presença de garantia real reduz a perda esperada em caso de default em 57%, sendo o principal mitigador de LGD da carteira. Recomenda-se diferenciação de pricing, limite de crédito e provisão entre as duas sub-carteiras."'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'Feature importance saiu diferente entre treino e produção. O que você investiga primeiro?',
+   a:'Suspeitar de data drift. Checklist: (1) PSI por feature — >0.1 indica mudança relevante na distribuição de entrada; (2) verificar se alguma variável sumiu, mudou de escala ou encoding na produção (bug de pipeline); (3) checar janela temporal — os dados de produção são recentes, de outra safra? (4) se PSI ok e accuracy caiu, pode ser concept drift — a relação entre features e target mudou (ex: pandemia alterou padrão de default). Ferramenta: SHAP para explicar predições individuais e comparar entre safras.'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'Data drift vs model drift — qual a diferença e como você detecta cada um?',
+   a:'Data drift: a distribuição das features de entrada mudou (ex: clientela mais jovem chegou). Detectado com PSI por feature (>0.1 = investigar, >0.25 = crítico). Model drift: a relação entre features e target mudou — mesmo cliente com mesmo perfil se comporta diferente (ex: pandemia muda padrão de default mesmo com renda estável). Detectado pelo aumento do erro de predição (KS cai, Gini cai) sem que o PSI tenha disparado. Data drift é mais fácil de detectar. Model drift exige monitoramento da performance do modelo em produção.'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'Faixa A: 30% bons / 70% maus. Faixa B: 60% bons / 40% maus. Qual tem WoE mais alto?',
+   a:'WoE = ln(% Bons da faixa / % Maus da faixa). Faixa A: WoE = ln(30%/70%) = ln(0.43) ≈ −0.85 (negativo — mais maus que bons). Faixa B: WoE = ln(60%/40%) = ln(1.50) ≈ +0.41 (positivo — mais bons que maus). Faixa B tem WoE mais alto. WoE positivo = score mais alto = menor risco de crédito. IV da faixa = (% Bons − % Maus) × WoE. IV total > 0.3 = variável preditiva forte; 0.1-0.3 = moderada; < 0.02 = descartável.'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'Dataset com 95% classe 0 e 5% classe 1. Qual métrica você usa para avaliar o modelo?',
+   a:'Nunca Accuracy — um modelo que prevê sempre 0 tem 95% de accuracy sem aprender nada. Usar: AUC-ROC (mede discriminação independente do threshold — não sofre com desbalanceamento), F1-Score (harmônica de Precision e Recall — balanceia os dois erros), Precision-Recall AUC (mais informativa que ROC em desbalanceamento extremo), KS estatístico (padrão em crédito). A métrica ideal depende do custo de cada erro: em fraude/crédito, Falso Negativo (deixar passar) geralmente custa mais que Falso Positivo (negar bom pagador).'},
+  {cat:'ds',ctx:'🧑‍🔬 Sênior técnico DS',
+   q:'AUC treino 0.91, AUC teste 0.72. Overfitting ou underfitting? O que você faz?',
+   a:'Overfitting claro. O modelo memorizou ruído do treino — gap de 0.19 (19 pontos) é expressivo. Sinais típicos: muitas features, árvoress profundas sem regularização, treino pequeno. Soluções: regularização L1/L2, reduzir complexidade (max_depth, min_samples), mais dados de treino, early stopping em XGBoost, cross-validation com k-fold para detectar antes. O modelo correto tem AUC treino ≈ teste (±3-5 pontos). Underfitting seria o oposto: ambos baixos.'},
+  // --- CONSULTOR (5) ---
+  {cat:'consult',ctx:'💼 Gestão da Relação com o Cliente',
+   q:'"O modelo de vocês é melhor que o Serasa que já usamos?" — como você responde para o Gerente do Banco?',
+   a:'"São ferramentas complementares, não concorrentes. O Serasa captura o comportamento de crédito no mercado como um todo — amplo e bem calibrado. O modelo que construímos é calibrado especificamente na sua carteira, com variáveis internas que o Serasa não acessa. Em média, modelos internos bem desenvolvidos ganham 10-15 pontos de KS sobre o bureau para o público-alvo específico. A abordagem mais eficaz é usar o score do Serasa como variável de entrada no modelo interno — você aproveita o melhor dos dois." Resposta primeiro. Justificativa depois. Sem jargão.'},
+  {cat:'consult',ctx:'💼 Gestão de Expectativas — Entrega com Dado Ruim',
+   q:'Gerente pede resultado em 3 dias mas a base de dados está com sérios problemas de qualidade. O que você faz?',
+   a:'Nunca entregar análise em dado sujo sem comunicar o risco. Passo 1: quantificar o problema (X% missing, Y variáveis inconsistentes, Z% registros duplicados). Passo 2: comunicar ao gerente com a consequência: "Com os dados atuais, consigo entregar em 3 dias mas a confiança nas conclusões será Z — há risco de decisão baseada em dado incorreto. Com 2 dias adicionais de tratamento, entrego com 90% de confiança." Passo 3: deixar a decisão para ele — com as informações certas. Sua responsabilidade é informar o risco, não esconder.'},
+  {cat:'consult',ctx:'💼 Comunicação Executiva — Simplificar sem Desinformar',
+   q:'Como você explica ECL e IFRS 9 para um Diretor que não tem background técnico?',
+   a:'"Diretor, imagine que você sabe por experiência que 1 em cada 20 clientes que tomam empréstimo não vai pagar. O IFRS 9 exige que o banco reserve esse dinheiro HOJE, antes de qualquer calote acontecer — não depois. É como um seguro: você paga o prêmio antes do sinistro, não depois. Antes, o banco só provisionava quando o calote JÁ estava acontecendo. A mudança é importante porque nos obriga a ser mais conservadores e a olhar para frente: se a economia vai piorar nos próximos 2 anos, a provisão já sobe agora, não quando os calotes chegarem."'},
+  {cat:'consult',ctx:'💼 Gestão de Incidentes de Modelo',
+   q:'Você entregou o modelo. O cliente diz que um cliente adimplente saiu com score de risco alto. O que você faz?',
+   a:'Primeiro: não defensivizar — "Boa observação, vamos investigar juntos." Segundo: analisar o caso — quais variáveis puxaram o score alto? (SHAP ou contribuição das variáveis). Terceiro: verificar se é anomalia pontual (um caso atípico explicável) ou padrão sistêmico (vários adimplentes com score alto). Se anomalia: explicar o mecanismo e documentar. Se padrão: investigar viés de seleção, dados incorretos ou problema de calibração. Comunicar ao cliente o resultado da investigação com prazo definido — nunca deixar no ar.'},
+  {cat:'consult',ctx:'💼 Posicionamento Profissional',
+   q:'O que diferencia um DS júnior de um consultor da Management Solutions?',
+   a:'"O DS júnior entrega o modelo. O consultor da MS entrega a decisão. A diferença está em três dimensões: (1) Contexto de negócio — o consultor sabe por que o modelo importa para o P&L do cliente, não apenas como funciona tecnicamente. (2) Comunicação — traduz o técnico para o executivo sem perder precisão, adaptando o nível ao interlocutor. (3) Ownership — não termina no modelo: acompanha a implantação, monitora em produção, responde pelos resultados. É a diferença entre ser o mecânico que conserta o motor e o engenheiro que responde pelo carro."'}
+];
+
+var bpState = {
+  idx: 0,
+  revealed: false,
+  scores: [],
+  filterCat: 'all',
+  queue: []
+};
+
+function bpInit() {
+  bpState.queue = bpAllQ.map(function(q,i){return i;});
+  if (!bpState.scores.length) bpState.scores = bpAllQ.map(function(){return null;});
+  bpState.idx = 0;
+  bpState.revealed = false;
+  bpRender();
 }
 
-function revealAns(hiddenEl) {
-  var parentMsg = hiddenEl.closest('.bp-msg');
-  if (parentMsg) parentMsg.style.display = 'none';
-  var answerEl = parentMsg ? parentMsg.nextElementSibling : null;
-  if (answerEl) answerEl.style.display = 'flex';
+function bpSetFilter(cat, btn) {
+  bpState.filterCat = cat;
+  bpState.idx = 0;
+  bpState.revealed = false;
+  document.querySelectorAll('.bp-fcat').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var filtered = bpAllQ.reduce(function(acc,q,i){
+    if (cat === 'all' || q.cat === cat) acc.push(i);
+    return acc;
+  }, []);
+  bpState.queue = filtered;
+  bpRender();
 }
+
+function bpRender() {
+  var q = bpAllQ[bpState.queue[bpState.idx]];
+  if (!q) return;
+
+  document.getElementById('bp-qcontext').textContent = q.ctx;
+  document.getElementById('bp-qtext').textContent = q.q;
+  document.getElementById('bp-answer-block').style.display = 'none';
+  document.getElementById('bp-reveal-btn').style.display = 'block';
+  document.getElementById('bp-think').style.display = 'block';
+  bpState.revealed = false;
+
+  // Progresso
+  var done = bpState.scores.filter(function(s,i){
+    return s !== null && bpState.queue.indexOf(i) !== -1;
+  }).length;
+  var total = bpState.queue.length;
+  var pct = total > 0 ? Math.round(((bpState.idx) / total) * 100) : 0;
+  document.getElementById('bp-prog-bar').style.width = pct + '%';
+
+  // Score das respondidas
+  var answered = bpState.queue.filter(function(i){ return bpState.scores[i] !== null; });
+  var scoreSum = answered.reduce(function(s,i){ return s + bpState.scores[i]; }, 0);
+  var scoreMax = answered.length * 2;
+  var scoreText = answered.length > 0 ?
+    'Score: ' + scoreSum + '/' + scoreMax + ' (' + Math.round(scoreSum/scoreMax*100) + '%)' : 'Score: —';
+  document.getElementById('bp-prog-text').textContent =
+    'Pergunta ' + (bpState.idx + 1) + ' de ' + total + ' · ' + scoreText;
+
+  document.getElementById('bp-prev-btn').disabled = bpState.idx === 0;
+  document.getElementById('bp-next-btn').textContent =
+    bpState.idx >= total - 1 ? 'Ver Resultado' : 'Próxima →';
+}
+
+function bpReveal() {
+  var q = bpAllQ[bpState.queue[bpState.idx]];
+  if (!q) return;
+  document.getElementById('bp-answer-text').textContent = q.a;
+  document.getElementById('bp-answer-block').style.display = 'block';
+  document.getElementById('bp-reveal-btn').style.display = 'none';
+  document.getElementById('bp-think').style.display = 'none';
+  bpState.revealed = true;
+}
+
+function bpRate(score) {
+  var qIdx = bpState.queue[bpState.idx];
+  bpState.scores[qIdx] = score;
+  bpNav(1);
+}
+
+function bpNav(dir) {
+  var newIdx = bpState.idx + dir;
+  if (newIdx >= bpState.queue.length) {
+    bpShowResult(); return;
+  }
+  if (newIdx < 0) return;
+  bpState.idx = newIdx;
+  bpState.revealed = false;
+  bpRender();
+}
+
+function bpShuffle() {
+  var q = bpState.queue;
+  for (var i = q.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = q[i]; q[i] = q[j]; q[j] = tmp;
+  }
+  bpState.idx = 0;
+  bpState.revealed = false;
+  bpRender();
+}
+
+function bpReset() {
+  bpState.scores = bpAllQ.map(function(){ return null; });
+  bpState.idx = 0;
+  bpState.revealed = false;
+  document.getElementById('bp-result-screen').style.display = 'none';
+  document.getElementById('bp-qcard').style.display = 'block';
+  bpRender();
+}
+
+function bpShowResult() {
+  var answered = bpState.queue.filter(function(i){ return bpState.scores[i] !== null; });
+  var ok = answered.filter(function(i){ return bpState.scores[i] === 2; }).length;
+  var partial = answered.filter(function(i){ return bpState.scores[i] === 1; }).length;
+  var wrong = answered.filter(function(i){ return bpState.scores[i] === 0; }).length;
+  var total = bpState.queue.length;
+  var pct = total > 0 ? Math.round((ok + partial*0.5) / total * 100) : 0;
+  var emoji = pct >= 80 ? '🏆' : pct >= 60 ? '📈' : pct >= 40 ? '💪' : '📚';
+  var msg = pct >= 80 ? 'Excelente — nível consultor!' : pct >= 60 ? 'Bom progresso, continue praticando.' : pct >= 40 ? 'Base sólida, foque nas categorias com mais erros.' : 'Revise os módulos e repita o quiz.';
+
+  // Breakdown por categoria
+  var cats = {credit:'🏦 Crédito',market:'📈 Mercado',ifrs:'📋 IFRS 9',ds:'🤖 DS Técnico',consult:'💼 Consultor'};
+  var catRows = '';
+  Object.keys(cats).forEach(function(c) {
+    var cQ = bpState.queue.filter(function(i){ return bpAllQ[i].cat === c && bpState.scores[i] !== null; });
+    if (!cQ.length) return;
+    var cOk = cQ.filter(function(i){ return bpState.scores[i] === 2; }).length;
+    var cPartial = cQ.filter(function(i){ return bpState.scores[i] === 1; }).length;
+    var cPct = Math.round((cOk + cPartial*0.5) / cQ.length * 100);
+    var barColor = cPct >= 70 ? 'var(--gr)' : cPct >= 45 ? '#d97706' : '#dc2626';
+    catRows += '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px"><span>' + cats[c] + '</span><span>' + cPct + '%</span></div><div style="background:var(--s2);border-radius:3px;height:6px"><div style="height:100%;background:' + barColor + ';width:' + cPct + '%;border-radius:3px"></div></div></div>';
+  });
+
+  document.getElementById('bp-result-screen').innerHTML =
+    '<div class="card" style="text-align:center"><div style="font-size:2.5rem;margin-bottom:8px">' + emoji + '</div>' +
+    '<h3 style="margin-bottom:4px">' + pct + '% de aproveitamento</h3>' +
+    '<p style="font-size:.85rem;color:var(--td);margin-bottom:16px">' + msg + '</p>' +
+    '<div style="display:flex;gap:16px;justify-content:center;margin-bottom:20px">' +
+    '<span style="color:#16a34a;font-weight:700">✓ ' + ok + ' acertos</span>' +
+    '<span style="color:#d97706;font-weight:700">~ ' + partial + ' parciais</span>' +
+    '<span style="color:#dc2626;font-weight:700">✗ ' + wrong + ' erros</span></div>' +
+    catRows +
+    '<button class="btn-primary" onclick="bpReset()" style="margin-top:8px">↺ Tentar novamente</button></div>';
+  document.getElementById('bp-result-screen').style.display = 'block';
+  document.getElementById('bp-qcard').style.display = 'none';
+  document.getElementById('bp-prog-bar').style.width = '100%';
+}
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    if (this.dataset.sec === 'batepapo') setTimeout(function() {
+      if (!bpState.queue.length) bpInit();
+    }, 50);
+  });
+});
+if (document.getElementById('sec-batepapo') && document.getElementById('sec-batepapo').classList.contains('active')) bpInit();
+
+// =====================================================================
+// PLANO 1 MÊS — checkboxes com localStorage
+// =====================================================================
+function initPlano() {
+  var days = document.querySelectorAll('#sec-plano .plan-day');
+  days.forEach(function(day, i) {
+    var dn = day.querySelector('.dn');
+    if (!dn || dn.querySelector('.plan-cb')) return;
+    var cb = document.createElement('span');
+    cb.className = 'plan-cb';
+    dn.insertBefore(cb, dn.firstChild);
+    if (localStorage.getItem('plano-dia-' + i) === '1') day.classList.add('done');
+    day.addEventListener('click', function() {
+      this.classList.toggle('done');
+      localStorage.setItem('plano-dia-' + i, this.classList.contains('done') ? '1' : '0');
+      updatePlanoProgress();
+    });
+  });
+  updatePlanoProgress();
+}
+
+function updatePlanoProgress() {
+  var days = document.querySelectorAll('#sec-plano .plan-day');
+  var done = document.querySelectorAll('#sec-plano .plan-day.done').length;
+  var el = document.getElementById('plano-progresso');
+  if (el) el.textContent = done + ' de ' + days.length + ' dias concluídos. ' +
+    (done === 0 ? 'Clique em cada dia para marcar como feito.' :
+     done === days.length ? '🎉 Parabéns — 1 mês completo!' :
+     'Continue — você está a ' + (days.length - done) + ' dias do fim.');
+}
+
+function resetPlano() {
+  if (!confirm('Zerar todo o progresso do plano?')) return;
+  document.querySelectorAll('#sec-plano .plan-day').forEach(function(d, i) {
+    d.classList.remove('done');
+    localStorage.removeItem('plano-dia-' + i);
+  });
+  updatePlanoProgress();
+}
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    if (this.dataset.sec === 'plano') setTimeout(initPlano, 50);
+  });
+});
+if (document.getElementById('sec-plano') && document.getElementById('sec-plano').classList.contains('active')) initPlano();
 
 // PREENCHE OS PRE COM O CONTEUDO DOS SCRIPT TYPE=TEXT/PLAIN
 var mapa = {
@@ -2703,7 +3617,9 @@ var mapa = {
   'code-p3'       : 'raw-p3',
   'code-p4'       : 'raw-p4',
   'code-p5'       : 'raw-p5',
-  'code-p6'       : 'raw-p6'
+  'code-p6'       : 'raw-p6',
+  'code-p7'       : 'raw-p7',
+  'code-p8'       : 'raw-p8'
 };
 Object.keys(mapa).forEach(function(preId) {
   var rawEl = document.getElementById(mapa[preId]);
