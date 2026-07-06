@@ -42,6 +42,15 @@ h3{font-size:1.05rem;margin-top:30px;margin-bottom:4px;color:#1a1a1a;border-bott
 .box-tip strong{color:#0d47a1;}
 .box-interview{background:#fce4ec;border-left:5px solid #c62828;}
 
+/* exercicios de fixacao */
+.exercise{background:#fff8e1;border:1px solid #f0c040;border-radius:8px;padding:16px 20px;margin:12px 0;}
+.exercise-num{font-size:.7rem;font-weight:800;text-transform:uppercase;color:#b8860b;margin-bottom:6px;}
+.exercise-q{font-size:.9rem;color:#1a1a1a;margin-bottom:10px;line-height:1.6;}
+.exercise-sol{background:#f1f8e9;border-radius:6px;padding:14px;margin-top:10px;font-size:.875rem;color:#2e7d32;line-height:1.6;display:none;}
+.exercise-btn{background:#f0c040;border:none;border-radius:4px;padding:6px 14px;font-size:.78rem;font-weight:700;cursor:pointer;color:#1a1a1a;}
+.exercise-btn:hover{background:#e0b030;}
+.cap1-intro{background:#e8f4fd;border-left:4px solid #1565c0;border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0;font-size:.9rem;color:#1a1a1a;line-height:1.7;}
+
 /* trilha */
 .trilha{background:#fafafa;border:2px solid #1a1a1a;border-radius:8px;padding:20px 24px;margin:24px 0;}
 .trilha h3{margin:0 0 16px;font-size:1rem;border:none;}
@@ -165,30 +174,143 @@ li strong{color:#111;}
   <div class="cap-num">1</div>
   <div class="cap-text">
     <h2>A Matemática Base</h2>
-    <p>Derivada, Integral e Estatística — o motor por trás de tudo</p>
+    <p>Logaritmo, Derivada, Integral, Distribuição Normal e Estatística — o motor por trás de tudo</p>
   </div>
 </div>
 
-<div class="concept">
-  <div class="concept-title">Derivada = Sensibilidade</div>
-  <div class="linha"><span class="tag blue">Tradução</span><p>Se eu mexer um pouquinho aqui, quanto vai mudar ali?</p></div>
-  <div class="linha"><span class="tag orange">Analogia</span><p>O velocímetro do carro. Sua posição muda com o tempo. A derivada da posição é a velocidade. A derivada da velocidade é a aceleração. Você usa derivada todo dia sem saber.</p></div>
-  <div class="linha"><span class="tag green">No banco</span><p><strong>Duration</strong> de um título = derivada do preço em relação aos juros. <strong>Delta</strong> de uma opção = derivada do preço da opção em relação ao preço do ativo. <strong>Gradiente descendente</strong> (como a logística aprende os coeficientes) = derivada do erro em relação a cada coeficiente.</p></div>
+<div class="cap1-intro">
+  Este capítulo é o <strong>alicerce</strong>. Tudo que você vai ver nos próximos capítulos (WoE, Duration, AUC, VaR) está construído em cima desses seis blocos. Você não precisa saber resolver a integral na mão — precisa entender o <em>que cada ferramenta faz</em> e <em>onde aparece no banco</em>.
 </div>
 
+<!-- TOPICO 1: LOGARITMO -->
 <div class="concept">
-  <div class="concept-title">Integral = Acúmulo</div>
-  <div class="linha"><span class="tag blue">Tradução</span><p>Junte todos os pedacinhos e some. A soma de infinitos pedacinhos minúsculos.</p></div>
-  <div class="linha"><span class="tag orange">Analogia</span><p>O odômetro (km rodado). Você sabe a velocidade em cada segundo. Somar a velocidade ao longo do tempo te dá a distância total. Isso é uma integral.</p></div>
-  <div class="linha"><span class="tag green">No banco</span><p><strong>AUC</strong> = área sob a curva ROC = integral (por isso ela se chama "area under the curve"). <strong>Preço de um título</strong> = soma de todos os fluxos futuros descontados = integral. <strong>ECL Lifetime</strong> (IFRS 9) = integral da perda esperada ao longo da vida do contrato.</p></div>
+  <div class="concept-title">1. Logaritmo — "Quantas Vezes Você Multiplicou"</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>O logaritmo responde a pergunta: <em>"Se eu partir de 1 e ficar multiplicando por X, quantas vezes preciso multiplicar para chegar em Y?"</em> Em vez de pensar em adição, pense em multiplicação.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Você tem R$100 e dobra o dinheiro 3 vezes: R$100 → R$200 → R$400 → R$800. O logaritmo (base 2) de 8 = 3, porque você dobrou <strong>3 vezes</strong>. O log não conta as adições, conta as multiplicações. Escala logarítmica é usada em gráficos de crescimento exatamente por isso — transforma multiplicação em adição visual.</p></div>
+  <div class="linha"><span class="tag blue">Propriedades que você precisa saber</span><p><strong>ln(1) = 0</strong> (nenhuma multiplicação levou você a 1). <strong>ln(e) = 1</strong> (e ≈ 2,718). <strong>ln de número negativo não existe</strong> — isso gera NaN no Python e é um erro muito comum ao calcular WoE sem tratar faixas com zero observações.</p></div>
+  <div class="linha"><span class="tag green">No banco</span><p><strong>WoE</strong> = ln(% bons / % maus) — o coração do scorecard de crédito. <strong>Log-retorno</strong> = ln(P_hoje / P_ontem) — mais estável que retorno simples para séries longas. <strong>Função de ligação do GLM</strong> (logit): ln(p / 1-p) transforma uma probabilidade (que fica entre 0 e 1) num número que vai de -∞ a +∞, permitindo que a regressão funcione sem "estourar" os limites.</p></div>
+  <div class="linha"><span class="tag orange">Exemplo concreto</span><p>Faixa de renda "R$3.000–R$5.000": 80 bons pagadores e 20 maus pagadores nessa faixa. WoE = ln(80/20) = ln(4) = <strong>1,39</strong>. Número positivo = essa faixa prediz bons pagadores. Quanto maior, mais forte o sinal. Se fosse ln(20/80) = ln(0,25) = <strong>–1,39</strong>, a faixa prediz maus pagadores.</p></div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1.1</div>
+    <div class="exercise-q">Uma faixa de idade "18–25 anos" tem 30% de bons pagadores e 70% de maus pagadores. Calcule o WoE. O que o sinal negativo significa na prática?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">WoE = ln(30/70) = ln(0,4286) ≈ <strong>–0,85</strong>. O sinal negativo significa que essa faixa etária está associada a maus pagadores — há proporcionalmente mais caloteiros do que bons pagadores entre 18 e 25 anos. Na prática, essa variável vai "puxar o score para baixo" quando o cliente tiver essa faixa de idade.</div>
+  </div>
 </div>
 
+<!-- TOPICO 2: DERIVADA -->
 <div class="concept">
-  <div class="concept-title">Estatística — O Trio Essencial</div>
-  <div class="linha"><span class="tag blue">Média</span><p>O retorno esperado. Se nada estranho acontecer, é isso que você ganha. Sensível a outliers.</p></div>
-  <div class="linha"><span class="tag blue">Desvio Padrão</span><p>A dança em torno da média. Alto = risco alto (o gráfico é gordo). É a volatilidade em risco de mercado.</p></div>
-  <div class="linha"><span class="tag blue">Correlação</span><p>Vai de -1 a +1. +1 = andam juntos sempre. -1 = sempre na direção oposta. 0 = independentes. A covariância é a versão "suja" (sem escala). A correlação é a versão "limpa" (sempre entre -1 e 1).</p></div>
-  <div class="linha"><span class="tag red">Cuidado</span><p><strong>Caudas Gordas (Fat Tails):</strong> crises acontecem mais do que a curva normal prevê. O modelo acha que é impossível — mas acontece. Cisne Negro. Por isso usamos CVaR, não só VaR.</p></div>
+  <div class="concept-title">2. Derivada = Sensibilidade</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Se eu mexer <em>um grãozinho</em> aqui, quanto vai mudar ali? A derivada mede a inclinação da curva num ponto — o quanto uma coisa responde a uma mudança minúscula em outra.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>O velocímetro do carro. Sua posição no mapa muda com o tempo — a derivada da posição é a velocidade. A derivada da velocidade é a aceleração. Visualmente: imagine uma curva desenhada num papel. A derivada num ponto é a inclinação da reta que "encosta" na curva exatamente naquele ponto — nem cortando a curva, nem saindo dela, só tocando. Essa reta se chama tangente.</p></div>
+  <div class="linha"><span class="tag green">No banco — com números</span>
+    <p>
+      <strong>a) Delta de opção:</strong> uma ação está em R$50 e o Delta da opção de compra é 0,60. Ação sobe R$1 → opção sobe R$0,60. Ação desce R$2 → opção desce R$1,20. O Delta É a derivada do preço da opção em relação ao preço da ação.<br><br>
+      <strong>b) Duration de título:</strong> um título tem Duration = 5. A Selic sobe 1% → preço do título cai 5%. A Selic sobe 2% → preço cai 10%. Duration é literalmente a derivada (negativa) do preço em relação à taxa de juros.<br><br>
+      <strong>c) Gradient Descent no modelo:</strong> seu modelo de crédito tem coeficiente β = 0,5. A derivada do erro em relação a β calculou –0,3. O algoritmo ajusta: β_novo = 0,5 – 0,01 × (–0,3) = <strong>0,503</strong>. Repete isso milhares de vezes até o erro parar de cair. A derivada é o GPS do aprendizado.
+    </p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1.2</div>
+    <div class="exercise-q">Um título de renda fixa tem Duration = 3. O Banco Central anuncia alta de 0,5% na Selic. Qual a variação aproximada no preço do título?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">Variação de preço ≈ –Duration × Δtaxa = –3 × 0,5% = <strong>–1,5%</strong>. O título cai aproximadamente 1,5%. Se o título valia R$1.000, agora vale R$985. Isso é a Duration em ação — a derivada te diz quanto o preço responde a cada 1% de mudança na taxa.</div>
+  </div>
+</div>
+
+<!-- TOPICO 3: INTEGRAL -->
+<div class="concept">
+  <div class="concept-title">3. Integral = Acúmulo</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>Some todos os pedacinhos — mesmo que sejam infinitos e infinitamente pequenos. A integral é a operação inversa da derivada: se a derivada "fatia", a integral "cola tudo de volta".</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>O odômetro do carro. Você sabe a velocidade em cada segundo (ex: 60 km/h, depois 80, depois 50). Somar a velocidade multiplicada pelo tempo de cada segundo te dá a distância total percorrida. Isso é uma integral: acumular pedacinhos ao longo do tempo.</p></div>
+  <div class="linha"><span class="tag green">No banco — com números</span>
+    <p>
+      <strong>a) AUC:</strong> a curva ROC é um gráfico. A integral (área) embaixo dessa curva é o AUC. Modelo A: AUC = 0,60 (péssimo — quase aleatório). Modelo B: AUC = 0,85 (bom). A diferença de área entre as duas curvas é visível no gráfico — e é o que diferencia um modelo útil de um lixo.<br><br>
+      <strong>b) ECL Lifetime (IFRS 9):</strong> cliente com contrato de 3 anos. Jan: perda esperada = R$50, Fev: R$55, Mar: R$48, ..., Dez: R$60. Somar todas essas perdas mensais ao longo de 36 meses = ECL total do contrato = a integral da perda ao longo do tempo.<br><br>
+      <strong>c) Preço de um título:</strong> você receberá R$100/ano por 5 anos + R$1.000 no final. Cada pagamento futuro vale menos hoje (desconto pelo juro). Somar todos esses valores presentes = preço justo do título. É uma integral discreta — a soma de fluxos descontados.
+    </p>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1.3</div>
+    <div class="exercise-q">AUC = 0,5 significa o quê para um modelo de crédito? E AUC = 1,0?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol"><strong>AUC = 0,5:</strong> o modelo não separa nada. É equivalente a jogar cara ou coroa para decidir se o cliente vai pagar — totalmente aleatório. A curva ROC é uma reta diagonal, a "área" embaixo é exatamente metade do quadrado. <strong>AUC = 1,0:</strong> modelo perfeito — separa 100% dos bons dos maus pagadores, nunca erra. Na prática, AUC entre 0,70 e 0,80 já é considerado bom em risco de crédito.</div>
+  </div>
+</div>
+
+<!-- TOPICO 4: DISTRIBUICAO NORMAL + FAT TAILS -->
+<div class="concept">
+  <div class="concept-title">4. Distribuição Normal + Fat Tails</div>
+  <div class="linha"><span class="tag blue">Tradução</span><p>A curva em forma de sino: a maioria dos eventos acontece no meio (perto da média), e eventos extremos são raros. Quanto mais longe da média, menos provável.</p></div>
+  <div class="linha"><span class="tag orange">Analogia</span><p>Meça a altura de 1.000 pessoas numa sala. A maioria terá entre 1,60m e 1,85m. Muito poucas terão 1,40m ou 2,20m. O gráfico forma um sino. O mesmo acontece com retornos financeiros — na teoria. Na prática, não exatamente.</p></div>
+  <div class="linha"><span class="tag blue">O que 1σ, 2σ, 3σ significa</span><p>Em uma distribuição normal: <strong>±1σ</strong> cobre 68% dos eventos. <strong>±2σ</strong> cobre 95%. <strong>±3σ</strong> cobre 99,7%. VaR usa isso: <strong>VaR 95%</strong> = µ + 1,65 × σ. "95% das vezes, a perda ficará abaixo desse valor." VaR 99% usa z = 2,33.</p></div>
+  <div class="linha"><span class="tag red">Fat Tails — O Problema Real</span><p>A curva normal prevê que um evento de 5σ tem probabilidade de 0,00003% (praticamente impossível). Mas a queda da bolsa em março de 2020 (COVID) foi um evento de 5σ — e aconteceu. Crises financeiras ocorrem muito mais frequentemente do que a normal prevê. As caudas reais são "gordas" (fat tails). Por isso usamos <strong>CVaR</strong> (perda média nas piores situações) e não só VaR (apenas o limiar).</p></div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1.4</div>
+    <div class="exercise-q">Uma carteira de ações tem retorno médio = 0,8%/mês e desvio padrão = 3%/mês. Calcule o VaR 95% mensal. O que esse número significa na prática?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">VaR 95% = µ – 1,65 × σ = 0,8% – 1,65 × 3% = 0,8% – 4,95% = <strong>–4,15%</strong>. Na prática: em 95% dos meses, a carteira não perderá mais de 4,15%. Em outros termos: em 1 mês a cada 20, você pode perder 4,15% ou mais. Se a carteira vale R$1 milhão, isso representa R$41.500 de perda máxima esperada no mês ruim.</div>
+  </div>
+</div>
+
+<!-- TOPICO 5: ESTATISTICA ESSENCIAL -->
+<div class="concept">
+  <div class="concept-title">5. Estatística Essencial</div>
+  <div class="linha"><span class="tag blue">Média vs Mediana</span><p>9 funcionários ganham R$3.000 e 1 CEO ganha R$300.000. Média salarial = R$32.700 — não representa ninguém. Mediana = R$3.000 — representa 9 de 10 pessoas. No banco: LGD (perda dado default) tem distribuição assimétrica — alguns contratos recuperam quase tudo, outros perdem tudo. Use a mediana para relatar LGD, não a média, para não distorcer a percepção do risco real.</p></div>
+  <div class="linha"><span class="tag blue">Desvio Padrão como "largura do sino"</span><p>Ação A: σ = 1%/dia. Ação B: σ = 3%/dia. Ação B é 3× mais volátil — o sino dela é 3× mais largo. Para converter volatilidade diária em anual (como os relatórios exigem): σ_ano = σ_dia × √252 (252 = dias úteis no ano). Isso é a raiz quadrada do tempo.</p></div>
+  <div class="linha"><span class="tag blue">Correlação na prática</span><p>PETR4 e VALE3 têm correlação histórica ~0,7. Se você tem só PETR4, concentra o risco. Se divide a carteira entre PETR4 e BOVA11 (correlação menor), o risco da carteira cai — sem reduzir o retorno esperado. <strong>Diversificação funciona matematicamente</strong> porque a variância de uma carteira depende da correlação entre os ativos.</p></div>
+  <div class="linha"><span class="tag blue">Covariância vs Correlação</span><p>Covariância é a "correlação suja" — mede se dois ativos se movem juntos, mas o número depende da escala das variáveis (uma covariância de 0,05 entre ações é diferente de 0,05 entre salários). Correlação = Covariância ÷ (σ_A × σ_B) → sempre entre –1 e +1, independente da escala. Use correlação para comparar; use covariância para calcular (na fórmula da variância da carteira).</p></div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1.5</div>
+    <div class="exercise-q">Dois ativos: Ativo A com σ = 2% e Ativo B com σ = 3%. Correlação entre eles = 0. O desvio padrão de uma carteira 50%/50% é maior, menor ou igual à média dos desvios individuais (2,5%)? Por quê?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol"><strong>Menor.</strong> σ_carteira = √(0,5² × 2² + 0,5² × 3² + 2 × 0,5 × 0,5 × 0 × 2 × 3) = √(1 + 2,25 + 0) = √3,25 ≈ <strong>1,80%</strong>. Bem menor que 2,5%. Por quê? Porque correlação = 0 significa que quando um ativo cai, o outro não necessariamente cai junto — as oscilações se cancelam parcialmente. Se a correlação fosse 1, σ_carteira = 0,5 × 2% + 0,5 × 3% = 2,5% (sem benefício de diversificação). Correlação zero é o motor da diversificação.</div>
+  </div>
+</div>
+
+<!-- TOPICO 6: EXERCICIOS DE FIXACAO -->
+<div class="concept">
+  <div class="concept-title">6. Exercícios de Fixação — Cap. 1 (Revisão Geral)</div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 1</div>
+    <div class="exercise-q">O que significa um WoE = –1,5 para uma faixa de variável no modelo de crédito? Como você interpretaria isso para o analista de negócio?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">WoE = –1,5 significa que essa faixa está fortemente associada a maus pagadores. O logaritmo negativo indica que a proporção de maus é maior que a de bons nessa faixa. Para o analista: "Clientes nessa faixa têm uma concentração desproporcional de inadimplentes — se aprovarmos crédito para esse perfil, a probabilidade de calote é significativamente maior que a média da carteira." Na prática, essa variável vai puxar o score para baixo quando o cliente se enquadrar nessa faixa.</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 2</div>
+    <div class="exercise-q">Delta de uma opção de compra = 0,4. O ativo subjacente sobe R$5. Quanto a opção valoriza aproximadamente?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">Valorização da opção ≈ Delta × ΔAtivo = 0,4 × R$5 = <strong>R$2,00</strong>. O Delta é a derivada — mede a sensibilidade da opção a cada R$1 de mudança no ativo. Note que o Delta não é constante (o Gamma mede como o Delta muda), então para variações grandes essa aproximação linear começa a ser imprecisa.</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 3</div>
+    <div class="exercise-q">Um título de renda fixa tem Duration = 7. O Banco Central sobe a taxa em 0,5%. Qual a queda aproximada no preço do título?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">Queda ≈ Duration × Δtaxa = 7 × 0,5% = <strong>3,5%</strong>. Se o título valia R$10.000, cai para aproximadamente R$9.650. Duration alta = título mais longo ou com cupom menor = mais sensível a juros = mais arriscado para a tesouraria quando o banco central está em ciclo de alta.</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 4</div>
+    <div class="exercise-q">Modelo A tem AUC = 0,72 e Modelo B tem AUC = 0,81. Qual você escolhe e por quê? Existe alguma situação onde o AUC menor poderia ser preferível?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol"><strong>Em geral, Modelo B</strong> — AUC 0,81 significa melhor separação entre bons e maus pagadores em todos os pontos de corte. No entanto, há situações onde o Modelo A pode ser preferível: (1) se o B foi treinado com features que não estarão disponíveis em produção; (2) se o A é muito mais simples e interpretável (exigência regulatória); (3) se o B sofre overfitting no período de treino e o A generaliza melhor fora da amostra (cheque o KS e Gini out-of-sample). Nunca decida só pelo AUC no treino — olhe também no teste e no backtesting temporal.</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-num">Exercício 5</div>
+    <div class="exercise-q">Uma carteira tem retorno médio = 1%/mês e desvio padrão = 4%/mês. Calcule o VaR 99% mensal (use z-score = 2,33). O que este número diz ao gestor de risco?</div>
+    <button class="exercise-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Ver Solução</button>
+    <div class="exercise-sol">VaR 99% = µ – 2,33 × σ = 1% – 2,33 × 4% = 1% – 9,32% = <strong>–8,32%</strong>. Para o gestor: "Em 99% dos meses, a carteira não perderá mais de 8,32%. Em média, apenas 1 mês a cada 100 terá perda superior a esse valor." Se a carteira vale R$10 milhões, o VaR 99% mensal é de R$832.000. <strong>Atenção:</strong> esse é o limiar, não a perda máxima possível. O CVaR mediria o quanto se perde nesses 1% de meses ruins — tipicamente bem mais que R$832.000 em situações de crise.</div>
+  </div>
 </div>
 
 <div class="box box-next">
