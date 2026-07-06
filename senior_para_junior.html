@@ -264,6 +264,10 @@ table.cmp td strong{color:var(--tx);}
   <div class="nav-item" data-sec="p6">P6 — Segmentação Risco <span class="badge" style="background:#3fb950">Trainee</span></div>
   <div class="nav-item" data-sec="p3">P3 — IFRS 9 ECL <span class="badge pu">Júnior</span></div>
   <div class="nav-item" data-sec="p7">P7 — EWS de Crédito <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
+  <div class="nav-item" data-sec="p9">P9 — Champion-Challenger <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
+  <div class="nav-item" data-sec="p10">P10 — Stress Testing <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
+  <div class="nav-item" data-sec="p11">P11 — Model Monitoring <span class="badge" style="background:#9b59b6;color:#fff">Pleno</span></div>
+  <div class="nav-item" data-sec="p12">P12 — IFRS9 Forward-Looking <span class="badge" style="background:#9b59b6;color:#fff">Pleno</span></div>
   <div class="nav-item" data-sec="p8">P8 — Case Executivo <span class="badge" style="background:#f78166;color:#000">Sênior</span></div>
 </aside>
 
@@ -461,6 +465,130 @@ antes da data de observação, se tivermos esse histórico."</div>
   <div class="callout success" style="margin-top:8px;">
     <strong>O que o senior nunca vai dizer, mas sempre avalia:</strong> (1) Você prioriza o que é importante ou você trata tudo igual? (2) Você avisa quando há um problema ou tenta resolver sozinho por 3 dias e atrasa o projeto? (3) Você documenta o que está fazendo ou some no código por 2 semanas? Um trainee que avisa cedo que há um problema é mais valioso do que um que entrega sem problemas.
   </div>
+
+  <!-- SEMANA 2: PRIMEIRO DIA NO CLIENTE -->
+  <h3 class="sh" style="margin-top:28px">Semana 2 — Primeiro Dia no Cliente (Banco Alfa)</h3>
+  <p class="ps">A MS passou a semana inicial de onboarding. Segunda-feira, 08h30 — você e David (Sênior MS) estão no carro indo para a sede do Banco Alfa. Faltam 20 minutos para chegar.</p>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">NO CARRO</div>
+      <div><div class="int-day-title">Briefing de David antes de entrar no banco</div><div class="int-day-sub">O que você precisa saber antes de pisar no cliente</div></div>
+    </div>
+    <div class="int-day-body">
+      <div class="cbox">David fala sem tirar o olho do trânsito:
+
+"Então — o Paulo Sérgio é o Gerente de Risco de Crédito lá. Ele tem 15 anos de banco, não tem paciência pra jargão de cientista de dados. Se você falar 'hiperparâmetro' pra ele, você perdeu ele. Fala 'configuração do modelo'. Entendido?"
+
+Você: "Entendido."
+
+"Hoje é dia de apresentação do scope do projeto. Você vai ouvir. Só vai falar se ele te perguntar diretamente. E se perguntar, responde curto e passa pra mim. Eu termino a resposta se necessário. Não tente impressionar — você ainda não sabe o que não sabe sobre a base de dados deles."
+
+Você: "E o que o projeto envolve exatamente?"
+
+"Modelo de PD para carteira de crédito pessoal. Base histórica de 36 meses. O modelo atual tem 3 anos, foi treinado antes da pandemia, e o PSI subiu pra 0.21 no mês passado. Eles querem um modelo novo com calibração mais recente e componente IFRS 9 integrado. Prazo: 4 meses para validação interna, 2 meses para aprovação no Bacen."
+
+Você (anotando): "PSI de 0.21 — já está na zona de alerta."
+
+"Exatamente. E você vai ver hoje que o Paulo Sérgio ainda não sabe que está na zona de alerta. Ele acha que está 'um pouquinho acima do normal'. Parte do nosso trabalho é traduzir isso em impacto de negócio que ele entenda."</div>
+      <div class="int-do">✓ O que você aprendeu nesse briefing</div>
+      <div class="int-item do">Adapte a linguagem ao interlocutor. Técnico com técnico, executivo com executivo.</div>
+      <div class="int-item do">No primeiro dia, você ouve. A fala pertence ao sênior até ele te passar.</div>
+      <div class="int-item do">PSI 0.21 = zona de atenção (0.10-0.25). Você já sabe o problema antes de entrar.</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">09h00</div>
+      <div><div class="int-day-title">Reunião de kick-off com Paulo Sérgio</div><div class="int-day-sub">Sala de reunião do banco — você, David e o gerente de risco</div></div>
+    </div>
+    <div class="int-day-body">
+      <div class="cbox">Paulo Sérgio (estendendo a mão): "Bom dia. Então, David, como vocês preferem trabalhar — alinhamentos semanais ou conforme necessário?"
+
+David: "Semanais às sextas, 30 minutos. E um canal de WhatsApp para dúvidas rápidas de dados. Assim a gente não trava por burocracia de email."
+
+Paulo Sérgio: "Combinado. E o jovem?" (olhando pra você)
+
+David: "Esse é o [seu nome]. Vai ser o responsável técnico pelo modelo. Tem experiência em credit scoring — vai conduzir a análise exploratória e o desenvolvimento."
+
+Paulo Sérgio (direto para você): "Uma coisa que eu preciso que você entenda: nosso time de TI não vai conseguir te dar a base completa de uma vez. Vão ser extrações semanais. Tudo bem para você trabalhar assim?"
+
+Você: "Sim, sem problema. Vou organizar o pipeline de forma incremental para receber os dados em lotes. Qual é o volume estimado — linhas por extração?"
+
+Paulo Sérgio (satisfeito com a pergunta técnica): "Cerca de 50 mil por semana. 36 meses de histórico no total, então umas 4-5 extrações."
+
+David (depois que Paulo Sérgio sai para buscar café, em voz baixa para você): "Boa pergunta. Perguntar volume antes de perguntar 'o que é cada coluna' mostra que você pensa em pipeline, não só em análise. Continue assim."</div>
+      <div class="int-do">✓ O que você aprendeu</div>
+      <div class="int-item do">Perguntas sobre infraestrutura (volume, formato, frequência) demonstram maturidade técnica para o cliente.</div>
+      <div class="int-item do">O sênior te apresentou como "responsável técnico". Isso cria expectativa — não decepcione na próxima semana.</div>
+      <div class="int-item do">David aproveitou o feedback em voz baixa imediatamente. Isso é como o aprendizado acontece em consulting.</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">14h00</div>
+      <div><div class="int-day-title">Primeira tarefa técnica — David te orienta ao vivo</div><div class="int-day-sub">Você recebe a primeira extração de dados (10k linhas)</div></div>
+    </div>
+    <div class="int-day-body">
+      <p>Você abriu o CSV e está explorando. David senta do seu lado com um café.</p>
+      <div class="cbox">David: "O que você fez primeiro?"
+
+Você: "df.shape, df.info(), df.isnull().sum(). A variável 'renda_declarada' tem 22% de missing."
+
+David: "E você vai fazer o quê com isso?"
+
+Você: "Imputar pela mediana do segmento?"
+
+David (pausando): "Pergunta antes de imputar. 22% de missing em renda é alto demais para ser acidente. Pode ser que o banco simplesmente não coletou renda de uma categoria de cliente. Se você imputar a mediana numa categoria que sistematicamente não declara renda, você vai criar viés."
+
+Você: "Então eu pergunto para o Paulo Sérgio antes de tratar?"
+
+David: "Exatamente. E quando você perguntar, não fala 'tenho 22% de missing'. Fala: 'identifiquei que 22% dos contratos não possuem renda declarada — para tomar a melhor decisão de tratamento, preciso entender se isso é um padrão de um segmento específico ou problema de coleta.' Isso mostra que você já pensou nas implicações antes de vir com a pergunta."</div>
+      <div class="int-do">✓ A regra de ouro que David passou</div>
+      <div class="int-item do"><strong>Nunca trate dado sem entender por que ele está como está.</strong> Missing data conta uma história sobre o processo de coleta. Entender a causa antes de tratar é o que separa análise de qualidade de análise descuidada.</div>
+      <div class="int-item do">Ao reportar um problema, apresente sempre a implicação junto com o achado. Não é "22% de missing" — é "22% de missing que pode criar viés se tratado errado".</div>
+      <div class="cbox">David, 30 minutos depois:
+
+"O que você vê na distribuição da taxa de default por segmento?"
+
+Você (analisando): "O segmento 'Crédito Pessoal sem garantia' tem 6.8% de default. Os outros estão entre 1.5% e 3.2%."
+
+David: "E isso te diz o quê para o modelo?"
+
+Você: "Que provavelmente vai precisar de modelos separados por segmento, ou pelo menos uma variável dummy forte para esse segmento."
+
+David: "Correto. Ou WoE binning vai capturar isso naturalmente se o segmento for uma variável categórica. O que você não pode fazer é juntar tudo num modelo único e esperar que ele aprenda sozinho sem evidência suficiente. Anota isso no seu relatório — vai ser a primeira decisão de modelagem que vamos apresentar pro Paulo Sérgio na sexta."</div>
+    </div>
+  </div>
+
+  <div class="int-day">
+    <div class="int-day-head" onclick="toggleDay(this)">
+      <div class="int-day-num">18h30</div>
+      <div><div class="int-day-title">Check-in no fim do dia — a conversa mais importante</div><div class="int-day-sub">David reserva 15 minutos antes de você ir embora</div></div>
+    </div>
+    <div class="int-day-body">
+      <div class="cbox">David: "O que você aprendeu hoje?"
+
+Você: "Que perguntar sobre a causa do missing antes de tratar é mais importante que a técnica de imputação em si. E que o cliente precisa de contexto, não só do número."
+
+David: "Isso. E mais uma coisa que você não perguntou mas vou te dar de graça: você viu o modelo atual deles, PSI 0.21?"
+
+Você: "Vi. Está na zona de atenção."
+
+David: "O Paulo Sérgio não sabe a gravidade disso ainda. Na sexta, quando apresentarmos os achados da EDA, vamos mostrar o PSI com o contexto: 'o modelo atual está a 0.04 do threshold regulatório de retreinamento. Se o PSI chegar a 0.25 antes do novo modelo estar pronto, o banco vai ter que comunicar ao Bacen.' Isso é urgência. Urgência é o que faz o cliente liberar orçamento e recursos."
+
+Você: "Então parte do trabalho é ajudar o cliente a entender a urgência do próprio problema."
+
+David: "Exatamente. Isso é consulting. Você não chegou aqui só para fazer modelo — chegou para ajudar o banco a tomar a decisão certa."</div>
+      <div class="int-do">✓ As 3 lições do Dia 1 no cliente</div>
+      <div class="int-item do"><strong>Entenda a causa antes de tratar:</strong> missing data conta uma história sobre o processo de negócio.</div>
+      <div class="int-item do"><strong>Contextualize os números:</strong> PSI 0.21 sozinho é um número. PSI 0.21 a 0.04 do threshold regulatório é urgência.</div>
+      <div class="int-item do"><strong>Consulting é decisão, não modelo:</strong> você entrega o suporte técnico para o cliente tomar a decisão certa — não apenas o artefato técnico.</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- O TRABALHO REAL -->
@@ -1090,6 +1218,10 @@ Você não precisa adivinhar p, d, q manualmente.</div>
     <tr><td><strong>P6</strong></td><td><span class="level-badge level-trainee">Trainee</span></td><td>Segmentação de Risco com K-Means</td><td>Guia Cap. 6</td></tr>
     <tr><td><strong>P3</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>IFRS 9 ECL Calculator (você implementa)</td><td>P1 + Guia Cap. 6</td></tr>
     <tr><td><strong>P7</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>Early Warning System de Crédito</td><td>P1 + P3</td></tr>
+    <tr><td><strong>P9</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>Champion-Challenger — Decidir trocar modelo em produção</td><td>P1 + P2</td></tr>
+    <tr><td><strong>P10</strong></td><td><span class="level-badge level-junior">Júnior</span></td><td>Stress Testing de Carteira com Cenários Macro</td><td>P1 + P3</td></tr>
+    <tr><td><strong>P11</strong></td><td><span class="level-badge" style="background:#9b59b622;color:#9b59b6;border:1px solid #9b59b6">Pleno</span></td><td>Model Monitoring System (PSI + KS + alertas automáticos)</td><td>P1 + P9</td></tr>
+    <tr><td><strong>P12</strong></td><td><span class="level-badge" style="background:#9b59b622;color:#9b59b6;border:1px solid #9b59b6">Pleno</span></td><td>IFRS 9 Forward-Looking com Cenários Macro completos</td><td>P3 + P10</td></tr>
     <tr><td><strong>P8</strong></td><td><span class="level-badge level-senior">Sênior</span></td><td>Business Case Executivo (só o problema)</td><td>Todos os anteriores</td></tr>
   </table>
 </div>
@@ -1736,6 +1868,103 @@ Você não precisa adivinhar p, d, q manualmente.</div>
     <div class="code-block">
       <div class="code-header"><span class="lang">Python — gera_base_banco_alfa.py (apenas gera os dados)</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
       <pre id="code-p8"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- P9: JÚNIOR — CHAMPION-CHALLENGER -->
+<div class="section" id="sec-p9">
+  <h2 class="pt"><span class="level-badge level-junior">🔵 Júnior</span>Projeto 9 — Champion-Challenger</h2>
+  <p class="ps">Você tem um modelo em produção (o Scorecard do P1). O time de modelagem desenvolveu um novo candidato (XGBoost). Sua decisão: trocar ou manter?</p>
+  <div class="callout warn"><strong>Pré-requisito:</strong> P1 (Scorecard PD) e P2 (Monte Carlo) completos. Este projeto é a situação mais comum em um banco: "nosso modelo novo é melhor?" — e a resposta não é só técnica.</div>
+  <div class="ph">
+    <h3>O que você vai aprender</h3>
+    <div class="pm">Comparação rigorosa entre modelos · KS / AUC / Gini · Regulatório vs Performance · Recomendação final com justificativa de negócio</div>
+  </div>
+  <div class="pb">
+    <div class="card">
+      <h3 class="ct ac">O Problema</h3>
+      <p>O Champion (Regressão Logística) tem KS 38% em produção há 18 meses. O Challenger (XGBoost/GradientBoosting) foi treinado na base mais recente e mostrou KS maior nos testes. O Diretor de Risco quer uma recomendação documentada: trocamos ou não?</p>
+      <p>O código simula os dois modelos, calcula as métricas e gera a recomendação automaticamente — você vai entender por que o ganho de KS sozinho não decide a questão.</p>
+    </div>
+    <div class="callout info"><strong>Conceito chave:</strong> Em ambiente regulado, o Champion não perde o título só por performance. Ele perde quando o ganho do Challenger justifica o custo de validação regulatória, retreinamento dos modelos dependentes (IFRS 9, provisão) e aprovação no Comitê de Modelos.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — champion_challenger.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p9"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- P10: JÚNIOR — STRESS TESTING -->
+<div class="section" id="sec-p10">
+  <h2 class="pt"><span class="level-badge level-junior">🔵 Júnior</span>Projeto 10 — Stress Testing de Carteira</h2>
+  <p class="ps">O Banco Central subiu 400bps. Sua tarefa: quantificar o impacto disso na carteira de crédito do banco antes que o Diretor de Risco precise apresentar ao Comitê.</p>
+  <div class="callout warn"><strong>Pré-requisito:</strong> P1 (PD) + P3 (IFRS 9 ECL) completos. Stress testing conecta macro (juros, desemprego, PIB) com crédito (PD, LGD, ECL).</div>
+  <div class="ph">
+    <h3>O que você vai aprender</h3>
+    <div class="pm">Cenários macro → impacto em PD → ECL por segmento · Sensibilidade por produto · Recomendação de provisão adicional</div>
+  </div>
+  <div class="pb">
+    <div class="card">
+      <h3 class="ct ac">O Problema</h3>
+      <p>Carteira com 10.000 contratos em 3 segmentos (PF Massificado, PF Alta Renda, PJ PME). O regulador exige que o banco demonstre capacidade de absorver cenários adversos. Você monta 4 cenários (Base, Adverso Leve, Adverso Severo, Estresse Extremo) e calcula o ECL em cada um.</p>
+      <p><strong>Insight crítico:</strong> PF Massificado é o mais sensível a alta de juros (renda não acompanha). PJ PME depende de liquidez de mercado. Alta Renda tem menor sensibilidade. Isso dita onde você concentra a provisão adicional.</p>
+    </div>
+    <div class="callout info"><strong>Regulatório:</strong> Bacen Resolução 4.557/2017 exige que bancos realizem stress testing ao menos anualmente. Em conjuntura adversa, o BACEN pode exigir stress ad hoc em prazo de 48h.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — stress_testing_carteira.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p10"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- P11: PLENO — MODEL MONITORING -->
+<div class="section" id="sec-p11">
+  <h2 class="pt"><span class="level-badge" style="background:#9b59b622;color:#9b59b6;border:1px solid #9b59b6">🟣 Pleno</span>Projeto 11 — Model Monitoring System</h2>
+  <p class="ps">Você entregou o modelo. Agora começa o trabalho que separa o Júnior do Pleno: garantir que o modelo continue funcionando em produção mês a mês.</p>
+  <div class="callout warn"><strong>Pré-requisito:</strong> P1 (Scorecard) + P9 (Champion-Challenger). Este projeto é sobre ciclo de vida de modelo, não sobre construir um novo.</div>
+  <div class="ph">
+    <h3>O que você vai aprender</h3>
+    <div class="pm">PSI mensal · KS/Gini em produção · Detecção automática de drift · Alertas com thresholds · Diagnóstico e recomendação de ação</div>
+  </div>
+  <div class="pb">
+    <div class="card">
+      <h3 class="ct ac">O Problema</h3>
+      <p>O modelo entrou em produção há 12 meses. A partir do mês 7, o perfil dos novos clientes começou a mudar (data drift). O sistema de monitoramento deve detectar isso automaticamente, indicar qual mês o drift começou, e gerar o diagnóstico com próximos passos.</p>
+      <p><strong>Diferencial Pleno:</strong> o Júnior entrega o modelo. O Pleno entrega o sistema de monitoramento que avisa quando o modelo precisa ser revisto — sem que o gestor precise perguntar.</p>
+    </div>
+    <div class="callout info"><strong>PSI Reference:</strong> &lt;0.10 = estável · 0.10-0.25 = atenção, investigar · &gt;0.25 = drift crítico, considerar retreinamento. KS abaixo de 25% em produção = modelo discriminando mal.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — model_monitoring_system.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p11"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- P12: PLENO — IFRS 9 FORWARD-LOOKING -->
+<div class="section" id="sec-p12">
+  <h2 class="pt"><span class="level-badge" style="background:#9b59b622;color:#9b59b6;border:1px solid #9b59b6">🟣 Pleno</span>Projeto 12 — IFRS 9 Forward-Looking Completo</h2>
+  <p class="ps">O projeto mais próximo do trabalho real de um consultor de risco de crédito em um banco. Você implementa o engine IFRS 9 completo: Stage migration + PD forward-looking + ECL com cenários macro ponderados.</p>
+  <div class="callout warn"><strong>Pré-requisito:</strong> P3 (IFRS 9 básico) + P10 (Stress Testing) + P1 (PD). Este projeto integra tudo que você aprendeu nos anteriores.</div>
+  <div class="ph">
+    <h3>O que você vai aprender</h3>
+    <div class="pm">Stage migration matrix · PD PIT forward-looking · ECL 12 meses (Stage 1) vs Lifetime (Stage 2/3) · Cenários macro ponderados · Relatório de provisão por segmento</div>
+  </div>
+  <div class="pb">
+    <div class="card">
+      <h3 class="ct ac">O Problema</h3>
+      <p>Carteira de 8.000 contratos em 3 produtos (Consignado, Pessoal, Capital de Giro PJ). Você implementa:</p>
+      <ul class="list">
+        <li><strong>Classificação em Stages:</strong> regras objetivas (atraso, PD vs originação, reestruturação)</li>
+        <li><strong>ECL por Stage:</strong> 12 meses (Stage 1) vs vida completa do contrato (Stage 2/3)</li>
+        <li><strong>Forward-Looking:</strong> 3 cenários macro (Otimista 25%, Base 50%, Adverso 25%) com ajuste de PD</li>
+        <li><strong>Entregável:</strong> provisão total ponderada pelos cenários + add-on vs cálculo simples</li>
+      </ul>
+    </div>
+    <div class="callout info"><strong>Por que isso importa:</strong> A diferença entre ECL determinístico e ECL forward-looking ponderado é o que o auditor vai questionar no relatório anual. Bancos que subestimam isso recebem ajuste de provisão pelo regulador.</div>
+    <div class="code-block">
+      <div class="code-header"><span class="lang">Python — ifrs9_forward_looking.py</span><button class="copy-btn" onclick="copyCode(this)">Copiar</button></div>
+      <pre id="code-p12"></pre>
     </div>
   </div>
 </div>
@@ -3262,6 +3491,365 @@ print("3. O que o banco deve fazer nas proximas 2 semanas?")
 print("4. Como voce apresentaria isso em 5 minutos para o Diretor?")
 </script>
 
+<script type="text/plain" id="raw-p9">import pandas as pd
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+import warnings
+warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+n = 5000
+
+df = pd.DataFrame({
+    'renda':                 np.random.lognormal(8.5, 0.6, n),
+    'idade':                 np.random.randint(20, 70, n),
+    'tempo_emprego_meses':   np.random.randint(0, 120, n),
+    'divida_renda':          np.random.beta(2, 5, n),
+    'historico_pagamentos':  np.random.choice([0, 1, 2], n, p=[0.7, 0.2, 0.1])
+})
+df['default'] = (
+    (df['renda'] < 3000) * 0.30 +
+    (df['divida_renda'] > 0.4) * 0.25 +
+    (df['historico_pagamentos'] == 2) * 0.35 +
+    np.random.uniform(0, 0.1, n)
+) > 0.45
+df['default'] = df['default'].astype(int)
+
+FEATURES = ['renda', 'idade', 'tempo_emprego_meses', 'divida_renda', 'historico_pagamentos']
+X = df[FEATURES]
+y = df['default']
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# --- CHAMPION: Regressao Logistica (modelo em producao ha 18 meses) ---
+scaler = StandardScaler()
+champion = LogisticRegression(max_iter=500)
+champion.fit(scaler.fit_transform(X_train), y_train)
+score_champ = champion.predict_proba(scaler.transform(X_val))[:, 1]
+
+# --- CHALLENGER: Gradient Boosting ---
+challenger = GradientBoostingClassifier(n_estimators=120, max_depth=4, random_state=42)
+challenger.fit(X_train, y_train)
+score_chall = challenger.predict_proba(X_val)[:, 1]
+
+def calc_ks(scores, labels):
+    df_k = pd.DataFrame({'s': scores, 'y': labels}).sort_values('s', ascending=False)
+    n_p = labels.sum(); n_n = (1 - labels).sum()
+    df_k['cp'] = (df_k['y'] == 1).cumsum() / n_p
+    df_k['cn'] = (df_k['y'] == 0).cumsum() / n_n
+    return (df_k['cp'] - df_k['cn']).abs().max() * 100
+
+ks_c  = calc_ks(score_champ, y_val.values)
+ks_ch = calc_ks(score_chall, y_val.values)
+auc_c  = roc_auc_score(y_val, score_champ) * 100
+auc_ch = roc_auc_score(y_val, score_chall) * 100
+gini_c  = 2 * auc_c  - 100
+gini_ch = 2 * auc_ch - 100
+delta   = ks_ch - ks_c
+
+print("=" * 58)
+print("  CHAMPION vs CHALLENGER — Relatorio de Decisao")
+print("=" * 58)
+print(f"\n{'Metrica':<22} {'Champion (LR)':<18} {'Challenger (GB)'}")
+print("-" * 58)
+print(f"{'KS Estatistico':<22} {ks_c:>6.1f}%          {ks_ch:>6.1f}%")
+print(f"{'AUC-ROC':<22} {auc_c:>6.1f}%          {auc_ch:>6.1f}%")
+print(f"{'Gini':<22} {gini_c:>6.1f}%          {gini_ch:>6.1f}%")
+print(f"{'Interpretabilidade':<22} {'Alta (scorecard)':<18} {'Baixa (black-box)'}")
+print(f"{'Bacen auditavel':<22} {'Sim':<18} {'Requer justif.'}")
+print(f"\n  Delta KS (Challenger - Champion): {delta:+.1f} pontos")
+print()
+
+if delta > 10:
+    decisao = "IMPLEMENTAR — shadow scoring 6 meses (30% trafego)"
+    razao   = f"Ganho de {delta:.1f}pts justifica custo regulatorio de validacao."
+elif delta > 5:
+    decisao = "INVESTIGAR — validar em base OOT antes de decidir"
+    razao   = f"Ganho de {delta:.1f}pts moderado. Verificar se persiste fora do tempo."
+else:
+    decisao = "MANTER CHAMPION"
+    razao   = f"Ganho de {delta:.1f}pts nao justifica revalidacao e retreinamento de modelos dependentes."
+
+print("=" * 58)
+print("  RECOMENDACAO PARA O COMITE DE MODELOS")
+print("=" * 58)
+print(f"\n  Decisao : {decisao}")
+print(f"  Razao   : {razao}")
+print(f"\n  Nota: modelos dependentes (IFRS 9, provisao, limite) precisam")
+print(f"  ser re-calibrados caso o challenger entre em producao.")
+print(f"  Custo total de transicao estimado: 3-4 meses de trabalho.")
+</script>
+
+<script type="text/plain" id="raw-p10">import pandas as pd
+import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+n = 10000
+
+carteira = pd.DataFrame({
+    'contrato_id': range(1, n + 1),
+    'segmento':    np.random.choice(['PF_Massificado', 'PF_Alta_Renda', 'PJ_PME'],
+                                    n, p=[0.50, 0.30, 0.20]),
+    'ead':         np.random.lognormal(9.0, 1.2, n),
+    'pd_base':     np.random.beta(2, 20, n),
+    'lgd':         np.random.beta(3, 5, n),
+})
+
+# Sensibilidade macro por segmento (PF_Massificado mais vulneravel a juro/inflacao)
+sens = {'PF_Massificado': 1.35, 'PF_Alta_Renda': 0.90, 'PJ_PME': 1.15}
+carteira['sens'] = carteira['segmento'].map(sens)
+
+cenarios = {
+    'Base':            {'mult': 1.00, 'prob': 0.50, 'desc': 'PIB +2%, Selic estavel'},
+    'Adverso_Leve':    {'mult': 1.45, 'prob': 0.25, 'desc': 'Selic +200bps, PIB +0.5%'},
+    'Adverso_Severo':  {'mult': 2.30, 'prob': 0.15, 'desc': 'Selic +400bps, PIB -1.5%, desemprego +3pp'},
+    'Estresse_Extremo':{'mult': 4.00, 'prob': 0.10, 'desc': 'Crise sistemica — stress regulatorio'},
+}
+
+print("=" * 68)
+print("  STRESS TESTING DE CARTEIRA — Banco Alfa | Credito")
+print("=" * 68)
+print(f"\n  Carteira: {n:,} contratos | EAD Total: R$ {carteira['ead'].sum()/1e6:.1f}M")
+print(f"  PD Media Base: {carteira['pd_base'].mean()*100:.2f}%")
+print(f"  LGD Media:     {carteira['lgd'].mean()*100:.1f}%\n")
+
+ecl_base_ref = (carteira['pd_base'] * carteira['lgd'] * carteira['ead']).sum()
+resultados = {}
+
+for nome, cfg in cenarios.items():
+    pd_stress = (carteira['pd_base'] * cfg['mult'] * carteira['sens']).clip(0, 1)
+    ecl = (pd_stress * carteira['lgd'] * carteira['ead']).sum()
+    resultados[nome] = {'ecl': ecl, 'prob': cfg['prob'], 'desc': cfg['desc'],
+                        'mult': cfg['mult']}
+    delta = (ecl - ecl_base_ref) / ecl_base_ref * 100
+    print(f"  {nome:<20} | Mult PD: {cfg['mult']:.2f}x | ECL: R$ {ecl/1e6:.1f}M"
+          f" | Delta: {delta:+.0f}%")
+    print(f"  {'':20}   {cfg['desc']}\n")
+
+ecl_pond = sum(v['ecl'] * v['prob'] for v in resultados.values())
+
+print("=" * 68)
+print("  IMPACTO POR SEGMENTO — Cenario Adverso Severo")
+print("=" * 68)
+m = cenarios['Adverso_Severo']['mult']
+carteira['pd_adv'] = (carteira['pd_base'] * m * carteira['sens']).clip(0, 1)
+carteira['ecl_adv'] = carteira['pd_adv'] * carteira['lgd'] * carteira['ead']
+por_seg = carteira.groupby('segmento')['ecl_adv'].sum().sort_values(ascending=False)
+total_adv = por_seg.sum()
+for seg, ecl in por_seg.items():
+    print(f"  {seg:<20}: R$ {ecl/1e6:.1f}M ({ecl/total_adv*100:.0f}%)")
+
+print(f"\n  ECL Base simples:         R$ {ecl_base_ref/1e6:.1f}M")
+print(f"  ECL Forward-Looking pond: R$ {ecl_pond/1e6:.1f}M")
+add_on = ecl_pond - ecl_base_ref
+print(f"  Add-on provisionamento:   R$ {add_on/1e6:+.1f}M ({add_on/ecl_base_ref*100:+.0f}%)")
+print(f"\n  Recomendacao: constituir provisao adicional de R$ {add_on/1e6:.1f}M,")
+print(f"  concentrada em PF_Massificado (maior sensibilidade macro).")
+print(f"  Documentar nos cenarios IFRS 9 conforme IFRS 9 B5.5.42.")
+</script>
+
+<script type="text/plain" id="raw-p11">import pandas as pd
+import numpy as np
+from scipy import stats
+from sklearn.metrics import roc_auc_score
+import warnings
+warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+
+def gera_batch(n, media_score, std_score, default_rate):
+    scores = np.clip(np.random.normal(media_score, std_score, n), 0.001, 0.999)
+    defaults = (np.random.uniform(0, 1, n) < default_rate).astype(int)
+    return scores, defaults
+
+# Base de referencia (treinamento — distribuicao original)
+scores_ref, _ = gera_batch(5000, 0.25, 0.15, 0.05)
+
+# Simula 12 meses em producao — drift a partir do mes 7
+meses = []
+for mes in range(1, 13):
+    drift = max(0, (mes - 6) * 0.045)
+    n_mes = np.random.randint(800, 1200)
+    scores_m, defaults_m = gera_batch(
+        n_mes,
+        media_score = 0.25 + drift,
+        std_score   = 0.15 + drift * 0.25,
+        default_rate= 0.05 + drift * 0.55
+    )
+    meses.append({'mes': mes, 'scores': scores_m, 'defaults': defaults_m})
+
+def psi(ref, cur, bins=10):
+    cuts = np.percentile(ref, np.linspace(0, 100, bins + 1))
+    cuts[0] = -np.inf; cuts[-1] = np.inf
+    r = np.histogram(ref, bins=cuts)[0] / len(ref) + 1e-7
+    c = np.histogram(cur, bins=cuts)[0] / len(cur) + 1e-7
+    return float(np.sum((c - r) * np.log(c / r)))
+
+def ks_score(scores, labels):
+    if labels.sum() < 2 or (1 - labels).sum() < 2: return 0.0
+    return stats.ks_2samp(scores[labels==1], scores[labels==0]).statistic * 100
+
+def gini_score(scores, labels):
+    if len(np.unique(labels)) < 2: return 0.0
+    return (2 * roc_auc_score(labels, scores) - 1) * 100
+
+print("=" * 72)
+print("  SYSTEM DE MONITORAMENTO — Credit Scorecard PD | Banco Alfa")
+print("=" * 72)
+print(f"\n  Base de referencia: {len(scores_ref):,} observacoes\n")
+print(f"  {'Mes':<5} {'n':<6} {'PSI':<9} {'Status PSI':<17} {'KS%':<8} "
+      f"{'Gini%':<8} {'Default%':<10} {'Alertas'}")
+print("-" * 72)
+
+alertas_gerados = []
+for d in meses:
+    s, y = d['scores'], d['defaults']
+    p = psi(scores_ref, s)
+    k = ks_score(s, y)
+    g = gini_score(s, y)
+    dr = y.mean() * 100
+
+    st = "Estavell     " if p < 0.10 else ("Atencao      " if p < 0.25 else "CRITICO      ")
+    al = []
+    if p >= 0.25: al.append("DRIFT")
+    if k < 25:    al.append("KS-baixo")
+    if dr > 10:   al.append("Default-alto")
+    al_str = " ".join(al) if al else "—"
+
+    if al: alertas_gerados.append(d['mes'])
+    print(f"  {d['mes']:<5} {len(s):<6} {p:<9.3f} {st:<17} {k:<8.1f} {g:<8.1f} {dr:<10.1f} {al_str}")
+
+print("\n" + "=" * 72)
+print("  DIAGNOSTICO E RECOMENDACOES")
+print("=" * 72)
+if alertas_gerados:
+    m0 = alertas_gerados[0]
+    print(f"\n  Drift detectado a partir do MES {m0}.")
+    print(f"  PSI ultrapassou threshold de 0.25 — distribuicao de scores")
+    print(f"  diverge significativamente da base de treinamento.")
+    print(f"\n  Plano de acao:")
+    print(f"  1. PSI por FEATURE — identificar quais variaveis mudaram mais")
+    print(f"  2. Comparar perfil demografico dos novos clientes vs treinamento")
+    print(f"  3. Calcular KS por safra mensal — confirmar degradacao progressiva")
+    print(f"  4. Comunicar ao Comite de Modelos e parceiro do banco")
+    print(f"  5. Iniciar retreinamento com janela dos ultimos 18 meses")
+    print(f"  6. Shadow scoring do novo modelo por 60 dias antes de substituir")
+else:
+    print(f"\n  Modelo estavel nos 12 meses. Proxima revisao em 6 meses.")
+</script>
+
+<script type="text/plain" id="raw-p12">import pandas as pd
+import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
+
+np.random.seed(42)
+n = 8000
+
+contratos = pd.DataFrame({
+    'id':            range(1, n + 1),
+    'produto':       np.random.choice(
+                         ['PF_Consignado', 'PF_Pessoal', 'PJ_Capital_Giro'],
+                         n, p=[0.40, 0.35, 0.25]),
+    'ead':           np.random.lognormal(9.5, 1.0, n),
+    'prazo_meses':   np.random.randint(6, 61, n),
+    'pd_originacao': np.random.beta(1.5, 25, n),
+    'pd_pit':        np.random.beta(2.0, 18, n),
+    'lgd':           np.random.beta(2.5, 5, n),
+    'atraso_dias':   np.random.choice([0, 15, 45, 90, 180], n,
+                                      p=[0.75, 0.10, 0.08, 0.04, 0.03]),
+    'reestruturado': np.random.choice([0, 1], n, p=[0.95, 0.05]),
+})
+
+# --- STEP 1: CLASSIFICACAO EM STAGES ---
+def stage(r):
+    if r['atraso_dias'] >= 90 or r['reestruturado']:     return 3
+    if r['atraso_dias'] >= 30 or r['pd_pit'] > r['pd_originacao'] * 2.0: return 2
+    return 1
+
+contratos['stage'] = contratos.apply(stage, axis=1)
+
+# --- STEP 2: ECL DETERMINISTICO (sem forward-looking) ---
+def ecl_det(r):
+    if r['stage'] == 1:
+        return r['pd_pit'] * r['lgd'] * r['ead']
+    elif r['stage'] == 2:
+        pd_life = 1 - (1 - r['pd_pit']) ** (r['prazo_meses'] / 12)
+        return pd_life * r['lgd'] * r['ead']
+    else:
+        pd_life = min(0.95, r['pd_pit'] * 3.0)
+        return pd_life * r['lgd'] * r['ead']
+
+contratos['ecl_base'] = contratos.apply(ecl_det, axis=1)
+
+# --- STEP 3: CENARIOS MACRO FORWARD-LOOKING ---
+cenarios = {
+    'Otimista': {'prob': 0.25, 'mult': 0.80},
+    'Base':     {'prob': 0.50, 'mult': 1.00},
+    'Adverso':  {'prob': 0.25, 'mult': 1.70},
+}
+
+def ecl_cenario(r, mult):
+    pd_adj = min(0.99, r['pd_pit'] * mult)
+    if r['stage'] == 1:
+        return pd_adj * r['lgd'] * r['ead']
+    elif r['stage'] == 2:
+        pd_life = 1 - (1 - pd_adj) ** (r['prazo_meses'] / 12)
+        return pd_life * r['lgd'] * r['ead']
+    else:
+        return min(0.99, pd_adj * 3.0) * r['lgd'] * r['ead']
+
+# Vetorizado por cenario
+ecl_total_pond = np.zeros(len(contratos))
+print("=" * 65)
+print("  IFRS 9 — ENGINE FORWARD-LOOKING | Banco Alfa")
+print("=" * 65)
+
+dist_stage = contratos['stage'].value_counts().sort_index()
+total_ead = contratos['ead'].sum()
+print(f"\n  Carteira: {n:,} contratos | EAD Total: R$ {total_ead/1e6:.0f}M\n")
+for s, cnt in dist_stage.items():
+    ead_s = contratos.loc[contratos['stage']==s, 'ead'].sum()
+    print(f"  Stage {s}: {cnt:>5,} contratos ({cnt/n*100:.0f}%) | EAD R$ {ead_s/1e6:.0f}M")
+
+print(f"\n  {'Cenario':<12} {'Prob':>6} {'Mult PD':>9} {'ECL (R$M)':>12} {'Delta':>10}")
+print("-" * 52)
+ecl_base_cenario = None
+for nome, cfg in cenarios.items():
+    ecl_c = contratos.apply(lambda r: ecl_cenario(r, cfg['mult']), axis=1).sum()
+    ecl_total_pond += ecl_c * cfg['prob']
+    delta_str = "—"
+    if ecl_base_cenario is not None:
+        d = (ecl_c - ecl_base_cenario) / ecl_base_cenario * 100
+        delta_str = f"{d:+.0f}%"
+    if nome == 'Base': ecl_base_cenario = ecl_c
+    print(f"  {nome:<12} {cfg['prob']:>6.0%} {cfg['mult']:>9.2f}x {ecl_c/1e6:>10.1f}M {delta_str:>10}")
+
+ecl_det_total = contratos['ecl_base'].sum()
+ecl_fl_total  = ecl_total_pond.sum()
+add_on        = ecl_fl_total - ecl_det_total
+
+print(f"\n  ECL Deterministico:          R$ {ecl_det_total/1e6:.1f}M")
+print(f"  ECL Forward-Looking pond.:   R$ {ecl_fl_total/1e6:.1f}M")
+print(f"  Add-on Forward-Looking:      R$ {add_on/1e6:+.1f}M ({add_on/ecl_det_total*100:+.1f}%)")
+
+print(f"\n  Por stage (ECL Forward-Looking):")
+for s in [1, 2, 3]:
+    mask = contratos['stage'] == s
+    mult_efetivo = sum(cfg['prob'] * cfg['mult'] for cfg in cenarios.values())
+    ecl_s = contratos.loc[mask, 'ecl_base'].sum() * mult_efetivo
+    print(f"    Stage {s}: R$ {ecl_s/1e6:.1f}M ({ecl_s/ecl_fl_total*100:.0f}%)")
+
+print(f"\n  Nota: Stage 2 gera ECL Lifetime — principal driver da")
+print(f"  provisao. Migracao Stage1->Stage2 e o gatilho mais critico.")
+print(f"\n  Relatorio para Comite de Auditoria / Bacen — IFRS 9 B5.5.42.")
+</script>
+
 <script>
 // NAV
 document.querySelectorAll('.nav-item').forEach(function(item) {
@@ -3619,7 +4207,11 @@ var mapa = {
   'code-p5'       : 'raw-p5',
   'code-p6'       : 'raw-p6',
   'code-p7'       : 'raw-p7',
-  'code-p8'       : 'raw-p8'
+  'code-p8'       : 'raw-p8',
+  'code-p9'       : 'raw-p9',
+  'code-p10'      : 'raw-p10',
+  'code-p11'      : 'raw-p11',
+  'code-p12'      : 'raw-p12'
 };
 Object.keys(mapa).forEach(function(preId) {
   var rawEl = document.getElementById(mapa[preId]);
