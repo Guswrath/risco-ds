@@ -232,49 +232,95 @@ table.cmp td strong{color:var(--tx);}
 .tag-pill.warn{border-color:var(--yl);color:var(--yl);}
 .tag-pill.good{border-color:var(--gr);color:var(--gr);}
 .tag-pill.bad{border-color:var(--rd);color:var(--rd);}
+
+/* ===== COURSE ENGINE ===== */
+.course-brand{padding:16px 18px 10px;border-bottom:1px solid var(--bd);}
+.course-brand-name{font-size:.85rem;font-weight:700;color:var(--tx);margin-bottom:2px;}
+.course-brand-sub{font-size:.7rem;color:var(--td);}
+.course-overall-bar{height:3px;background:var(--bd);}
+.course-overall-fill{height:100%;background:var(--gr);transition:width .4s;width:0%;}
+.course-dash-link{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:.8rem;color:var(--tm);cursor:pointer;border-bottom:1px solid var(--bd);transition:background .1s;}
+.course-dash-link:hover,.course-dash-link.active{background:rgba(88,166,255,.07);color:var(--ac);}
+.mod-group{border-bottom:1px solid var(--bd);}
+.mod-header{display:flex;align-items:center;gap:7px;padding:9px 12px;cursor:pointer;transition:background .1s;user-select:none;}
+.mod-header:hover{background:var(--s2);}
+.mod-icon{font-size:.95rem;width:18px;text-align:center;flex-shrink:0;}
+.mod-title-text{flex:1;font-size:.74rem;font-weight:600;color:var(--tm);line-height:1.3;}
+.mod-prog{font-size:.62rem;color:var(--td);white-space:nowrap;}
+.mod-chevron{font-size:.58rem;color:var(--td);transition:transform .2s;flex-shrink:0;}
+.mod-header.open .mod-chevron{transform:rotate(180deg);}
+.mod-lessons{display:none;}
+.mod-header.open + .mod-lessons{display:block;background:rgba(0,0,0,.12);}
+.lesson-row{display:flex;align-items:center;gap:7px;padding:7px 12px 7px 28px;cursor:pointer;border-left:2px solid transparent;transition:all .1s;}
+.lesson-row:hover{background:var(--s2);}
+.lesson-row.active-lesson{border-left-color:var(--ac);background:rgba(88,166,255,.06);}
+.lesson-check{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#000;}
+.lesson-check.done{background:var(--gr);border-color:var(--gr);}
+.lesson-lbl{flex:1;font-size:.75rem;color:var(--tm);line-height:1.3;}
+.lesson-row.active-lesson .lesson-lbl{color:var(--tx);}
+.lesson-type-badge{font-size:.58rem;color:var(--td);background:var(--s2);border:1px solid var(--bd);border-radius:3px;padding:1px 4px;flex-shrink:0;}
+
+/* Dashboard */
+.dash-hero{background:linear-gradient(135deg,rgba(88,166,255,.07),rgba(63,185,80,.04));border:1px solid var(--bd);border-radius:10px;padding:28px 32px;margin-bottom:28px;}
+.dash-hero h2{font-size:1.45rem;font-weight:800;margin-bottom:6px;}
+.dash-hero p{color:var(--tm);font-size:.9rem;margin-bottom:14px;}
+.dash-hero-bar{background:var(--bd);border-radius:4px;height:7px;margin-bottom:6px;}
+.dash-hero-fill{height:100%;background:linear-gradient(90deg,var(--gr),#58d68d);border-radius:4px;transition:width .5s;width:0%;}
+.dash-pct{font-size:.75rem;color:var(--td);margin-bottom:10px;}
+.dash-continue-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ac);color:#000;font-weight:700;font-size:.84rem;padding:9px 18px;border-radius:6px;cursor:pointer;border:none;}
+.dash-continue-btn:hover{opacity:.88;}
+.mods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:14px;}
+.mod-card{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:16px;cursor:pointer;transition:border-color .15s,transform .15s;position:relative;overflow:hidden;}
+.mod-card:hover{border-color:var(--ac);transform:translateY(-1px);}
+.mod-card-stripe{position:absolute;top:0;left:0;right:0;height:3px;}
+.mod-card-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}
+.mod-card-icon{font-size:1.3rem;}
+.mod-card-title{font-size:.84rem;font-weight:700;color:var(--tx);}
+.mod-card-bar{background:var(--bd);border-radius:3px;height:4px;margin-bottom:5px;}
+.mod-card-fill{height:100%;border-radius:3px;transition:width .4s;}
+.mod-card-meta{font-size:.7rem;color:var(--td);display:flex;justify-content:space-between;margin-bottom:8px;}
+.mod-card-items{display:flex;flex-direction:column;gap:3px;}
+.mod-card-item{font-size:.72rem;color:var(--tm);display:flex;align-items:center;gap:5px;}
+.mod-card-item.done-item{color:var(--td);text-decoration:line-through;}
+
+/* Lesson footer */
+.lesson-footer{display:flex;align-items:center;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid var(--bd);flex-wrap:wrap;}
+.lf-btn{background:var(--s2);border:1px solid var(--bd);color:var(--tm);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.8rem;transition:all .12s;}
+.lf-btn:hover{border-color:var(--ac);color:var(--tx);}
+.lf-complete{background:var(--gr);border-color:var(--gr);color:#000;font-weight:700;margin-left:auto;}
+.lf-complete:hover{opacity:.88;border-color:var(--gr);}
+.lf-complete.is-done{background:var(--s2);border-color:var(--bd);color:var(--td);}
+.lf-complete.is-done:hover{border-color:var(--ac);color:var(--tx);}
 </style>
 </head>
 <body>
 
-<aside class="sidebar">
-  <div class="sidebar-logo"><h1>Senior → Júnior</h1><p>Management Solutions | Risk DS</p></div>
-  <div class="nav-section">⚡ Comece Aqui</div>
-  <div class="nav-item active" data-sec="start" style="color:#ffa657;border-left:2px solid #ffa657;">🚀 Por Onde Começar</div>
-  <div class="nav-section">Contexto MS</div>
-  <div class="nav-item" data-sec="trabalho">O Trabalho Real</div>
-  <div class="nav-item" data-sec="integracao">Simulação de Integração <span class="badge" style="background:#ffa657;">Novo</span></div>
-  <div class="nav-section">Módulos Técnicos</div>
-  <div class="nav-item" data-sec="m0">0. Pipeline de DS <span class="badge">Base</span></div>
-  <div class="nav-item" data-sec="m1">1. Credit Scoring <span class="badge">Core</span></div>
-  <div class="nav-item" data-sec="m2">2. KS, Gini e PSI</div>
-  <div class="nav-item" data-sec="m3">3. Monte Carlo</div>
-  <div class="nav-item" data-sec="m4">4. GLM para Risco</div>
-  <div class="nav-item" data-sec="m5">5. Séries Temporais</div>
-  <div class="nav-section">Prática</div>
-  <div class="nav-item" data-sec="batepapo">Bate Papo Simulado <span class="badge" style="background:#ffa657;">Novo</span></div>
-  <div class="nav-item" data-sec="linguagem">Linguagem de Consultor <span class="badge" style="background:#ffa657;">Novo</span></div>
-  <div class="nav-item" data-sec="plano">Plano 1 Mês</div>
-  <div class="nav-item" data-sec="flashcards">Flashcards <span class="badge pu">60+</span></div>
-  <div class="nav-section">Projetos</div>
-  <div class="nav-item" data-sec="projetos">Visão Geral por Nível</div>
-  <div class="nav-item" data-sec="p1">P1 — Scorecard PD <span class="badge" style="background:#3fb950">Trainee</span></div>
-  <div class="nav-item" data-sec="p2">P2 — Monte Carlo VaR <span class="badge" style="background:#3fb950">Trainee</span></div>
-  <div class="nav-item" data-sec="p4">P4 — LGD Modeling <span class="badge" style="background:#3fb950">Trainee</span></div>
-  <div class="nav-item" data-sec="p5">P5 — Forecast Inadimp. <span class="badge" style="background:#3fb950">Trainee</span></div>
-  <div class="nav-item" data-sec="p6">P6 — Segmentação Risco <span class="badge" style="background:#3fb950">Trainee</span></div>
-  <div class="nav-item" data-sec="p3">P3 — IFRS 9 ECL <span class="badge pu">Júnior</span></div>
-  <div class="nav-item" data-sec="p7">P7 — EWS de Crédito <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
-  <div class="nav-item" data-sec="p9">P9 — Champion-Challenger <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
-  <div class="nav-item" data-sec="p10">P10 — Stress Testing <span class="badge" style="background:#ffa657;color:#000">Júnior</span></div>
-  <div class="nav-item" data-sec="p11">P11 — Model Monitoring <span class="badge" style="background:#9b59b6;color:#fff">Pleno</span></div>
-  <div class="nav-item" data-sec="p12">P12 — IFRS9 Forward-Looking <span class="badge" style="background:#9b59b6;color:#fff">Pleno</span></div>
-  <div class="nav-item" data-sec="p8">P8 — Case Executivo <span class="badge" style="background:#f78166;color:#000">Sênior</span></div>
+<aside class="sidebar" id="sidebar">
+  <div class="course-brand">
+    <div class="course-brand-name">📊 Risk DS · Management Solutions</div>
+    <div class="course-brand-sub" id="course-sub-text">0 de 25 aulas concluídas</div>
+  </div>
+  <div class="course-overall-bar"><div class="course-overall-fill" id="course-fill"></div></div>
+  <div class="course-dash-link" id="dash-nav-link" onclick="showDashboard()">🏠 Dashboard do Curso</div>
+  <div id="course-nav"></div>
 </aside>
 
 <main class="main">
 
+<!-- DASHBOARD -->
+<div class="section" id="sec-dashboard">
+  <div class="dash-hero">
+    <h2 id="dash-greeting">Bem-vindo ao curso! 👋</h2>
+    <p id="dash-desc">Comece pelo Módulo 0 — Contexto e Integração para entender o ambiente antes do código.</p>
+    <div class="dash-hero-bar"><div class="dash-hero-fill" id="dash-fill"></div></div>
+    <div class="dash-pct" id="dash-pct-text">0% concluído</div>
+    <button class="dash-continue-btn" onclick="continueCourse()">▶ Continuar onde parei</button>
+  </div>
+  <div class="mods-grid" id="mods-grid"></div>
+</div>
+
 <!-- POR ONDE COMEÇAR -->
-<div class="section active" id="sec-start">
+<div class="section" id="sec-start">
   <h2 class="pt">Por Onde Começar</h2>
   <p class="ps">Resposta direta: <strong>você começa pelo GUIA</strong>, não pelo site. O site é para praticar o que você aprendeu no guia.</p>
 
@@ -4346,5 +4392,308 @@ function filterCards(cat, btn) {
 showCard();
 </script>
 
+<script>
+// =====================================================================
+// COURSE ENGINE
+// =====================================================================
+var courseData = [
+  { id:'m0', icon:'🏢', title:'Contexto e Integração', color:'#3b82f6',
+    lessons:[
+      {id:'l0', title:'Por Onde Começar',          type:'leitura',  sid:'sec-start'},
+      {id:'l1', title:'O Trabalho Real na MS',      type:'leitura',  sid:'sec-trabalho'},
+      {id:'l2', title:'Simulação de Integração',    type:'leitura',  sid:'sec-integracao'},
+      {id:'l3', title:'Linguagem de Consultor',     type:'leitura',  sid:'sec-linguagem'},
+    ]
+  },
+  { id:'m1', icon:'⚙️', title:'Pipeline de DS', color:'#8b5cf6',
+    lessons:[
+      {id:'l0', title:'Pipeline DS — 7 Etapas',    type:'código',   sid:'sec-m0'},
+    ]
+  },
+  { id:'m2', icon:'🏦', title:'Risco de Crédito', color:'#10b981',
+    lessons:[
+      {id:'l0', title:'Credit Scoring — WoE e IV', type:'código',   sid:'sec-m1'},
+      {id:'l1', title:'KS, Gini e PSI',            type:'código',   sid:'sec-m2'},
+      {id:'l2', title:'Projeto — Scorecard PD',    type:'projeto',  sid:'sec-p1'},
+      {id:'l3', title:'Projeto — IFRS 9 ECL',      type:'projeto',  sid:'sec-p3'},
+    ]
+  },
+  { id:'m3', icon:'📈', title:'Risco de Mercado', color:'#f59e0b',
+    lessons:[
+      {id:'l0', title:'Monte Carlo e VaR',          type:'código',   sid:'sec-m3'},
+      {id:'l1', title:'Projeto — Monte Carlo VaR',  type:'projeto',  sid:'sec-p2'},
+    ]
+  },
+  { id:'m4', icon:'🔬', title:'Modelagem Avançada', color:'#6366f1',
+    lessons:[
+      {id:'l0', title:'GLM para LGD',               type:'código',   sid:'sec-m4'},
+      {id:'l1', title:'Séries Temporais e ARIMA',   type:'código',   sid:'sec-m5'},
+      {id:'l2', title:'Projeto — LGD Modeling',     type:'projeto',  sid:'sec-p4'},
+      {id:'l3', title:'Projeto — Forecast',         type:'projeto',  sid:'sec-p5'},
+      {id:'l4', title:'Projeto — Segmentação',      type:'projeto',  sid:'sec-p6'},
+    ]
+  },
+  { id:'m5', icon:'🔵', title:'Projetos Júnior', color:'#0ea5e9',
+    lessons:[
+      {id:'l0', title:'EWS de Crédito',             type:'projeto',  sid:'sec-p7'},
+      {id:'l1', title:'Champion-Challenger',         type:'projeto',  sid:'sec-p9'},
+      {id:'l2', title:'Stress Testing',             type:'projeto',  sid:'sec-p10'},
+    ]
+  },
+  { id:'m6', icon:'🟣', title:'Projetos Pleno', color:'#a855f7',
+    lessons:[
+      {id:'l0', title:'Model Monitoring System',    type:'projeto',  sid:'sec-p11'},
+      {id:'l1', title:'IFRS 9 Forward-Looking',     type:'projeto',  sid:'sec-p12'},
+    ]
+  },
+  { id:'m7', icon:'🔴', title:'Projeto Sênior', color:'#ef4444',
+    lessons:[
+      {id:'l0', title:'Business Case Executivo',    type:'projeto',  sid:'sec-p8'},
+    ]
+  },
+  { id:'m8', icon:'🎯', title:'Avaliação e Prática', color:'#14b8a6',
+    lessons:[
+      {id:'l0', title:'Flashcards',                 type:'quiz',     sid:'sec-flashcards'},
+      {id:'l1', title:'Bate Papo Simulado',         type:'simulado', sid:'sec-batepapo'},
+      {id:'l2', title:'Plano de 1 Mês',             type:'plano',    sid:'sec-plano'},
+    ]
+  },
+];
+
+var typeIcons = {leitura:'📖', código:'💻', projeto:'📊', quiz:'🎯', simulado:'🗣️', plano:'📅'};
+
+function lKey(mid, lid) { return 'cl-' + mid + '-' + lid; }
+function isDone(mid, lid) { return localStorage.getItem(lKey(mid, lid)) === '1'; }
+
+function totalLessons() {
+  return courseData.reduce(function(s, m) { return s + m.lessons.length; }, 0);
+}
+function completedCount() {
+  var n = 0;
+  courseData.forEach(function(m) {
+    m.lessons.forEach(function(l) { if (isDone(m.id, l.id)) n++; });
+  });
+  return n;
+}
+function modProg(m) {
+  var done = m.lessons.filter(function(l) { return isDone(m.id, l.id); }).length;
+  return {done: done, total: m.lessons.length, pct: m.lessons.length ? Math.round(done / m.lessons.length * 100) : 0};
+}
+
+function updateOverallProgress() {
+  var done = completedCount(), total = totalLessons();
+  var pct = total ? Math.round(done / total * 100) : 0;
+  var fill = document.getElementById('course-fill');
+  var sub  = document.getElementById('course-sub-text');
+  if (fill) fill.style.width = pct + '%';
+  if (sub)  sub.textContent  = done + ' de ' + total + ' aulas concluídas';
+  var df = document.getElementById('dash-fill');
+  var dp = document.getElementById('dash-pct-text');
+  if (df) df.style.width  = pct + '%';
+  if (dp) dp.textContent  = pct + '% concluído';
+  if (done > 0) {
+    var gr = document.getElementById('dash-greeting');
+    var dc = document.getElementById('dash-desc');
+    if (gr) gr.textContent = done === total ? 'Curso concluído! 🏆' : 'Continue de onde parou! 🚀';
+    if (dc) dc.textContent = done + ' aulas concluídas · ' + (total - done) + ' restantes.';
+  }
+}
+
+function renderSidebar() {
+  var nav = document.getElementById('course-nav');
+  if (!nav) return;
+  var html = '';
+  courseData.forEach(function(m) {
+    var prog = modProg(m);
+    html += '<div class="mod-group">';
+    html += '<div class="mod-header" onclick="toggleMod(this)" data-mid="' + m.id + '">';
+    html += '<span class="mod-icon">' + m.icon + '</span>';
+    html += '<span class="mod-title-text">' + m.title + '</span>';
+    html += '<span class="mod-prog">' + prog.done + '/' + prog.total + '</span>';
+    html += '<span class="mod-chevron">▼</span></div>';
+    html += '<div class="mod-lessons">';
+    m.lessons.forEach(function(l) {
+      var done = isDone(m.id, l.id);
+      html += '<div class="lesson-row' + (done ? ' done-lesson' : '') + '"';
+      html += ' data-mid="' + m.id + '" data-lid="' + l.id + '"';
+      html += ' onclick="openLesson(\'' + m.id + '\',\'' + l.id + '\')">';
+      html += '<div class="lesson-check' + (done ? ' done' : '') + '">' + (done ? '✓' : '') + '</div>';
+      html += '<span class="lesson-lbl">' + l.title + '</span>';
+      html += '<span class="lesson-type-badge">' + typeIcons[l.type] + '</span>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  nav.innerHTML = html;
+}
+
+function renderDashboard() {
+  var grid = document.getElementById('mods-grid');
+  if (!grid) return;
+  var html = '';
+  courseData.forEach(function(m) {
+    var prog = modProg(m);
+    html += '<div class="mod-card" onclick="openFirstLesson(\'' + m.id + '\')">';
+    html += '<div class="mod-card-stripe" style="background:' + m.color + '"></div>';
+    html += '<div class="mod-card-head"><span class="mod-card-icon">' + m.icon + '</span>';
+    html += '<span class="mod-card-title">' + m.title + '</span></div>';
+    html += '<div class="mod-card-bar"><div class="mod-card-fill" style="width:' + prog.pct + '%;background:' + m.color + '"></div></div>';
+    html += '<div class="mod-card-meta"><span>' + prog.done + '/' + prog.total + ' aulas</span><span>' + prog.pct + '%</span></div>';
+    html += '<div class="mod-card-items">';
+    m.lessons.slice(0, 4).forEach(function(l) {
+      var done = isDone(m.id, l.id);
+      html += '<div class="mod-card-item' + (done ? ' done-item' : '') + '">' + typeIcons[l.type] + ' ' + l.title + '</div>';
+    });
+    if (m.lessons.length > 4) {
+      html += '<div class="mod-card-item" style="color:var(--td)">+ ' + (m.lessons.length - 4) + ' mais</div>';
+    }
+    html += '</div></div>';
+  });
+  grid.innerHTML = html;
+}
+
+function toggleMod(header) { header.classList.toggle('open'); }
+
+var curMid = null, curLid = null;
+
+function openLesson(mid, lid) {
+  var mod = courseData.find(function(m) { return m.id === mid; });
+  if (!mod) return;
+  var lesson = mod.lessons.find(function(l) { return l.id === lid; });
+  if (!lesson) return;
+  curMid = mid; curLid = lid;
+
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  var sec = document.getElementById(lesson.sid);
+  if (sec) {
+    sec.classList.add('active');
+    injectFooter(sec, mid, lid);
+  }
+
+  document.querySelectorAll('.lesson-row').forEach(function(r) { r.classList.remove('active-lesson'); });
+  var row = document.querySelector('.lesson-row[data-mid="' + mid + '"][data-lid="' + lid + '"]');
+  if (row) row.classList.add('active-lesson');
+
+  document.querySelectorAll('.mod-header').forEach(function(h) { h.classList.remove('open'); });
+  var mh = document.querySelector('.mod-header[data-mid="' + mid + '"]');
+  if (mh) mh.classList.add('open');
+
+  var dl = document.getElementById('dash-nav-link');
+  if (dl) dl.classList.remove('active');
+
+  if (lesson.sid === 'sec-batepapo' && typeof bpInit === 'function') { if (!bpState || !bpState.queue.length) setTimeout(bpInit, 50); }
+  if (lesson.sid === 'sec-plano'    && typeof initPlano === 'function') setTimeout(initPlano, 50);
+
+  window.scrollTo(0, 0);
+  localStorage.setItem('cl-last', mid + '|' + lid);
+}
+
+function injectFooter(sec, mid, lid) {
+  if (sec.querySelector('.lesson-footer')) return;
+  var mod  = courseData.find(function(m) { return m.id === mid; });
+  var midx = courseData.indexOf(mod);
+  var lidx = mod.lessons.findIndex(function(l) { return l.id === lid; });
+  var done = isDone(mid, lid);
+
+  var hasPrev = lidx > 0 || midx > 0;
+  var hasNext = lidx < mod.lessons.length - 1 || midx < courseData.length - 1;
+
+  var el = document.createElement('div');
+  el.className = 'lesson-footer';
+  var h = '';
+  if (hasPrev) h += '<button class="lf-btn" onclick="prevLesson()">← Anterior</button>';
+  h += '<button class="lf-btn lf-complete' + (done ? ' is-done' : '') + '" id="lfc-' + mid + '-' + lid + '" onclick="toggleComplete(\'' + mid + '\',\'' + lid + '\')">' + (done ? '✓ Concluída' : 'Marcar como concluída ✓') + '</button>';
+  if (hasNext) h += '<button class="lf-btn" onclick="nextLesson()">Próxima →</button>';
+  el.innerHTML = h;
+  sec.appendChild(el);
+}
+
+function toggleComplete(mid, lid) {
+  var was = isDone(mid, lid);
+  if (was) { localStorage.removeItem(lKey(mid, lid)); } else { localStorage.setItem(lKey(mid, lid), '1'); }
+  var btn = document.getElementById('lfc-' + mid + '-' + lid);
+  if (btn) {
+    var now = !was;
+    btn.className = 'lf-btn lf-complete' + (now ? ' is-done' : '');
+    btn.textContent = now ? '✓ Concluída' : 'Marcar como concluída ✓';
+  }
+  var row = document.querySelector('.lesson-row[data-mid="' + mid + '"][data-lid="' + lid + '"]');
+  if (row) {
+    var chk = row.querySelector('.lesson-check');
+    if (!was) { row.classList.add('done-lesson'); if (chk) { chk.classList.add('done'); chk.textContent = '✓'; } }
+    else       { row.classList.remove('done-lesson'); if (chk) { chk.classList.remove('done'); chk.textContent = ''; } }
+  }
+  var mh = document.querySelector('.mod-header[data-mid="' + mid + '"]');
+  if (mh) {
+    var mod = courseData.find(function(m) { return m.id === mid; });
+    var p = modProg(mod);
+    var pe = mh.querySelector('.mod-prog');
+    if (pe) pe.textContent = p.done + '/' + p.total;
+  }
+  updateOverallProgress();
+  renderDashboard();
+  if (!was) setTimeout(nextLesson, 700);
+}
+
+function nextLesson() {
+  if (!curMid || !curLid) return;
+  var midx = courseData.findIndex(function(m) { return m.id === curMid; });
+  var mod  = courseData[midx];
+  var lidx = mod.lessons.findIndex(function(l) { return l.id === curLid; });
+  if (lidx < mod.lessons.length - 1) { openLesson(curMid, mod.lessons[lidx + 1].id); }
+  else if (midx < courseData.length - 1) { var nm = courseData[midx + 1]; openLesson(nm.id, nm.lessons[0].id); }
+}
+
+function prevLesson() {
+  if (!curMid || !curLid) return;
+  var midx = courseData.findIndex(function(m) { return m.id === curMid; });
+  var mod  = courseData[midx];
+  var lidx = mod.lessons.findIndex(function(l) { return l.id === curLid; });
+  if (lidx > 0) { openLesson(curMid, mod.lessons[lidx - 1].id); }
+  else if (midx > 0) { var pm = courseData[midx - 1]; openLesson(pm.id, pm.lessons[pm.lessons.length - 1].id); }
+}
+
+function openFirstLesson(mid) {
+  var mod = courseData.find(function(m) { return m.id === mid; });
+  if (mod && mod.lessons.length) openLesson(mid, mod.lessons[0].id);
+}
+
+function showDashboard() {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('sec-dashboard').classList.add('active');
+  document.querySelectorAll('.lesson-row').forEach(function(r) { r.classList.remove('active-lesson'); });
+  var dl = document.getElementById('dash-nav-link');
+  if (dl) dl.classList.add('active');
+  curMid = null; curLid = null;
+  renderDashboard();
+  updateOverallProgress();
+  window.scrollTo(0, 0);
+}
+
+function continueCourse() {
+  var last = localStorage.getItem('cl-last');
+  if (last) {
+    var parts = last.split('|');
+    if (parts.length === 2 && courseData.find(function(m) { return m.id === parts[0]; })) {
+      openLesson(parts[0], parts[1]); return;
+    }
+  }
+  openLesson(courseData[0].id, courseData[0].lessons[0].id);
+}
+
+// Boot
+(function() {
+  renderSidebar();
+  var last = localStorage.getItem('cl-last');
+  if (last) {
+    var p = last.split('|');
+    if (p.length === 2 && courseData.find(function(m) { return m.id === p[0]; })) {
+      var gr = document.getElementById('dash-greeting');
+      if (gr) gr.textContent = 'Bem-vindo de volta! 👋';
+    }
+  }
+  showDashboard();
+})();
+</script>
 </body>
 </html>
