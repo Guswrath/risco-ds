@@ -925,33 +925,46 @@ Dados → Limpeza → Modelo → Produção → Monitora → Dados novos → Ret
     </div></div>
 
     <div class="srow"><div class="snum gr">2</div><div class="sbody">
-      <h4>WoE Binning — Transformar variáveis em sinais de risco</h4>
-      <p><strong>Tradução:</strong> WoE = Peso de Evidência. Para cada faixa de uma variável, você mede: essa faixa é terra de bons pagadores ou de caloteiros?</p>
-      <p><strong>Como funciona na prática:</strong> Pega a variável "renda". Cria faixas: até R$1k, R$1k-3k, R$3k-6k, acima de R$6k. Em cada faixa, conta quantos são bons pagadores e quantos são caloteiros. Calcula a proporção. Aplica logaritmo.</p>
-      <div class="cbox">Faixa "até R$1.000": 60% bons, 40% maus → WoE negativo (risco alto)
-Faixa "R$3k-6k":    85% bons, 15% maus → WoE positivo (risco baixo)
-Faixa "acima R$6k": 92% bons,  8% maus → WoE muito positivo (risco baixíssimo)
+      <h4>WoE — Weight of Evidence (Peso de Evidência)</h4>
 
-Fórmula: WoE = ln( %_bons_na_faixa / %_maus_na_faixa )
+      <p><strong>Nível 1 — A ideia em uma frase:</strong> Para cada faixa de uma variável, o WoE responde: <em>"Essa faixa concentra mais caloteiros ou mais bons pagadores do que a média do portfólio?"</em></p>
 
-WoE negativo = faixa perigosa (mais maus que a média)
-WoE positivo = faixa segura (mais bons que a média)
-WoE ≈ 0      = faixa neutra (não diferencia nada)</div>
-      <p><strong>Por que transformar em WoE?</strong> A regressão logística funciona melhor com relações lineares e monotônicas. O WoE garante isso. Além disso, o WoE já normaliza automaticamente, então você não precisa de StandardScaler separado.</p>
+      <p><strong>Nível 2 — Analogia do bairro:</strong> O banco quer saber se morar em um bairro específico é sinal de risco. O WoE calcula: a proporção de caloteiros nesse bairro é maior ou menor do que a proporção média na cidade inteira?</p>
+      <ul class="list">
+        <li>Bairro com muito mais caloteiros que a média → WoE <span style="color:var(--rd)">negativo</span> (perigo)</li>
+        <li>Bairro com muito menos caloteiros que a média → WoE <span style="color:var(--gr)">positivo</span> (seguro)</li>
+        <li>Bairro igual à média → WoE = 0 (indiferente)</li>
+      </ul>
+
+      <p><strong>Nível 3 — A Fórmula:</strong></p>
+      <div class="fbox"><div class="fl">WoE</div>WoE<sub>i</sub> = ln( %_bons_na_faixa_i ÷ %_maus_na_faixa_i )</div>
+      <p>Onde <strong>%_bons_na_faixa_i</strong> = (bons nessa faixa) ÷ (total de bons do dataset) — não é a % dentro da faixa, é a % dentro do grupo de bons.</p>
+
+      <p><strong>Por que logaritmo?</strong> O ln torna a escala simétrica: WoE de +1 (dobro de bons) e −1 (dobro de maus) são igualmente distantes de zero. Além disso, o WoE tem relação linear com o logit da regressão logística — é exatamente o que ela precisa.</p>
+
+      <p><strong>Por que não usar a variável crua?</strong> A logística assume que o efeito de +R$1 na renda é constante em todo o intervalo. Isso é falso: a diferença de R$500 → R$1.000 é enorme para o risco; R$30.000 → R$30.500 é irrelevante. O WoE captura essa não-linearidade agrupando clientes com comportamento de risco similar.</p>
+
+      <div class="callout info"><strong>Bônus:</strong> O WoE trata missing automaticamente — crie um bin "ausente" e calcule o WoE desse bin com os dados reais. Sem imputação artificial.</div>
     </div></div>
 
     <div class="srow"><div class="snum gr">3</div><div class="sbody">
-      <h4>Seleção por IV — Medir o poder preditivo de cada variável</h4>
-      <p><strong>Tradução:</strong> IV = Information Value. É a régua que diz "essa variável vale a pena entrar no modelo?"</p>
-      <p><strong>Analogia:</strong> Imagine uma prova de seleção para entrar no banco. O IV mede o quanto cada questão da prova consegue separar os aprovados dos reprovados. Uma questão muito fácil (todo mundo acerta) ou muito difícil (ninguém acerta) não discrimina ninguém — IV baixo. A questão que só os bons candidatos acertam — IV alto.</p>
-      <div class="cbox">IV &lt; 0.02  → Descarta. A variável não sabe quem vai calotar.
-IV 0.02–0.1 → Fraco. Pode entrar se não tiver opção melhor.
-IV 0.1–0.3  → Médio/Bom. Use sempre.
-IV &gt; 0.3   → Forte. Ouro. Mas se IV &gt; 0.5, INVESTIGUE.
-               Talvez seja leakage (variável que "vaza" o futuro).
+      <h4>IV — Information Value (Valor de Informação)</h4>
 
-Fórmula: IV = Σ (% bons - % maus) × WoE   (soma sobre todas as faixas)</div>
-      <p><strong>Leakage:</strong> Se o IV for altíssimo (acima de 0.5), a variável pode estar contendo informação do futuro. Ex: "status do contrato" pode já dizer se o cliente calotou — mas você só saberia isso depois. Isso não pode entrar no modelo de predição.</p>
+      <p><strong>Se o WoE mede o risco de cada faixa</strong>, o IV mede o <em>poder preditivo total</em> da variável inteira. É a soma dos IV parciais de cada faixa.</p>
+
+      <div class="fbox"><div class="fl">IV</div>IV = Σ (%_bons_i − %_maus_i) × WoE_i &nbsp;(soma sobre todas as faixas)</div>
+
+      <p><strong>Intuição:</strong> Uma faixa contribui muito para o IV quando tem duas características juntas: (1) grande diferença entre %bons e %maus, e (2) WoE alto em módulo. Se a faixa tem exatamente a proporção média, %bons = %maus → diferença = 0 → IV parcial = 0.</p>
+
+      <div class="cbox">IV &lt; 0.02  → ❌ Descarta. Não sabe distinguir bons de maus.
+IV 0.02–0.10 → ⚠️  Fraco. Entra só se não houver opção melhor.
+IV 0.10–0.30 → ✅ Boa. Use sempre.
+IV 0.30–0.50 → ✅ Muito forte. Excelente variável.
+IV &gt; 0.50  → 🔴 Investigue leakage! Quase nunca acontece de forma legítima.</div>
+
+      <p><strong>Leakage (vazamento):</strong> IV acima de 0.5 indica que a variável pode conter informação do futuro. Exemplo real: "flag de renegociação" tem IV 0.65. Parece ótimo — mas essa flag só existe depois que o cliente entrou em atraso. Usar no modelo é como olhar a resposta antes da prova.</p>
+
+      <p><strong>Células com zero:</strong> Se uma faixa tem n_maus = 0, então WoE = ln(X/0) = infinito. Solução: adicione 0.5 a todos os zeros antes de calcular (suavização de Laplace), ou agrupe a faixa com a vizinha.</p>
     </div></div>
 
     <div class="srow"><div class="snum gr">4</div><div class="sbody">
@@ -990,6 +1003,74 @@ nova legislação, inflação corroendo o poder de compra.</div>
   </div>
 
   <hr class="div">
+  <h3 class="sh">Exemplo Completo — Calculando WoE e IV na Mão</h3>
+  <p>Portfólio de <strong>1.000 clientes</strong>. Variável: <strong>Renda Mensal</strong>. Dataset: 800 bons pagadores e 200 caloteiros (taxa de default = 20%).</p>
+  <p>Passo a passo para cada faixa: <em>conte os bons e maus → calcule % dentro de cada grupo → aplique ln → multiplique pela diferença.</em></p>
+
+  <div style="overflow-x:auto;margin:16px 0">
+  <table class="cmp" style="font-size:.76rem;min-width:700px">
+    <tr><th>Faixa de Renda</th><th>N Bons</th><th>N Maus</th><th>%Bons*</th><th>%Maus*</th><th>WoE = ln(%B/%M)</th><th>IV Parcial = (%B−%M)×WoE</th></tr>
+    <tr>
+      <td>Até R$1.000</td><td>80</td><td>40</td>
+      <td>80÷800 = <strong>10%</strong></td><td>40÷200 = <strong>20%</strong></td>
+      <td style="color:var(--rd)">ln(0.10÷0.20) = <strong>−0.693</strong></td>
+      <td>(10%−20%)×(−0.693) = <strong>0.069</strong></td>
+    </tr>
+    <tr>
+      <td>R$1.000 a R$3.000</td><td>280</td><td>100</td>
+      <td>280÷800 = <strong>35%</strong></td><td>100÷200 = <strong>50%</strong></td>
+      <td style="color:var(--yl)">ln(0.35÷0.50) = <strong>−0.357</strong></td>
+      <td>(35%−50%)×(−0.357) = <strong>0.054</strong></td>
+    </tr>
+    <tr>
+      <td>R$3.000 a R$6.000</td><td>270</td><td>40</td>
+      <td>270÷800 = <strong>34%</strong></td><td>40÷200 = <strong>20%</strong></td>
+      <td style="color:var(--gr)">ln(0.34÷0.20) = <strong>+0.523</strong></td>
+      <td>(34%−20%)×0.523 = <strong>0.073</strong></td>
+    </tr>
+    <tr>
+      <td>Acima de R$6.000</td><td>170</td><td>20</td>
+      <td>170÷800 = <strong>21%</strong></td><td>20÷200 = <strong>10%</strong></td>
+      <td style="color:var(--gr)">ln(0.21÷0.10) = <strong>+0.742</strong></td>
+      <td>(21%−10%)×0.742 = <strong>0.082</strong></td>
+    </tr>
+    <tr style="background:rgba(88,166,255,.06)">
+      <td><strong>TOTAL</strong></td><td><strong>800</strong></td><td><strong>200</strong></td>
+      <td colspan="3">—</td>
+      <td><strong>IV = 0.278 ✅ boa variável</strong></td>
+    </tr>
+  </table>
+  </div>
+  <p style="font-size:.78rem;color:var(--td)">* %Bons = bons desta faixa ÷ total de bons do dataset (800). %Maus = maus desta faixa ÷ total de maus (200). Atenção: não é a % dentro da faixa — é a participação do grupo.</p>
+
+  <div class="callout info">
+    <strong>O que essa tabela ensina:</strong><br>
+    • Renda até R$1k: WoE −0.69 → <em>20% dos caloteiros estão aqui, mas só 10% dos bons</em>. Faixa 2× mais perigosa que a média.<br>
+    • Renda R$1k–3k: WoE −0.36 → ainda arriscada, mas menos.<br>
+    • Renda R$3k–6k: WoE +0.52 → 34% dos bons mas só 20% dos maus. Zona relativamente segura.<br>
+    • Renda acima R$6k: WoE +0.74 → a faixa mais segura. Concentra bons pagadores.<br>
+    <strong>IV total = 0.278</strong> → variável boa. Entra no modelo. A Renda Mensal sabe separar bons de maus.
+  </div>
+
+  <h3 class="sh">Verificando a Monotonicidade</h3>
+  <p>Após calcular os WoEs, plote-os. Devem seguir uma sequência sempre crescente ou sempre decrescente. No nosso exemplo:</p>
+  <div class="cbox">✅ WoE monotônico crescente (correto — faz sentido econômico):
+
+Até R$1k   → WoE −0.69  (zona mais perigosa)
+R$1k–3k    → WoE −0.36  (menos perigoso)
+R$3k–6k    → WoE +0.52  (zona segura)
+Acima R$6k → WoE +0.74  (mais seguro)
+
+❌ WoE não-monotônico (exemplo de problema):
+Até R$1k   → WoE −0.69
+R$1k–3k    → WoE +0.20  ← subiu? Não faz sentido.
+R$3k–6k    → WoE −0.10  ← caiu? Economicamente absurdo.
+Acima R$6k → WoE +0.74
+
+Solução: agrupe R$1k–3k com R$3k–6k num bin único e recalcule.</div>
+  <p>Monotonicidade garante que o modelo aprende a regra econômica real — não memoriza ruído estatístico dos dados de treino.</p>
+
+  <hr class="div">
   <h3 class="sh">WoE e IV — o código</h3>
   <div class="fbox"><div class="fl">Fórmula do WoE</div>WoE = ln( % de Bons na faixa / % de Maus na faixa )</div>
   <div class="code-block">
@@ -1004,66 +1085,152 @@ nova legislação, inflação corroendo o poder de compra.</div>
   <h2 class="pt">Módulo 2 — KS, Gini e PSI</h2>
   <p class="ps">As métricas de validação que você vai calcular em todo projeto.</p>
 
-  <h3 class="sh">KS — o que é de verdade</h3>
-  <p>Você pega todos os clientes, ordena do <strong>mais arriscado</strong> (maior PD) para o menos arriscado, e desenha duas curvas acumuladas:</p>
-  <ul class="list">
-    <li><strong>Curva vermelha:</strong> quantos caloteiros já capturei até aqui?</li>
-    <li><strong>Curva azul:</strong> quantos bons pagadores já capturei até aqui?</li>
-  </ul>
-  <div class="cbox">Score ordenado → mais arriscado para menos arriscado
+  <div class="callout success"><strong>O que você vai dominar aqui:</strong> KS responde "o modelo sabe separar?" (na construção). Gini responde "quão bem, em todos os cenários?" (na validação). PSI responde "ainda funciona com os clientes de hoje?" (em produção). São três perguntas diferentes — você precisa das três.</div>
 
-<span class="hi">Curva Maus (caloteiros)   </span>  ████████████░░░░░░░░░
-<span class="hi2">Curva Bons (bons pagadores)</span>  ░░░░░░░████████████████
+  <h3 class="sh">KS — Kolmogorov-Smirnov</h3>
+  <p><strong>A ideia:</strong> ordene todos os clientes pelo score do mais arriscado ao menos arriscado. Percorra a fila e trace duas curvas acumuladas: uma para caloteiros capturados, outra para bons pagadores capturados. <strong>O KS é a maior distância vertical entre as duas curvas.</strong></p>
+  <p>Se o modelo é bom, os caloteiros estão concentrados no topo da fila (mais arriscados) — a curva de maus sobe rápido e a de bons devagar. A diferença máxima entre elas é grande.</p>
 
-         ↑ KS = distância máxima aqui
+  <h3 class="sh">KS — 10 Clientes no Papel</h3>
+  <p>Portfolio de 10 clientes: <strong>5 maus</strong> e <strong>5 bons</strong>, ordenados por PD (probabilidade de default — mais arriscado primeiro):</p>
 
-Modelo perfeito:  Maus 100% capturados antes do primeiro Bom
-Modelo aleatório: as duas curvas andam juntas (KS = 0)</div>
-  <p><strong>O KS é a distância máxima vertical entre as duas curvas.</strong> Um número que resume o poder de separação do modelo.</p>
+  <div style="overflow-x:auto;margin:16px 0">
+  <table class="cmp" style="font-size:.76rem;min-width:620px">
+    <tr><th>Posição</th><th>Cliente</th><th>PD</th><th>Real</th><th>Cum Maus (÷5)</th><th>Cum Bons (÷5)</th><th>Distância</th></tr>
+    <tr><td>1º</td><td>Ana</td><td>0.85</td><td style="color:var(--rd)"><strong>MAU</strong></td><td><strong>1/5 = 20%</strong></td><td>0/5 = 0%</td><td>20%</td></tr>
+    <tr style="background:rgba(63,185,80,.04)"><td>2º</td><td>Bruno</td><td>0.78</td><td style="color:var(--rd)"><strong>MAU</strong></td><td><strong>2/5 = 40%</strong></td><td>0/5 = 0%</td><td><strong style="color:var(--gr)">40% ← máximo aqui</strong></td></tr>
+    <tr><td>3º</td><td>Carla</td><td>0.65</td><td style="color:var(--ac)">BOM</td><td>2/5 = 40%</td><td><strong>1/5 = 20%</strong></td><td>20%</td></tr>
+    <tr style="background:rgba(63,185,80,.04)"><td>4º</td><td>Diego</td><td>0.52</td><td style="color:var(--rd)"><strong>MAU</strong></td><td><strong>3/5 = 60%</strong></td><td>1/5 = 20%</td><td><strong style="color:var(--gr)">40% ← máximo aqui</strong></td></tr>
+    <tr><td>5º</td><td>Elisa</td><td>0.44</td><td style="color:var(--ac)">BOM</td><td>3/5 = 60%</td><td><strong>2/5 = 40%</strong></td><td>20%</td></tr>
+    <tr style="background:rgba(63,185,80,.04)"><td>6º</td><td>Fábio</td><td>0.38</td><td style="color:var(--rd)"><strong>MAU</strong></td><td><strong>4/5 = 80%</strong></td><td>2/5 = 40%</td><td><strong style="color:var(--gr)">40% ← máximo aqui</strong></td></tr>
+    <tr><td>7º</td><td>Gabi</td><td>0.31</td><td style="color:var(--ac)">BOM</td><td>4/5 = 80%</td><td><strong>3/5 = 60%</strong></td><td>20%</td></tr>
+    <tr><td>8º</td><td>Hugo</td><td>0.22</td><td style="color:var(--ac)">BOM</td><td>4/5 = 80%</td><td><strong>4/5 = 80%</strong></td><td>0%</td></tr>
+    <tr><td>9º</td><td>Iara</td><td>0.15</td><td style="color:var(--rd)"><strong>MAU</strong></td><td><strong>5/5 = 100%</strong></td><td>4/5 = 80%</td><td>20%</td></tr>
+    <tr><td>10º</td><td>João</td><td>0.08</td><td style="color:var(--ac)">BOM</td><td>5/5 = 100%</td><td><strong>5/5 = 100%</strong></td><td>0%</td></tr>
+    <tr style="background:rgba(88,166,255,.06)"><td colspan="6"><strong>KS = máximo da coluna Distância</strong></td><td><strong>KS = 40%</strong></td></tr>
+  </table>
+  </div>
+
+  <div class="cbox">Como ler a tabela:
+  Na posição 2 (Bruno), já capturei 40% de todos os maus (2 de 5)
+  mas apenas 0% dos bons (nenhum bom estava antes na fila).
+  Distância = 40% − 0% = 40%. Esse é o KS.
+
+  Interpretação prática: olhando os 20% mais arriscados da carteira
+  (posições 1 e 2), o modelo captura 40% de todos os caloteiros
+  enquanto "sacrifica" 0% dos bons pagadores. Separação excelente.</div>
+
   <div class="mg">
-    <div class="mb"><div class="mv" style="color:var(--rd)">0–20%</div><div class="mn">KS Ruim</div><div class="md">Difícil de justificar. Modelo quase aleatório.</div></div>
-    <div class="mb"><div class="mv" style="color:var(--yl)">20–40%</div><div class="mn">KS Aceitável</div><div class="md">Passa na validação regulatória básica.</div></div>
-    <div class="mb"><div class="mv" style="color:var(--gr)">40%+</div><div class="mn">KS Bom</div><div class="md">O que você quer entregar. Acima de 60% desconfie.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--rd)">0–20%</div><div class="mn">KS Ruim</div><div class="md">Quase aleatório. Difícil de aprovar.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--yl)">20–40%</div><div class="mn">KS Aceitável</div><div class="md">Passa na validação. Carteiras maduras ficam aqui.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--gr)">40–60%</div><div class="mn">KS Bom</div><div class="md">Benchmark de mercado. O que você quer entregar.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--ac)">60%+</div><div class="mn">Suspeito</div><div class="md">Modelos reais raramente passam de 60%. Investigue leakage.</div></div>
   </div>
 
   <hr class="div">
-  <h3 class="sh">Gini — o que é de verdade</h3>
-  <p>O Gini vem da <strong>curva ROC</strong>. Para cada limiar de score, plota a taxa de acerto nos caloteiros (TPR) vs. a taxa de erro nos bons (FPR).</p>
-  <div class="cbox">Curva ROC:
-  Eixo X → % de bons pagadores classificados errado (FPR)
-  Eixo Y → % de caloteiros corretamente capturados (TPR)
+  <h3 class="sh">Gini e AUC — A Curva ROC</h3>
+  <p>O KS olha o <em>melhor</em> ponto de corte. O Gini avalia o modelo em <em>todos</em> os pontos de corte ao mesmo tempo — é a visão completa.</p>
+  <p><strong>A Curva ROC</strong> traça para cada threshold possível dois valores: <strong>TPR</strong> (% de caloteiros corretamente capturados) e <strong>FPR</strong> (% de bons pagadores incorretamente capturados). A área sob essa curva é o AUC.</p>
 
-  <span class="hi">Modelo perfeito: </span> sobe direto para (0,1) — AUC = 1.0
-  <span class="hi3">Seu modelo:      </span> curva acima da diagonal
-  <span class="hi2">Modelo aleatório:</span> linha diagonal 45° — AUC = 0.5
+  <p><strong>Com os mesmos 10 clientes, eis os pontos da curva ROC:</strong></p>
+  <div style="overflow-x:auto;margin:16px 0">
+  <table class="cmp" style="font-size:.76rem;min-width:540px">
+    <tr><th>Threshold (considerar mau se PD acima de...)</th><th>Maus capturados TPR</th><th>Bons errados FPR</th></tr>
+    <tr><td>0.85 → só Ana</td><td style="color:var(--gr)">1/5 = 20%</td><td style="color:var(--gr)">0/5 = 0%</td></tr>
+    <tr><td>0.78 → Ana + Bruno</td><td style="color:var(--gr)">2/5 = 40%</td><td style="color:var(--gr)">0/5 = 0%</td></tr>
+    <tr><td>0.65 → + Carla (bom!)</td><td>2/5 = 40%</td><td style="color:var(--yl)">1/5 = 20%</td></tr>
+    <tr><td>0.52 → + Diego</td><td style="color:var(--gr)">3/5 = 60%</td><td style="color:var(--yl)">1/5 = 20%</td></tr>
+    <tr><td>0.38 → + Elisa (bom!) + Fábio</td><td style="color:var(--gr)">4/5 = 80%</td><td style="color:var(--yl)">2/5 = 40%</td></tr>
+    <tr><td>0.08 → todos</td><td>5/5 = 100%</td><td>5/5 = 100%</td></tr>
+  </table>
+  </div>
 
-  Gini = 2 × AUC − 1
+  <div class="cbox">Curva ROC (cada ponto é um threshold diferente):
 
-  AUC = 0.50 → Gini = 0%   (aleatório)
-  AUC = 0.75 → Gini = 50%  (bom)
-  AUC = 1.00 → Gini = 100% (perfeito, impossível)</div>
+TPR  100% |                         ●─────●
+(maus      |                    ●
+capturados) 80% |         ●────●
+           60% |    ●
+           40% |●───●
+           20% |●
+            0% +──●──┬────┬────┬────┬────→ FPR (bons errados)
+                0%  20%  40%  60%  80% 100%
+
+AUC = área sob a curva = <span class="hi">0.72</span>
+Modelo aleatório = diagonal de 45° (AUC = 0.50)
+Modelo perfeito  = canto superior esquerdo (AUC = 1.00)
+
+Gini = 2 × AUC − 1 = 2 × 0.72 − 1 = <span class="hi">0.44 = 44%</span></div>
+
+  <div class="callout info">
+    <strong>Por que Gini = 2 × AUC − 1?</strong><br>
+    O modelo aleatório tem AUC = 0.50 (diagonal). O ganho do seu modelo sobre o aleatório é (AUC − 0.50). O Gini normaliza esse ganho para uma escala 0–100%:<br>
+    Gini = (AUC − 0.50) ÷ (1.00 − 0.50) = 2 × (AUC − 0.50) = 2×AUC − 1<br><br>
+    No nosso exemplo: <strong>Gini = (0.72 − 0.50) ÷ 0.50 = 44%</strong>. O modelo é 44% melhor do que sortear na moeda.
+  </div>
 
   <hr class="div">
-  <h3 class="sh">KS vs Gini — qual usar?</h3>
+  <h3 class="sh">KS vs Gini — quando usar cada um</h3>
   <table class="cmp">
-    <tr><th></th><th>KS</th><th>Gini</th></tr>
-    <tr><td><strong>O que mede</strong></td><td>Separação no melhor ponto de corte</td><td>Discriminação em todos os pontos</td></tr>
-    <tr><td><strong>Uso</strong></td><td>Comunicar para o negócio</td><td>Relatório técnico e regulatório</td></tr>
-    <tr><td><strong>Limitação</strong></td><td>Ignora o que acontece fora do ponto máximo</td><td>Menos intuitivo para não-técnicos</td></tr>
-    <tr><td><strong>Na prática</strong></td><td colspan="2"><strong>Você calcula os dois sempre.</strong> KS bom + Gini baixo = modelo otimizado artificialmente em um ponto.</td></tr>
+    <tr><th></th><th>KS (40% no exemplo)</th><th>Gini/AUC (44% no exemplo)</th></tr>
+    <tr><td><strong>O que mede</strong></td><td>Separação no <em>melhor</em> ponto de corte</td><td>Separação em <em>todos</em> os pontos de corte</td></tr>
+    <tr><td><strong>Para quem comunicar</strong></td><td>Gerente de negócio, cliente do banco</td><td>Comitê técnico, relatório regulatório (Bacen)</td></tr>
+    <tr><td><strong>Referência de mercado</strong></td><td>35–50% em carteiras de varejo PF</td><td>40–60% para modelos de PD</td></tr>
+    <tr><td><strong>Limitação</strong></td><td>Ignora o desempenho fora do ponto máximo</td><td>Menos intuitivo para não-técnicos</td></tr>
+    <tr><td><strong>Na prática</strong></td><td colspan="2"><strong>Calcule os dois sempre.</strong> KS alto + Gini baixo = modelo bom só num ponto, ruim no geral. Pode ser overfitting no corte.</td></tr>
   </table>
 
   <hr class="div">
-  <h3 class="sh">PSI — o termômetro do modelo em produção</h3>
-  <p>Compara a distribuição dos scores quando o modelo foi desenvolvido com a distribuição atual. Se mudou muito, o modelo não representa mais a realidade.</p>
-  <div class="cbox">PSI &lt; 0.10  → ✅ Estável — modelo continua válido
-PSI 0.10–0.20 → ⚠️  Monitorar — investigar o que mudou
-PSI &gt; 0.20  → 🔴 Retreinar — modelo inválido para a população atual
+  <h3 class="sh">PSI — Population Stability Index</h3>
+  <p><strong>O problema:</strong> seu modelo foi treinado em 2022. Em 2024, após a Selic subir de 2% para 13%, os clientes mudaram. O PSI detecta se a distribuição dos scores hoje é diferente da distribuição no desenvolvimento.</p>
+  <p><strong>Analogia:</strong> Você calibrou uma régua para medir prédios de 5 andares. Agora você está medindo arranha-céus de 50 andares. A régua fisicamente funciona, mas o ponto de referência não faz mais sentido para a nova realidade.</p>
 
-Causas comuns de PSI alto:
-  → Mudança no perfil dos tomadores (pós-crise, pós-Covid)
-  → Novos canais de aquisição com perfil diferente
-  → Inflação corroeu poder de compra (Data Drift)</div>
+  <div class="fbox"><div class="fl">Fórmula PSI</div>PSI = Σ (Atual% − Esperado%) × ln(Atual% ÷ Esperado%)</div>
+
+  <p>Onde "Esperado" = distribuição no desenvolvimento (2022) e "Atual" = distribuição em produção (2024).</p>
+
+  <h3 class="sh">PSI — Calculando a Deriva na Mão</h3>
+  <p>Após a alta da Selic, mais clientes arriscados entraram na carteira e menos clientes de baixo risco permaneceram:</p>
+
+  <div style="overflow-x:auto;margin:16px 0">
+  <table class="cmp" style="font-size:.76rem;min-width:680px">
+    <tr><th>Faixa de Score</th><th>% em 2022 (Esperado)</th><th>% em 2024 (Atual)</th><th>Diferença</th><th>ln(Atual÷Esp.)</th><th>PSI Parcial</th></tr>
+    <tr>
+      <td>Baixo risco 750–850</td><td>10%</td><td style="color:var(--rd)">5%</td><td style="color:var(--rd)">−5%</td>
+      <td>ln(0.05÷0.10) = −0.693</td><td>(−0.05)×(−0.693) = <strong>0.035</strong></td>
+    </tr>
+    <tr>
+      <td>Médio-baixo 650–750</td><td>25%</td><td style="color:var(--yl)">18%</td><td style="color:var(--yl)">−7%</td>
+      <td>ln(0.18÷0.25) = −0.329</td><td>(−0.07)×(−0.329) = <strong>0.023</strong></td>
+    </tr>
+    <tr>
+      <td>Médio 550–650</td><td>35%</td><td>35%</td><td>0%</td>
+      <td>ln(1.00) = 0</td><td><strong>0.000</strong></td>
+    </tr>
+    <tr>
+      <td>Médio-alto 450–550</td><td>20%</td><td style="color:var(--yl)">27%</td><td style="color:var(--yl)">+7%</td>
+      <td>ln(0.27÷0.20) = +0.300</td><td>(+0.07)×(+0.300) = <strong>0.021</strong></td>
+    </tr>
+    <tr>
+      <td>Alto risco 300–450</td><td>10%</td><td style="color:var(--rd)">15%</td><td style="color:var(--rd)">+5%</td>
+      <td>ln(0.15÷0.10) = +0.405</td><td>(+0.05)×(+0.405) = <strong>0.020</strong></td>
+    </tr>
+    <tr style="background:rgba(255,166,87,.06)">
+      <td colspan="5"><strong>PSI TOTAL</strong></td>
+      <td><strong>PSI = 0.099 ⚠️ no limite!</strong></td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout warn">
+    <strong>O que essa tabela diz:</strong> A carteira de 2024 tem menos clientes de baixo risco (5% vs 10%) e mais de alto risco (15% vs 10%). O PSI = 0.099 está <em>no limiar</em> de 0.10. Se no próximo mês cruzar esse threshold, inicia-se o processo de retreinamento. Isso é o trabalho real de monitoramento de modelos em produção.
+  </div>
+
+  <div class="mg">
+    <div class="mb"><div class="mv" style="color:var(--gr)">PSI &lt; 0.10</div><div class="mn">Estável</div><div class="md">Modelo continua representando a realidade. Monitore mensalmente.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--yl)">0.10–0.25</div><div class="mn">Atenção</div><div class="md">Investigar qual feature derivou. Avaliar retreinamento.</div></div>
+    <div class="mb"><div class="mv" style="color:var(--rd)">PSI &gt; 0.25</div><div class="mn">Crítico</div><div class="md">Retreinamento obrigatório. Comunique ao banco imediatamente.</div></div>
+  </div>
 
   <hr class="div">
   <h3 class="sh">Código completo — função de validação</h3>
